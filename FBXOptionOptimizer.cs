@@ -1,249 +1,280 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-public class FBXOptionOptimizer : EditorWindow
+namespace kesera2.FBXOptionOptimizer
 {
-    private const string TOOL_NAME = "FBX Option Optimizer";
-    private Vector2 _scrollPosition = Vector2.zero;         // �X�N���[���ʒu
-
-    private List<string> fbxFiles;
-    private bool processAllFBXFiles = true;
-    private bool targetFoldOut = false;
-    private bool optionFoldOut = false;
-    // Options
-    private bool importCameras = false;
-    private bool importLights = false;
-    private bool isReadable = true;
-    private ModelImporterNormals importNormals = ModelImporterNormals.Import;
-    private ModelImporterNormals importBlendShapeNormals = ModelImporterNormals.None;
-    private bool legacyBlendShapeNomals = false;
-    private bool[] targets = { };
-
-    [MenuItem("Tools/" + TOOL_NAME)]
-    public static void ShowWindow()
+    public class FBXOptionOptimizer : EditorWindow
     {
-        GetWindow<FBXOptionOptimizer>(TOOL_NAME);
-    }
+        private const string TOOL_NAME = "FBX Option Optimizer";
+        private Vector2 _scrollPosition = Vector2.zero;         // スクロール位置
 
-    private void OnEnable()
-    {
-        RefreshFBXFileList();
-    }
+        private List<string> fbxFiles;
+        private bool processAllFBXFiles = true;
+        private bool targetFoldOut = false;
+        private bool optionFoldOut = false;
+        // Options
+        private string folderPath = Application.dataPath;
+        private bool importCameras = false;
+        private bool importLights = false;
+        private bool isReadable = true;
+        private ModelImporterNormals importNormals = ModelImporterNormals.Import;
+        private ModelImporterNormals importBlendShapeNormals = ModelImporterNormals.None;
+        private bool legacyBlendShapeNomals = false;
+        private bool[] targets = { };
 
-    private void setWindowSize()
-    {
-        Vector2 vector = new Vector2(400, 150);
-        this.minSize = vector;
-    }
-
-    private void OnGUI()
-    {
-        _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
-        EditorGUILayout.LabelField(TOOL_NAME);
-        setWindowSize();
-        showHelp();
-        showDebug();
-        showExecute();
-        showFolderPath();
-        showSelectTargets();
-        showTargetList();
-        showOptionFoldOut();
-        EditorGUILayout.EndScrollView();
-    }
-
-    private void showSelectTargets()
-    {
-        targetFoldOut = EditorGUILayout.Foldout(targetFoldOut, "FBX�t�@�C��");
-        // ����������Ă��Ȃ��ꍇ
-        if (targets == null || targets.Length != fbxFiles.Count)
+        [MenuItem("Tools/" + TOOL_NAME)]
+        public static void ShowWindow()
         {
-            targets = new bool[fbxFiles.Count];
-            for (int i = 0; i < fbxFiles.Count; i++)
-            {
-                targets[i] = true; // �f�t�H���g�̓`�F�b�N
-            }
+            GetWindow<FBXOptionOptimizer>(TOOL_NAME);
         }
-        if (targetFoldOut)
+
+        private void OnEnable()
         {
-            using (new EditorGUILayout.HorizontalScope())
+            RefreshFBXFileList();
+        }
+
+        private void setWindowSize()
+        {
+            Vector2 vector = new Vector2(400, 150);
+            this.minSize = vector;
+        }
+
+        private void OnGUI()
+        {
+            _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
+            EditorGUILayout.LabelField(TOOL_NAME);
+            setWindowSize();
+            showHelp();
+            showFolderPath();
+            showSelectTargets();
+            showExecute();
+            showWarning();
+            showTargetList();
+            showOptionFoldOut();
+            showDebug();
+            EditorGUILayout.EndScrollView();
+        }
+
+        private void showSelectTargets()
+        {
+            targetFoldOut = EditorGUILayout.Foldout(targetFoldOut, "FBXファイル");
+            // 初期化されていない場合
+            if (targets == null || targets.Length != fbxFiles.Count)
             {
-                processAllFBXFiles = EditorGUILayout.ToggleLeft("�S�Ă�Ώۂɂ���", processAllFBXFiles);
-
-
+                targets = new bool[fbxFiles.Count];
+                for (int i = 0; i < fbxFiles.Count; i++)
+                {
+                    targets[i] = true; // デフォルトはチェック
+                }
             }
-            using (new EditorGUI.DisabledGroupScope(processAllFBXFiles))
+            if (targetFoldOut)
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    if (GUILayout.Button("�S�ĂɃ`�F�b�N������"))
+                    processAllFBXFiles = EditorGUILayout.ToggleLeft("全てを対象にする", processAllFBXFiles);
+                    if (processAllFBXFiles)
                     {
-                        for (int i = 0; i < targets.Length; i++)
-                        {
-                            targets[i] = true;
-                        }
-                    }
-                    if (GUILayout.Button("�S�Ẵ`�F�b�N���O��"))
-                    {
-                        for (int i = 0; i < targets.Length; i++)
-                        {
-                            targets[i] = false;
-                        }
+                        FBXOptionOptimizerUtility.toggleArrayChecks(targets, true);
                     }
                 }
-            }
-            if (fbxFiles != null)
-            {
-                using (new EditorGUILayout.VerticalScope("box"))
+                using (new EditorGUI.DisabledGroupScope(processAllFBXFiles))
                 {
-                    for (int i = 0; i < fbxFiles.Count; i++)
+                    using (new EditorGUILayout.HorizontalScope())
                     {
-                        string fbxFile = fbxFiles[i];
-                        using (new EditorGUI.DisabledGroupScope(processAllFBXFiles))
+                        if (GUILayout.Button("全てにチェックを入れる"))
                         {
-                            targets[i] = EditorGUILayout.ToggleLeft(fbxFile, targets[i]);
+                            FBXOptionOptimizerUtility.toggleArrayChecks(targets, true);
                         }
+                        if (GUILayout.Button("全てのチェックを外す"))
+                        {
+                            FBXOptionOptimizerUtility.toggleArrayChecks(targets, false);
+                        }
+                    }
+                }
+                if (fbxFiles != null)
+                {
+                    using (new EditorGUILayout.VerticalScope("box"))
+                    {
+                        for (int i = 0; i < fbxFiles.Count; i++)
+                        {
+                            string fbxFile = fbxFiles[i];
+                            using (new EditorGUI.DisabledGroupScope(processAllFBXFiles))
+                            {
+                                targets[i] = EditorGUILayout.ToggleLeft(fbxFile, targets[i]);
+                            }
 
+                        }
                     }
                 }
             }
         }
-    }
 
-    private void showFolderPath()
-    {
-        EditorUtility.OpenFolderPanel("/Assets");
-    }
-
-    private void showExecute()
-    {
-        if (GUILayout.Button("���s"))
+        private void showFolderPath()
         {
-            foreach (string fbxFile in fbxFiles)
+            GUILayoutOption[] options = { GUILayout.ExpandWidth(true) };
+            EditorGUILayout.LabelField("選択中のフォルダ:");
+            EditorGUILayout.LabelField(folderPath, EditorStyles.wordWrappedLabel, options);
+            if (GUILayout.Button("Open"))
             {
-                ModelImporter modelImporter = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
-                if (modelImporter != null)
+                folderPath = EditorUtility.OpenFolderPanel("フォルダを選択", folderPath, string.Empty);
+                RefreshFBXFileList();
+            }
+        }
+
+        private void showExecute()
+        {
+            using (new EditorGUI.DisabledGroupScope(!canExecute()))
+            {
+
+                if (GUILayout.Button("実行"))
                 {
-                    modelImporter.importCameras = importCameras;
-                    modelImporter.importLights = importLights;
-                    modelImporter.isReadable = isReadable;
-                    modelImporter.importNormals = importNormals;
-                    modelImporter.importBlendShapeNormals = importBlendShapeNormals;
-                    setLegacyBlendShapeNomals(modelImporter, legacyBlendShapeNomals);
-                    //modelImporter.SaveAndReimport();
-                    //AssetDatabase.SaveAssets();
+                    foreach (string fbxFile in fbxFiles)
+                    {
+                        ModelImporter modelImporter = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
+                        if (modelImporter != null)
+                        {
+                            modelImporter.importCameras = importCameras;
+                            modelImporter.importLights = importLights;
+                            modelImporter.isReadable = isReadable;
+                            modelImporter.importNormals = importNormals;
+                            modelImporter.importBlendShapeNormals = importBlendShapeNormals;
+                            setLegacyBlendShapeNomals(modelImporter, legacyBlendShapeNomals);
+                            //modelImporter.SaveAndReimport();
+                            //AssetDatabase.SaveAssets();
+                            Debug.Log($"{fbxFile}のオプションを変更しました。");
+                        }
+                    }
+                    Debug.Log($"{TOOL_NAME} : 実行が完了しました。");
                 }
             }
-            Debug.Log(string.Format("{0} : ���s���������܂����B", TOOL_NAME));
         }
-    }
 
-    private void showTargetList()
-    {
-        using (new EditorGUILayout.HorizontalScope())
-        {
-
-        }
-    }
-
-    private void showOptionFoldOut()
-    {
-        optionFoldOut = EditorGUILayout.Foldout(optionFoldOut, "Options");
-
-        if (optionFoldOut)
+        private void showTargetList()
         {
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.IndentLevelScope())
-                {
-                    using (new EditorGUILayout.VerticalScope())
-                    {
-                        EditorGUILayout.LabelField("Import Cameras");
-                        EditorGUILayout.LabelField("Import Lights");
-                        EditorGUILayout.LabelField("Read/Write");
-                        EditorGUILayout.LabelField("Nomals");
-                        EditorGUILayout.LabelField("Blend Shape Nomals");
-                        EditorGUILayout.LabelField("Legacy BlendShape Nomals");
-                    }
-                    using (new EditorGUILayout.VerticalScope())
-                    {
-                        importCameras = EditorGUILayout.Toggle(importCameras, GUILayout.Width(20));
-                        importLights = EditorGUILayout.Toggle(importLights);
-                        isReadable = EditorGUILayout.Toggle(isReadable);
-                        importNormals = (ModelImporterNormals)EditorGUILayout.EnumPopup(importNormals);
-                        importBlendShapeNormals = (ModelImporterNormals)EditorGUILayout.EnumPopup(importBlendShapeNormals);
-                        legacyBlendShapeNomals = EditorGUILayout.Toggle(legacyBlendShapeNomals, GUILayout.ExpandWidth(true));
-                    }
-                }
+
             }
-            EditorGUILayout.HelpBox("�ʏ�̏ꍇ�A�I�v�V������ύX����K�v�͂���܂���B", MessageType.Info);
         }
-    }
 
-    private void RefreshFBXFileList()
-    {
-        fbxFiles = GetFBXFiles("Assets/");
-    }
-
-    private List<string> GetFBXFiles(string folderPath)
-    {
-        List<string> fbxFiles = new List<string>();
-        string[] files = Directory.GetFiles(folderPath, "*.fbx", SearchOption.AllDirectories);
-        foreach (string file in files)
+        private void showOptionFoldOut()
         {
-            fbxFiles.Add(file);
-        }
-        return fbxFiles;
-    }
+            optionFoldOut = EditorGUILayout.Foldout(optionFoldOut, "Options");
 
-    private PropertyInfo getLegacyBlendShapeNomalsProp(ModelImporter modelImporter)
-    {
-        return modelImporter.GetType().GetProperty("legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-    }
-
-    private void setLegacyBlendShapeNomals(ModelImporter modelImporter, bool legacyBlendShapeNomals)
-    {
-        PropertyInfo prop = getLegacyBlendShapeNomalsProp(modelImporter);
-        if (prop != null)
-        {
-            prop.SetValue(modelImporter, legacyBlendShapeNomals);
-        }
-    }
-
-    private bool getLegacyBlendShapeNomals(ModelImporter modelImporter)
-    {
-        PropertyInfo prop = getLegacyBlendShapeNomalsProp(modelImporter);
-        bool value = (bool)prop.GetValue(modelImporter);
-        return value;
-
-    }
-
-    private void showHelp()
-    {
-        EditorGUILayout.HelpBox("Assets�z���̑S�Ă�FBX�̃I�v�V�����𐄏��ݒ�ɕύX���܂��B", MessageType.Info);
-    }
-
-    private void showDebug()
-    {
-        if (GUILayout.Button("Debug"))
-        {
-            foreach (string fbx in fbxFiles)
+            if (optionFoldOut)
             {
-                string folderPath = Path.GetDirectoryName(fbx);
-                ModelImporter model = AssetImporter.GetAtPath(fbx) as ModelImporter;
-                if (model != null)
+                using (new EditorGUILayout.HorizontalScope())
                 {
-                    Debug.Log(folderPath + fbx + " importCameras " + model.importCameras);
-                    Debug.Log(folderPath + fbx + " importLights " + model.importLights);
-                    Debug.Log(folderPath + fbx + " isReadable " + model.isReadable);
-                    Debug.Log(folderPath + fbx + " importNormals " + model.importNormals);
-                    Debug.Log(folderPath + fbx + " importBlendShapeNormals " + model.importBlendShapeNormals);
-                    Debug.Log(folderPath + fbx + " LegacyBlendShapeNomals " + getLegacyBlendShapeNomals(model));
-                    getLegacyBlendShapeNomals(model);
+                    using (new EditorGUI.IndentLevelScope())
+                    {
+                        using (new EditorGUILayout.VerticalScope())
+                        {
+                            EditorGUILayout.LabelField("Import Cameras");
+                            EditorGUILayout.LabelField("Import Lights");
+                            EditorGUILayout.LabelField("Read/Write");
+                            EditorGUILayout.LabelField("Nomals");
+                            EditorGUILayout.LabelField("Blend Shape Nomals");
+                            EditorGUILayout.LabelField("Legacy BlendShape Nomals");
+                        }
+                        using (new EditorGUILayout.VerticalScope())
+                        {
+                            importCameras = EditorGUILayout.Toggle(importCameras, GUILayout.Width(20));
+                            importLights = EditorGUILayout.Toggle(importLights);
+                            isReadable = EditorGUILayout.Toggle(isReadable);
+                            importNormals = (ModelImporterNormals)EditorGUILayout.EnumPopup(importNormals);
+                            importBlendShapeNormals = (ModelImporterNormals)EditorGUILayout.EnumPopup(importBlendShapeNormals);
+                            legacyBlendShapeNomals = EditorGUILayout.Toggle(legacyBlendShapeNomals, GUILayout.ExpandWidth(true));
+                        }
+                    }
+                }
+                EditorGUILayout.HelpBox("通常の場合、オプションを変更する必要はありません。", MessageType.Info);
+            }
+        }
+
+        private void RefreshFBXFileList()
+        {
+            string projectPath = Path.GetDirectoryName(Application.dataPath);
+            string relativePath = Path.GetRelativePath(projectPath, folderPath);
+            fbxFiles = GetFBXFiles(relativePath);
+        }
+
+        private List<string> GetFBXFiles(string folderPath)
+        {
+            List<string> fbxFiles = new List<string>();
+            string[] files = Directory.GetFiles(folderPath, "*.fbx", SearchOption.AllDirectories);
+            foreach (string file in files)
+            {
+                fbxFiles.Add(file);
+            }
+            return fbxFiles;
+        }
+
+        private PropertyInfo getLegacyBlendShapeNomalsProp(ModelImporter modelImporter)
+        {
+            return modelImporter.GetType().GetProperty("legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+        }
+
+        private void setLegacyBlendShapeNomals(ModelImporter modelImporter, bool legacyBlendShapeNomals)
+        {
+            PropertyInfo prop = getLegacyBlendShapeNomalsProp(modelImporter);
+            if (prop != null)
+            {
+                prop.SetValue(modelImporter, legacyBlendShapeNomals);
+            }
+        }
+
+        private bool getLegacyBlendShapeNomals(ModelImporter modelImporter)
+        {
+            PropertyInfo prop = getLegacyBlendShapeNomalsProp(modelImporter);
+            bool value = (bool)prop.GetValue(modelImporter);
+            return value;
+
+        }
+
+        private void showHelp()
+        {
+            EditorGUILayout.HelpBox("Assets配下の全てのFBXのオプションを推奨設定に変更します。", MessageType.Info);
+        }
+
+        private void showWarning()
+        {
+            if (!canExecute())
+            {
+                EditorGUILayout.HelpBox("対象のFBXが存在しません。", MessageType.Warning);
+            }
+        }
+
+        private void showDebug()
+        {
+            if (GUILayout.Button("Debug"))
+            {
+                Debug.Log($"対象ファイル数: {fbxFiles.Count}");
+                foreach (string fbx in fbxFiles)
+                {
+                    string folderPath = Path.GetDirectoryName(fbx);
+                    ModelImporter model = AssetImporter.GetAtPath(fbx) as ModelImporter;
+                    Debug.Log("model is null : " + model == null + ", file path : " + fbx);
+                    if (model != null)
+                    {
+                        Debug.Log(folderPath + fbx + " importCameras " + model.importCameras);
+                        Debug.Log(folderPath + fbx + " importLights " + model.importLights);
+                        Debug.Log(folderPath + fbx + " isReadable " + model.isReadable);
+                        Debug.Log(folderPath + fbx + " importNormals " + model.importNormals);
+                        Debug.Log(folderPath + fbx + " importBlendShapeNormals " + model.importBlendShapeNormals);
+                        Debug.Log(folderPath + fbx + " LegacyBlendShapeNomals " + getLegacyBlendShapeNomals(model));
+                        getLegacyBlendShapeNomals(model);
+                    }
                 }
             }
+        }
+
+        private bool canExecute()
+        {
+            return fbxFiles.Count > 0 && !targets.All(c => c == false);
         }
     }
 }
