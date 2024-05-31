@@ -12,18 +12,39 @@ namespace kesera2.FBXOptionOptimizer
         private const string TOOL_NAME = "FBX Option Optimizer";
         private Vector2 _scrollPosition = Vector2.zero;         // スクロール位置
 
+        private string projectPath;
         private List<string> fbxFiles;
         private bool processAllFBXFiles = true;
         private bool targetFoldOut = false;
         private bool optionFoldOut = false;
         // Options
-        private string folderPath = Application.dataPath;
+        private string folderPath;
+        // Scene
+        private double scaleFactor = 1.0;
+        private bool convertUnits = true;
+        private bool importVisibility = true;
         private bool importCameras = false;
         private bool importLights = false;
+        private bool preserveHierarchy = false;
+        private bool sortHierarchyByName = true;
+        // Meshes
+        private ModelImporterMeshCompression meshCompression = ModelImporterMeshCompression.Off;
         private bool isReadable = true;
+        private MeshOptimizationFlags optimizeMesh = MeshOptimizationFlags.Everything;
+        private bool generateColliders = false;
+        // Germetory
+        private bool keepQuads = false;
+        private bool weldVertices = true;
+        private ModelImporterIndexFormat indexFormat = ModelImporterIndexFormat.Auto;
+        private bool legacyBlendShapeNomals = false;
         private ModelImporterNormals importNormals = ModelImporterNormals.Import;
         private ModelImporterNormals importBlendShapeNormals = ModelImporterNormals.None;
-        private bool legacyBlendShapeNomals = false;
+        private ModelImporterNormalSmoothingSource smoothnessSource = ModelImporterNormalSmoothingSource.PreferSmoothingGroups;
+        private int smoothingAngle = 60; // min:0 max:180
+        private ModelImporterTangents tangents = ModelImporterTangents.CalculateMikk;
+        private bool swapUvs = false;
+        private bool generateLightmapUvs = false;
+
         private bool[] targets = { };
 
         [MenuItem("Tools/" + TOOL_NAME)]
@@ -34,6 +55,9 @@ namespace kesera2.FBXOptionOptimizer
 
         private void OnEnable()
         {
+            // フォルダパス初期化
+            folderPath = Application.dataPath;
+            projectPath = Path.GetDirectoryName(Application.dataPath);
             RefreshFBXFileList();
         }
 
@@ -55,6 +79,7 @@ namespace kesera2.FBXOptionOptimizer
             showWarning();
             showTargetList();
             showOptionFoldOut();
+            showAdditionalOptionFoldOut();
             showDebug();
             EditorGUILayout.EndScrollView();
         }
@@ -78,7 +103,11 @@ namespace kesera2.FBXOptionOptimizer
                     processAllFBXFiles = EditorGUILayout.ToggleLeft("全てを対象にする", processAllFBXFiles);
                     if (processAllFBXFiles)
                     {
-                        FBXOptionOptimizerUtility.toggleArrayChecks(targets, true);
+                        for (int i = 0; i < fbxFiles.Count; i++)
+                        {
+                            targets[i] = true;
+                        }
+                        //FBXOptionOptimizerUtility.toggleArrayChecks(targets, true);
                     }
                 }
                 using (new EditorGUI.DisabledGroupScope(processAllFBXFiles))
@@ -87,11 +116,19 @@ namespace kesera2.FBXOptionOptimizer
                     {
                         if (GUILayout.Button("全てにチェックを入れる"))
                         {
-                            FBXOptionOptimizerUtility.toggleArrayChecks(targets, true);
+                            //FBXOptionOptimizerUtility.toggleArrayChecks(targets, true);
+                            for (int i = 0; i < fbxFiles.Count; i++)
+                            {
+                                targets[i] = true;
+                            }
                         }
                         if (GUILayout.Button("全てのチェックを外す"))
                         {
-                            FBXOptionOptimizerUtility.toggleArrayChecks(targets, false);
+                            //FBXOptionOptimizerUtility.toggleArrayChecks(targets, false);
+                            for (int i = 0; i < fbxFiles.Count; i++)
+                            {
+                                targets[i] = false; 
+                            }
                         }
                     }
                 }
@@ -195,10 +232,21 @@ namespace kesera2.FBXOptionOptimizer
             }
         }
 
+        private void showAdditionalOptionFoldOut()
+        {
+
+        }
+
         private void RefreshFBXFileList()
         {
-            string projectPath = Path.GetDirectoryName(Application.dataPath);
+
+#if UNITY_2019_4_31
+            // Assetsからの相対パスを取得
+            string relativePath = folderPath.Substring(folderPath.IndexOf("Assets/"));
+            Debug.Log(relativePath);
+#elif UNITY_2019_4_OR_NEWER
             string relativePath = Path.GetRelativePath(projectPath, folderPath);
+#endif
             fbxFiles = GetFBXFiles(relativePath);
         }
 
