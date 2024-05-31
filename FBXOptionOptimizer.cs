@@ -19,32 +19,7 @@ namespace kesera2.FBXOptionOptimizer
         private bool optionFoldOut = false;
         // Options
         private string folderPath;
-        // Scene
-        private double scaleFactor = 1.0;
-        private bool convertUnits = true;
-        private bool importVisibility = true;
-        private bool importCameras = false;
-        private bool importLights = false;
-        private bool preserveHierarchy = false;
-        private bool sortHierarchyByName = true;
-        // Meshes
-        private ModelImporterMeshCompression meshCompression = ModelImporterMeshCompression.Off;
-        private bool isReadable = true;
-        private MeshOptimizationFlags optimizeMesh = MeshOptimizationFlags.Everything;
-        private bool generateColliders = false;
-        // Germetory
-        private bool keepQuads = false;
-        private bool weldVertices = true;
-        private ModelImporterIndexFormat indexFormat = ModelImporterIndexFormat.Auto;
-        private bool legacyBlendShapeNomals = false;
-        private ModelImporterNormals importNormals = ModelImporterNormals.Import;
-        private ModelImporterNormals importBlendShapeNormals = ModelImporterNormals.None;
-        private ModelImporterNormalSmoothingSource smoothnessSource = ModelImporterNormalSmoothingSource.PreferSmoothingGroups;
-        private int smoothingAngle = 60; // min:0 max:180
-        private ModelImporterTangents tangents = ModelImporterTangents.CalculateMikk;
-        private bool swapUvs = false;
-        private bool generateLightmapUvs = false;
-
+        FbxOptions options = new FbxOptions();
         private bool[] targets = { };
 
         [MenuItem("Tools/" + TOOL_NAME)]
@@ -174,12 +149,12 @@ namespace kesera2.FBXOptionOptimizer
                         ModelImporter modelImporter = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
                         if (modelImporter != null)
                         {
-                            modelImporter.importCameras = importCameras;
-                            modelImporter.importLights = importLights;
-                            modelImporter.isReadable = isReadable;
-                            modelImporter.importNormals = importNormals;
-                            modelImporter.importBlendShapeNormals = importBlendShapeNormals;
-                            setLegacyBlendShapeNomals(modelImporter, legacyBlendShapeNomals);
+                            modelImporter.importCameras = options.ImportCameras;
+                            modelImporter.importLights = options.ImportLights;
+                            modelImporter.isReadable = options.IsReadable;
+                            modelImporter.importNormals = options.ImportNormals;
+                            modelImporter.importBlendShapeNormals = options.ImportBlendShapeNormals;
+                            setLegacyBlendShapeNomals(modelImporter, options.LegacyBlendShapeNomals);
                             //modelImporter.SaveAndReimport();
                             //AssetDatabase.SaveAssets();
                             Debug.Log($"{fbxFile}のオプションを変更しました。");
