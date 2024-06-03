@@ -24,12 +24,6 @@ public class FBXOptionsManagerViewTest
     }
 
     [Test]
-    public void TestGetFBXFiles()
-    {
-
-    }
-
-    [Test]
     public void TestButtonClick()
     {
         // ウィンドウを表示する

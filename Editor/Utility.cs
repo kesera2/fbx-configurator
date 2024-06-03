@@ -25,6 +25,35 @@ namespace kesera2.FBXOptionsManager
 
             return array;
         }
+
+        public static string ToLabelName(string input)
+        {
+            string result = "";
+            bool prevUpper = false;
+
+            foreach (char c in input)
+            {
+                if (char.IsUpper(c))
+                {
+                    if (prevUpper || result.Length == 0)
+                    {
+                        result += c;
+                    }
+                    else
+                    {
+                        result += " " + c;
+                    }
+                    prevUpper = true;
+                }
+                else
+                {
+                    result += c;
+                    prevUpper = false;
+                }
+            }
+
+            return result;
+        }
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEngine;
 
 namespace kesera2.FBXOptionsManager
 {
@@ -6,8 +7,11 @@ namespace kesera2.FBXOptionsManager
     public class FbxOptions
     {
         // Scenes
-        private double scaleFactor = 1.0;
+        private float scaleFactor = 1.0f;
         private bool convertUnits = true;
+        private bool bakeAxisConversion = false;
+        private bool importBlendShapes = true;
+        private bool importDeformPercent = false;
         private bool importVisibility = true;
         private bool importCameras = false;
         private bool importLights = false;
@@ -25,14 +29,63 @@ namespace kesera2.FBXOptionsManager
         private bool legacyBlendShapeNomals = false;
         private ModelImporterNormals importNormals = ModelImporterNormals.Import;
         private ModelImporterNormals importBlendShapeNormals = ModelImporterNormals.None;
+        private ModelImporterNormalCalculationMode normalsMode = ModelImporterNormalCalculationMode.Unweighted_Legacy;
         private ModelImporterNormalSmoothingSource smoothnessSource = ModelImporterNormalSmoothingSource.PreferSmoothingGroups;
-        private int smoothingAngle = 60; // min:0 max:180
+        [Range(0, 180)]
+        private float smoothingAngle = 60;
         private ModelImporterTangents tangents = ModelImporterTangents.CalculateMikk;
         private bool swapUvs = false;
         private bool generateLightmapUvs = false;
+        private bool strictVertexDataChecks = false;
 
-        public double ScaleFactor { get => scaleFactor; set => scaleFactor = value; }
+        public void showCommonOptions()
+        {
+            ImportCameras = EditorGUILayout.Toggle("Import Cameras", ImportCameras);
+            ImportLights = EditorGUILayout.Toggle("Import Lights", ImportLights);
+            IsReadable = EditorGUILayout.Toggle("Read/Write", IsReadable);
+            ImportNormals = (ModelImporterNormals)EditorGUILayout.EnumPopup("Nomals", ImportNormals);
+            ImportBlendShapeNormals = (ModelImporterNormals)EditorGUILayout.EnumPopup("Blend Shape Nomals", ImportBlendShapeNormals);
+            LegacyBlendShapeNomals = EditorGUILayout.Toggle("Legacy BlendShape Nomals", LegacyBlendShapeNomals);
+        }
+
+        public void showAdditoinalSceneOptions()
+        {
+            ScaleFactor = EditorGUILayout.FloatField("Scale Factor", ScaleFactor);
+            ConvertUnits = EditorGUILayout.Toggle("Convert Units", ConvertUnits);
+            BakeAxisConversion = EditorGUILayout.Toggle("Bake Axis Conversion", BakeAxisConversion);
+            ImportBlendShapes = EditorGUILayout.Toggle("Import Blend Shapes", ImportBlendShapes);
+            ImportDeformPercent = EditorGUILayout.Toggle("Import Deform Percent", ImportDeformPercent);
+            ImportVisibility = EditorGUILayout.Toggle("Import Visibility", ImportVisibility);
+            PreserveHierarchy = EditorGUILayout.Toggle("Preserve Hierarchy", PreserveHierarchy);
+            SortHierarchyByName = EditorGUILayout.Toggle("Sort Hierarchy ByName", SortHierarchyByName);
+        }
+
+        public void showAddtionalMeshOptions()
+        {
+            MeshCompression = (ModelImporterMeshCompression)EditorGUILayout.EnumPopup("Mesh Compression", MeshCompression);
+            OptimizeMesh = (MeshOptimizationFlags)EditorGUILayout.EnumPopup("Optimize Mesh", OptimizeMesh);
+            GenerateColliders = EditorGUILayout.Toggle("Generate Colliders", GenerateColliders);
+        }
+
+        public void showAddtionalGeometoryOptions()
+        {
+            KeepQuads = EditorGUILayout.Toggle("Keep Quads", KeepQuads);
+            WeldVertices = EditorGUILayout.Toggle("Weld Vertices", WeldVertices);
+            IndexFormat = (ModelImporterIndexFormat)EditorGUILayout.EnumPopup("Index Format", IndexFormat);
+            NormalsMode = (ModelImporterNormalCalculationMode)EditorGUILayout.EnumPopup("Normals Mode", NormalsMode);
+            SmoothingAngle = EditorGUILayout.Slider("Smoothing Angle", SmoothingAngle, 0, 180);
+            Tangents = (ModelImporterTangents)EditorGUILayout.EnumPopup("Tangents", Tangents);
+            SwapUvs = EditorGUILayout.Toggle("Swap Uvs", SwapUvs);
+            GenerateLightmapUvs = EditorGUILayout.Toggle(Utility.ToLabelName(nameof(GenerateLightmapUvs)), GenerateLightmapUvs);
+            StrictVertexDataChecks = EditorGUILayout.Toggle(Utility.ToLabelName(nameof(StrictVertexDataChecks)), StrictVertexDataChecks);
+        }
+
+
+        public float ScaleFactor { get => scaleFactor; set => scaleFactor = value; }
         public bool ConvertUnits { get => convertUnits; set => convertUnits = value; }
+        public bool BakeAxisConversion { get => bakeAxisConversion; set => bakeAxisConversion = value; }
+        public bool ImportBlendShapes { get => importBlendShapes; set => importBlendShapes = value; }
+        public bool ImportDeformPercent { get => importDeformPercent; set => importDeformPercent = value; }
         public bool ImportVisibility { get => importVisibility; set => importVisibility = value; }
         public bool ImportCameras { get => importCameras; set => importCameras = value; }
         public bool ImportLights { get => importLights; set => importLights = value; }
@@ -48,11 +101,13 @@ namespace kesera2.FBXOptionsManager
         public bool LegacyBlendShapeNomals { get => legacyBlendShapeNomals; set => legacyBlendShapeNomals = value; }
         public ModelImporterNormals ImportNormals { get => importNormals; set => importNormals = value; }
         public ModelImporterNormals ImportBlendShapeNormals { get => importBlendShapeNormals; set => importBlendShapeNormals = value; }
+        public ModelImporterNormalCalculationMode NormalsMode { get => normalsMode; set => normalsMode = value; }
         public ModelImporterNormalSmoothingSource SmoothnessSource { get => smoothnessSource; set => smoothnessSource = value; }
-        public int SmoothingAngle { get => smoothingAngle; set => smoothingAngle = value; }
+        public float SmoothingAngle { get => smoothingAngle; set => smoothingAngle = value; }
         public ModelImporterTangents Tangents { get => tangents; set => tangents = value; }
         public bool SwapUvs { get => swapUvs; set => swapUvs = value; }
         public bool GenerateLightmapUvs { get => generateLightmapUvs; set => generateLightmapUvs = value; }
+        public bool StrictVertexDataChecks { get => strictVertexDataChecks; set => strictVertexDataChecks = value; }
     }
 }
 

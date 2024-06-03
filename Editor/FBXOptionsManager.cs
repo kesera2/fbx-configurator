@@ -18,6 +18,7 @@ namespace kesera2.FBXOptionsManager
         internal bool processAllFBXFiles = true;
         internal bool targetFoldOut = false;
         internal bool optionFoldOut = false;
+        internal bool additionalOptionFoldOut = false;
         // Options
         internal string folderPath;
         FbxOptions options = new FbxOptions();
@@ -36,6 +37,7 @@ namespace kesera2.FBXOptionsManager
             folderPath = Application.dataPath;
             projectPath = Path.GetDirectoryName(Application.dataPath);
             RefreshFBXFileList();
+            // targetsの初期化
             if (targets == null || targets.Length != fbxFiles.Count)
             {
                 targets = new bool[fbxFiles.Count];
@@ -52,6 +54,8 @@ namespace kesera2.FBXOptionsManager
         private void OnGUI()
         {
             _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
+            // ラベル幅の調整
+            EditorGUIUtility.labelWidth = 200; // TODO: call at once
             EditorGUILayout.LabelField(TOOL_NAME);
             setWindowSize();
             showHelp();
@@ -181,37 +185,44 @@ namespace kesera2.FBXOptionsManager
 
             if (optionFoldOut)
             {
-                using (new EditorGUILayout.HorizontalScope())
+                using (new EditorGUILayout.VerticalScope())
                 {
                     using (new EditorGUI.IndentLevelScope())
                     {
-                        using (new EditorGUILayout.VerticalScope())
-                        {
-                            EditorGUILayout.LabelField("Import Cameras");
-                            EditorGUILayout.LabelField("Import Lights");
-                            EditorGUILayout.LabelField("Read/Write");
-                            EditorGUILayout.LabelField("Nomals");
-                            EditorGUILayout.LabelField("Blend Shape Nomals");
-                            EditorGUILayout.LabelField("Legacy BlendShape Nomals");
-                        }
-                        using (new EditorGUILayout.VerticalScope())
-                        {
-                            options.ImportCameras = EditorGUILayout.Toggle(options.ImportCameras, GUILayout.Width(20));
-                            options.ImportLights = EditorGUILayout.Toggle(options.ImportLights);
-                            options.IsReadable = EditorGUILayout.Toggle(options.IsReadable);
-                            options.ImportNormals = (ModelImporterNormals)EditorGUILayout.EnumPopup(options.ImportNormals);
-                            options.ImportBlendShapeNormals = (ModelImporterNormals)EditorGUILayout.EnumPopup(options.ImportBlendShapeNormals);
-                            options.LegacyBlendShapeNomals = EditorGUILayout.Toggle(options.LegacyBlendShapeNomals, GUILayout.ExpandWidth(true));
-                        }
+                        options.showCommonOptions();
+                        EditorGUILayout.HelpBox("通常の場合、オプションを変更する必要はありません。", MessageType.Info);
                     }
                 }
-                EditorGUILayout.HelpBox("通常の場合、オプションを変更する必要はありません。", MessageType.Info);
             }
         }
 
         private void showAdditionalOptionFoldOut()
         {
-
+            additionalOptionFoldOut = EditorGUILayout.Foldout(additionalOptionFoldOut, "Additional Options");
+            if (additionalOptionFoldOut)
+            {
+                using (new EditorGUILayout.VerticalScope())
+                {
+                    using (new EditorGUI.IndentLevelScope())
+                    {
+                        EditorGUILayout.LabelField("Scene", EditorStyles.boldLabel);
+                        using (new EditorGUI.IndentLevelScope())
+                        {
+                            options.showAdditoinalSceneOptions();
+                        }
+                        EditorGUILayout.LabelField("Mesh", EditorStyles.boldLabel);
+                        using (new EditorGUI.IndentLevelScope())
+                        {
+                            options.showAddtionalMeshOptions();
+                        }
+                        EditorGUILayout.LabelField("Geometory", EditorStyles.boldLabel);
+                        using (new EditorGUI.IndentLevelScope())
+                        {
+                            options.showAddtionalGeometoryOptions();
+                        }
+                    }
+                }
+            }
         }
 
         private void RefreshFBXFileList()
@@ -227,12 +238,13 @@ namespace kesera2.FBXOptionsManager
         }
 
 
-
+        // TODO: move to options
         private PropertyInfo getLegacyBlendShapeNomalsProp(ModelImporter modelImporter)
         {
             return modelImporter.GetType().GetProperty("legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
         }
 
+        // TODO: move to options
         private void setLegacyBlendShapeNomals(ModelImporter modelImporter, bool legacyBlendShapeNomals)
         {
             PropertyInfo prop = getLegacyBlendShapeNomalsProp(modelImporter);
@@ -242,6 +254,7 @@ namespace kesera2.FBXOptionsManager
             }
         }
 
+        // TODO: move to options
         private bool getLegacyBlendShapeNomals(ModelImporter modelImporter)
         {
             PropertyInfo prop = getLegacyBlendShapeNomalsProp(modelImporter);
