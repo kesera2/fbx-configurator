@@ -102,7 +102,7 @@ namespace kesera2.FBXOptionOptimizer
                             //FBXOptionOptimizerUtility.toggleArrayChecks(targets, false);
                             for (int i = 0; i < fbxFiles.Count; i++)
                             {
-                                targets[i] = false; 
+                                targets[i] = false;
                             }
                         }
                     }
@@ -194,12 +194,12 @@ namespace kesera2.FBXOptionOptimizer
                         }
                         using (new EditorGUILayout.VerticalScope())
                         {
-                            importCameras = EditorGUILayout.Toggle(importCameras, GUILayout.Width(20));
-                            importLights = EditorGUILayout.Toggle(importLights);
-                            isReadable = EditorGUILayout.Toggle(isReadable);
-                            importNormals = (ModelImporterNormals)EditorGUILayout.EnumPopup(importNormals);
-                            importBlendShapeNormals = (ModelImporterNormals)EditorGUILayout.EnumPopup(importBlendShapeNormals);
-                            legacyBlendShapeNomals = EditorGUILayout.Toggle(legacyBlendShapeNomals, GUILayout.ExpandWidth(true));
+                            options.ImportCameras = EditorGUILayout.Toggle(options.ImportCameras, GUILayout.Width(20));
+                            options.ImportLights = EditorGUILayout.Toggle(options.ImportLights);
+                            options.IsReadable = EditorGUILayout.Toggle(options.IsReadable);
+                            options.ImportNormals = (ModelImporterNormals)EditorGUILayout.EnumPopup(options.ImportNormals);
+                            options.ImportBlendShapeNormals = (ModelImporterNormals)EditorGUILayout.EnumPopup(options.ImportBlendShapeNormals);
+                            options.LegacyBlendShapeNomals = EditorGUILayout.Toggle(options.LegacyBlendShapeNomals, GUILayout.ExpandWidth(true));
                         }
                     }
                 }
