@@ -78,11 +78,7 @@ namespace kesera2.FBXOptionsManager
                     processAllFBXFiles = EditorGUILayout.ToggleLeft("全てを対象にする", processAllFBXFiles);
                     if (processAllFBXFiles)
                     {
-                        for (int i = 0; i < fbxFiles.Count; i++)
-                        {
-                            targets[i] = true;
-                        }
-                        //FBXOptionOptimizerUtility.toggleArrayChecks(targets, true);
+                        FBXOptionOptimizerUtility.toggleArrayChecks(targets, true);
                     }
                 }
                 using (new EditorGUI.DisabledGroupScope(processAllFBXFiles))
@@ -91,19 +87,11 @@ namespace kesera2.FBXOptionsManager
                     {
                         if (GUILayout.Button("全てにチェックを入れる"))
                         {
-                            //FBXOptionOptimizerUtility.toggleArrayChecks(targets, true);
-                            for (int i = 0; i < fbxFiles.Count; i++)
-                            {
-                                targets[i] = true;
-                            }
+                            FBXOptionOptimizerUtility.toggleArrayChecks(targets, true);
                         }
                         if (GUILayout.Button("全てのチェックを外す"))
                         {
-                            //FBXOptionOptimizerUtility.toggleArrayChecks(targets, false);
-                            for (int i = 0; i < fbxFiles.Count; i++)
-                            {
-                                targets[i] = false;
-                            }
+                            FBXOptionOptimizerUtility.toggleArrayChecks(targets, false);
                         }
                     }
                 }
