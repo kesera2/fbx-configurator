@@ -1,11 +1,9 @@
-﻿using System;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEditor;
 
-namespace kesera2.FBXOptionOptimizer
+namespace kesera2.FBXOptionsManager
 {
 
-	public class FbxOptions
+    public class FbxOptions
     {
         // Scenes
         private double scaleFactor = 1.0;

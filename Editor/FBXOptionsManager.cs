@@ -5,11 +5,11 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace kesera2.FBXOptionOptimizer
+namespace kesera2.FBXOptionsManager
 {
-    public class FBXOptionOptimizer : EditorWindow
+    public class FBXOptionsManager : EditorWindow
     {
-        private const string TOOL_NAME = "FBX Option Optimizer";
+        private const string TOOL_NAME = "FBX Options Manager";
         private Vector2 _scrollPosition = Vector2.zero;         // スクロール位置
 
         private string projectPath;
@@ -25,7 +25,7 @@ namespace kesera2.FBXOptionOptimizer
         [MenuItem("Tools/" + TOOL_NAME)]
         public static void ShowWindow()
         {
-            GetWindow<FBXOptionOptimizer>(TOOL_NAME);
+            GetWindow<FBXOptionsManager>(TOOL_NAME);
         }
 
         private void OnEnable()
