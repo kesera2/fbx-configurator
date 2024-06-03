@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -160,7 +159,7 @@ namespace kesera2.FBXOptionsManager
                             modelImporter.isReadable = options.IsReadable;
                             modelImporter.importNormals = options.ImportNormals;
                             modelImporter.importBlendShapeNormals = options.ImportBlendShapeNormals;
-                            setLegacyBlendShapeNomals(modelImporter, options.LegacyBlendShapeNomals);
+                            options.setLegacyBlendShapeNomals(modelImporter, options.LegacyBlendShapeNomals);
                             //modelImporter.SaveAndReimport();
                             //AssetDatabase.SaveAssets();
                             Debug.Log($"{fbxFile}のオプションを変更しました。");
@@ -238,30 +237,6 @@ namespace kesera2.FBXOptionsManager
         }
 
 
-        // TODO: move to options
-        private PropertyInfo getLegacyBlendShapeNomalsProp(ModelImporter modelImporter)
-        {
-            return modelImporter.GetType().GetProperty("legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-        }
-
-        // TODO: move to options
-        private void setLegacyBlendShapeNomals(ModelImporter modelImporter, bool legacyBlendShapeNomals)
-        {
-            PropertyInfo prop = getLegacyBlendShapeNomalsProp(modelImporter);
-            if (prop != null)
-            {
-                prop.SetValue(modelImporter, legacyBlendShapeNomals);
-            }
-        }
-
-        // TODO: move to options
-        private bool getLegacyBlendShapeNomals(ModelImporter modelImporter)
-        {
-            PropertyInfo prop = getLegacyBlendShapeNomalsProp(modelImporter);
-            bool value = (bool)prop.GetValue(modelImporter);
-            return value;
-
-        }
 
         private void showHelp()
         {
@@ -293,8 +268,8 @@ namespace kesera2.FBXOptionsManager
                         Debug.Log(folderPath + fbx + " isReadable " + model.isReadable);
                         Debug.Log(folderPath + fbx + " importNormals " + model.importNormals);
                         Debug.Log(folderPath + fbx + " importBlendShapeNormals " + model.importBlendShapeNormals);
-                        Debug.Log(folderPath + fbx + " LegacyBlendShapeNomals " + getLegacyBlendShapeNomals(model));
-                        getLegacyBlendShapeNomals(model);
+                        Debug.Log(folderPath + fbx + " LegacyBlendShapeNomals " + options.getLegacyBlendShapeNomals(model));
+                        options.getLegacyBlendShapeNomals(model);
                     }
                 }
             }

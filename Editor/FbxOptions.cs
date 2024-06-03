@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Reflection;
+using UnityEditor;
 using UnityEngine;
 
 namespace kesera2.FBXOptionsManager
@@ -40,7 +41,8 @@ namespace kesera2.FBXOptionsManager
 
         public void showCommonOptions()
         {
-            ImportCameras = EditorGUILayout.Toggle("Import Cameras", ImportCameras);
+            //TODO: Add tooltips
+            ImportCameras = EditorGUILayout.Toggle(new GUIContent("Import Cameras", "これを有効にすると.FBXファイルからカメラをインポートできます。"), ImportCameras);
             ImportLights = EditorGUILayout.Toggle("Import Lights", ImportLights);
             IsReadable = EditorGUILayout.Toggle("Read/Write", IsReadable);
             ImportNormals = (ModelImporterNormals)EditorGUILayout.EnumPopup("Nomals", ImportNormals);
@@ -78,6 +80,28 @@ namespace kesera2.FBXOptionsManager
             SwapUvs = EditorGUILayout.Toggle("Swap Uvs", SwapUvs);
             GenerateLightmapUvs = EditorGUILayout.Toggle(Utility.ToLabelName(nameof(GenerateLightmapUvs)), GenerateLightmapUvs);
             StrictVertexDataChecks = EditorGUILayout.Toggle(Utility.ToLabelName(nameof(StrictVertexDataChecks)), StrictVertexDataChecks);
+        }
+
+        public PropertyInfo getLegacyBlendShapeNomalsProp(ModelImporter modelImporter)
+        {
+            return modelImporter.GetType().GetProperty("legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+        }
+
+        public void setLegacyBlendShapeNomals(ModelImporter modelImporter, bool legacyBlendShapeNomals)
+        {
+            PropertyInfo prop = getLegacyBlendShapeNomalsProp(modelImporter);
+            if (prop != null)
+            {
+                prop.SetValue(modelImporter, legacyBlendShapeNomals);
+            }
+        }
+
+        public bool getLegacyBlendShapeNomals(ModelImporter modelImporter)
+        {
+            PropertyInfo prop = getLegacyBlendShapeNomalsProp(modelImporter);
+            bool value = (bool)prop.GetValue(modelImporter);
+            return value;
+
         }
 
 
