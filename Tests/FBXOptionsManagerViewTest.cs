@@ -1,25 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
+using kesera2.FBXOptionsManager;
 using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.TestTools;
+using UnityEditor;
 
 public class FBXOptionsManagerViewTest
 {
-    // A Test behaves as an ordinary method
-    [Test]
-    public void FBXOptionsManagerViewTestSimplePasses()
+    private static FBXOptionsManager window;
+
+    [SetUp]
+    public void Setup()
     {
-        // Use the Assert class to test conditions
+        window = EditorWindow.GetWindow<FBXOptionsManager>("Test Window");
+    }
+    [Test]
+    public void TestShowWindow()
+    {
+        Assert.IsNotNull(window);
     }
 
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator FBXOptionsManagerViewTestWithEnumeratorPasses()
+    [Test]
+    public void TestRelativePath()
     {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
+        Assert.That(window.relativePath.StartsWith("Assets"));
+    }
+
+    [Test]
+    public void TestGetFBXFiles()
+    {
+
+    }
+
+    [Test]
+    public void TestButtonClick()
+    {
+        // ウィンドウを表示する
+        FBXOptionsManager.ShowWindow();
+
+        // ボタンをクリックする
+        //EditorWindow.GetWindow<FBXOptionsManager>().OnGUI();
+        //Assert.AreEqual("Default Value", EditorWindow.GetWindow<FBXOptionsManager>()._myString);
     }
 }

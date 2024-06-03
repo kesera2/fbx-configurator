@@ -9,18 +9,20 @@ namespace kesera2.FBXOptionsManager
 {
     public class FBXOptionsManager : EditorWindow
     {
-        private const string TOOL_NAME = "FBX Options Manager";
-        private Vector2 _scrollPosition = Vector2.zero;         // スクロール位置
+        public const string TOOL_NAME = "FBX Options Manager";
+        internal Vector2 _scrollPosition = Vector2.zero;         // スクロール位置
 
-        private string projectPath;
-        private List<string> fbxFiles;
-        private bool processAllFBXFiles = true;
-        private bool targetFoldOut = false;
-        private bool optionFoldOut = false;
+        internal string projectPath;
+        internal string relativePath;
+        internal List<string> fbxFiles;
+        internal bool processAllFBXFiles = true;
+        internal bool targetFoldOut = false;
+        internal bool optionFoldOut = false;
         // Options
-        private string folderPath;
+        internal string folderPath;
         FbxOptions options = new FbxOptions();
-        private bool[] targets = { };
+
+        internal bool[] targets = { };
 
         [MenuItem("Tools/" + TOOL_NAME)]
         public static void ShowWindow()
@@ -34,6 +36,11 @@ namespace kesera2.FBXOptionsManager
             folderPath = Application.dataPath;
             projectPath = Path.GetDirectoryName(Application.dataPath);
             RefreshFBXFileList();
+            if (targets == null || targets.Length != fbxFiles.Count)
+            {
+                targets = new bool[fbxFiles.Count];
+                Utility.toggleArrayChecks(targets, true);
+            }
         }
 
         private void setWindowSize()
@@ -62,37 +69,19 @@ namespace kesera2.FBXOptionsManager
         private void showSelectTargets()
         {
             targetFoldOut = EditorGUILayout.Foldout(targetFoldOut, "FBXファイル");
-            // 初期化されていない場合
-            if (targets == null || targets.Length != fbxFiles.Count)
-            {
-                targets = new bool[fbxFiles.Count];
-                for (int i = 0; i < fbxFiles.Count; i++)
-                {
-                    targets[i] = true; // デフォルトはチェック
-                }
-            }
+
             if (targetFoldOut)
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    processAllFBXFiles = EditorGUILayout.ToggleLeft("全てを対象にする", processAllFBXFiles);
-                    if (processAllFBXFiles)
-                    {
-                        FBXOptionOptimizerUtility.toggleArrayChecks(targets, true);
-                    }
+                    containsAllFbx();
                 }
                 using (new EditorGUI.DisabledGroupScope(processAllFBXFiles))
                 {
                     using (new EditorGUILayout.HorizontalScope())
                     {
-                        if (GUILayout.Button("全てにチェックを入れる"))
-                        {
-                            FBXOptionOptimizerUtility.toggleArrayChecks(targets, true);
-                        }
-                        if (GUILayout.Button("全てのチェックを外す"))
-                        {
-                            FBXOptionOptimizerUtility.toggleArrayChecks(targets, false);
-                        }
+                        CheckAllCheckboxes();
+                        UncheckAllCheckboxes();
                     }
                 }
                 if (fbxFiles != null)
@@ -110,6 +99,31 @@ namespace kesera2.FBXOptionsManager
                         }
                     }
                 }
+            }
+        }
+
+        private void UncheckAllCheckboxes()
+        {
+            if (GUILayout.Button("全てのチェックを外す"))
+            {
+                Utility.toggleArrayChecks(targets, false);
+            }
+        }
+
+        private void CheckAllCheckboxes()
+        {
+            if (GUILayout.Button("全てにチェックを入れる"))
+            {
+                Utility.toggleArrayChecks(targets, true);
+            }
+        }
+
+        private void containsAllFbx()
+        {
+            processAllFBXFiles = EditorGUILayout.ToggleLeft("全てを対象にする", processAllFBXFiles);
+            if (processAllFBXFiles)
+            {
+                Utility.toggleArrayChecks(targets, true);
             }
         }
 
@@ -205,24 +219,14 @@ namespace kesera2.FBXOptionsManager
 
 #if UNITY_2019_4_31
             // Assetsからの相対パスを取得
-            string relativePath = folderPath.Substring(folderPath.IndexOf("Assets/"));
-            Debug.Log(relativePath);
+            relativePath = folderPath.Substring(folderPath.IndexOf("Assets/"));
 #elif UNITY_2019_4_OR_NEWER
-            string relativePath = Path.GetRelativePath(projectPath, folderPath);
+            relativePath = Path.GetRelativePath(projectPath, folderPath);
 #endif
-            fbxFiles = GetFBXFiles(relativePath);
+            fbxFiles = Utility.GetFBXFiles(relativePath);
         }
 
-        private List<string> GetFBXFiles(string folderPath)
-        {
-            List<string> fbxFiles = new List<string>();
-            string[] files = Directory.GetFiles(folderPath, "*.fbx", SearchOption.AllDirectories);
-            foreach (string file in files)
-            {
-                fbxFiles.Add(file);
-            }
-            return fbxFiles;
-        }
+
 
         private PropertyInfo getLegacyBlendShapeNomalsProp(ModelImporter modelImporter)
         {
