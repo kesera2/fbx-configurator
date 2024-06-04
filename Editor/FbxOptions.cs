@@ -1,4 +1,7 @@
 ﻿// TODO: TOOLBARが冗長、List<Option<T>>でCommon, Additional x3にまとめる。foreachで回す
+// 上無理
+// TODO: すべてDISABLEだったらメッセージを出す
+// ALL DISABLE ENABLE BUTTON
 using System;
 using System.Reflection;
 using UnityEditor;
@@ -62,16 +65,14 @@ namespace kesera2.FBXOptionsManager
         private Option<bool> _weldVertices = new Option<bool>(true, (int)TOOLBAR.DISABLE, "Weld Vertices");
         private Option<ModelImporterIndexFormat> _indexFormat = new Option<ModelImporterIndexFormat>(
             ModelImporterIndexFormat.Auto, (int)TOOLBAR.DISABLE, "Index Format");
-
         private Option<ModelImporterNormalCalculationMode> _normalsMode = new Option<ModelImporterNormalCalculationMode>(
             ModelImporterNormalCalculationMode.Unweighted_Legacy, (int)TOOLBAR.DISABLE, "Normals Mode");
 
-        //private Option<ModelImporterNormalSmoothingSource> _smoothnessSource = new Option<ModelImporterNormalSmoothingSource>(
-        //    ModelImporterNormalSmoothingSource.PreferSmoothingGroups, (int)TOOLBAR.DISABLE, "");
-        //private ModelImporterNormalSmoothingSource smoothnessSource = ModelImporterNormalSmoothingSource.PreferSmoothingGroups;
+        private Option<ModelImporterNormalSmoothingSource> _smoothnessSource = new Option<ModelImporterNormalSmoothingSource>(
+            ModelImporterNormalSmoothingSource.PreferSmoothingGroups, (int)TOOLBAR.DISABLE, "");
         [Range(0, 180)]
-        Option<float> _smoothingAngle = new Option<float>(60, (int)TOOLBAR.DISABLE, "Smoothing Angle");
-        Option<ModelImporterTangents> _tangents = new Option<ModelImporterTangents>(
+        private Option<float> _smoothingAngle = new Option<float>(60, (int)TOOLBAR.DISABLE, "Smoothing Angle");
+        private Option<ModelImporterTangents> _tangents = new Option<ModelImporterTangents>(
             ModelImporterTangents.CalculateMikk, (int)TOOLBAR.DISABLE, "Tangents");
         private Option<bool> _swapUvs = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Swap Uvs");
         private Option<bool> _generateLightmapUvs = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Generate Lightmap UVs");
@@ -258,7 +259,7 @@ namespace kesera2.FBXOptionsManager
                     }
                     using (new EditorGUI.DisabledScope(_indexFormat.ToolbarEnable == (int)TOOLBAR.DISABLE))
                     {
-                        //_indexFormat = (ModelImporterIndexFormat)EditorGUILayout.EnumPopup(_indexFormat.Label, _indexFormat.Value);
+                        _indexFormat.Value = (ModelImporterIndexFormat)EditorGUILayout.EnumPopup(_indexFormat.Label, _indexFormat.Value);
                     }
                     using (new EditorGUI.DisabledScope(_normalsMode.ToolbarEnable == (int)TOOLBAR.DISABLE))
                     {
@@ -290,7 +291,7 @@ namespace kesera2.FBXOptionsManager
                 {
                     _keepQuads.ToolbarEnable = drawToggleEnableToolbar(_keepQuads.ToolbarEnable);
                     _weldVertices.ToolbarEnable = drawToggleEnableToolbar(_weldVertices.ToolbarEnable);
-                    //_indexFormat.ToolbarEnable = drawToggleEnableToolbar(_indexFormat.ToolbarEnable);
+                    _indexFormat.ToolbarEnable = drawToggleEnableToolbar(_indexFormat.ToolbarEnable);
                     _normalsMode.ToolbarEnable = drawToggleEnableToolbar(_normalsMode.ToolbarEnable);
                     _smoothingAngle.ToolbarEnable = drawToggleEnableToolbar(_smoothingAngle.ToolbarEnable);
                     _tangents.ToolbarEnable = drawToggleEnableToolbar(_tangents.ToolbarEnable);
@@ -311,7 +312,7 @@ namespace kesera2.FBXOptionsManager
             PropertyInfo prop = GetLegacyBlendShapeNomalsProp(modelImporter);
             if (prop != null)
             {
-                prop.SetValue(modelImporter, _legacyBlendShapeNomals);
+                prop.SetValue(modelImporter, _legacyBlendShapeNomals.Value);
             }
         }
 
@@ -325,7 +326,141 @@ namespace kesera2.FBXOptionsManager
 
         internal void execute(ModelImporter modelImporter)
         {
-            throw new NotImplementedException();
+            if (_importCameras.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.importCameras = _importCameras.Value;
+            }
+
+            if (_importLights.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.importLights = _importLights.Value;
+            }
+
+            if (_isReadable.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.isReadable = _isReadable.Value;
+            }
+
+            if (_importNormals.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.importNormals = _importNormals.Value;
+            }
+
+            if (_importBlendShapeNormals.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.importBlendShapeNormals = _importBlendShapeNormals.Value;
+            }
+
+            if (_legacyBlendShapeNomals.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                ChangeLegacyBlendShapeNomals(modelImporter);
+            }
+
+            if (_scaleFactor.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.globalScale = _scaleFactor.Value;
+            }
+
+            if (_convertUnits.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.useFileUnits = _convertUnits.Value;
+            }
+
+            if (_bakeAxisConversion.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.bakeAxisConversion = _bakeAxisConversion.Value;
+            }
+
+            if (_importBlendShapes.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.importBlendShapes = _importBlendShapes.Value;
+            }
+
+            if (_importDeformPercent.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.importBlendShapeDeformPercent = _importDeformPercent.Value;
+            }
+
+            if (_importVisibility.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.importVisibility = _importVisibility.Value;
+            }
+
+            if (_preserveHierarchy.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.preserveHierarchy = _preserveHierarchy.Value;
+            }
+
+            if (_sortHierarchyByName.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.sortHierarchyByName = _sortHierarchyByName.Value;
+            }
+
+            if (_meshCompression.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.meshCompression = _meshCompression.Value;
+            }
+
+            if (_optimizeMesh.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.meshOptimizationFlags = _optimizeMesh.Value;
+            }
+
+            if (_generateColliders.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.addCollider = _generateColliders.Value;
+            }
+
+            if (_keepQuads.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.keepQuads = _keepQuads.Value;
+            }
+
+            if (_weldVertices.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.weldVertices = _weldVertices.Value;
+            }
+
+            if (_indexFormat.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.indexFormat = _indexFormat.Value;
+            }
+
+            if (_normalsMode.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.normalCalculationMode = _normalsMode.Value;
+            }
+
+            if (_smoothnessSource.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.normalSmoothingSource = _smoothnessSource.Value;
+            }
+
+            if (_smoothingAngle.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.normalSmoothingAngle = _smoothingAngle.Value;
+            }
+
+            if (_tangents.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.importTangents = _tangents.Value;
+            }
+
+            if (_swapUvs.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.swapUVChannels = _swapUvs.Value;
+            }
+
+            if (_generateLightmapUvs.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.generateSecondaryUV = _generateLightmapUvs.Value;
+            }
+
+            if (_strictVertexDataChecks.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            {
+                modelImporter.strictVertexDataChecks = _strictVertexDataChecks.Value;
+            }
+
         }
     }
 }
