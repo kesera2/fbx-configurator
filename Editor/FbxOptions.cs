@@ -3,19 +3,13 @@ using System;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using static kesera2.FBXOptionsManager.Toolbar;
 
 namespace kesera2.FBXOptionsManager
 {
 
     public class FbxOptions
     {
-        internal enum TOOLBAR : byte
-        {
-            ENABLE,
-            DISABLE
-        }
-        private int toolbarSelected = 0;
-        private static string[] TOOLBAR_LABLE = { "Enable", "Disable" };
         // common
         private Option<bool> _importCameras = new Option<bool>(
             false,
