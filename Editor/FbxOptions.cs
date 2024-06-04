@@ -329,29 +329,9 @@ namespace kesera2.FBXOptionsManager
 
         }
 
-        internal void ChangeImportCameras(ModelImporter modelImporter)
+        internal void execute(ModelImporter modelImporter)
         {
-            modelImporter.importCameras = _importCameras.Value;
-        }
-
-        internal void ChangeImportLights(ModelImporter modelImporter)
-        {
-            modelImporter.importLights = _importLights.Value;
-        }
-
-        internal void ChangeIsReadable(ModelImporter modelImporter)
-        {
-            modelImporter.isReadable = _isReadable.Value;
-        }
-
-        internal void ChangeImportNormals(ModelImporter modelImporter)
-        {
-            modelImporter.importNormals = _importNormals.Value;
-        }
-
-        internal void ChangeImportBlendShapeNormals(ModelImporter modelImporter)
-        {
-            modelImporter.importBlendShapeNormals = _importBlendShapeNormals.Value;
+            throw new NotImplementedException();
         }
     }
 }
