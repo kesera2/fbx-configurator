@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -82,28 +83,52 @@ namespace kesera2.FBXOptionsManager
             StrictVertexDataChecks = EditorGUILayout.Toggle(Utility.ToLabelName(nameof(StrictVertexDataChecks)), StrictVertexDataChecks);
         }
 
-        public PropertyInfo getLegacyBlendShapeNomalsProp(ModelImporter modelImporter)
+        public PropertyInfo GetLegacyBlendShapeNomalsProp(ModelImporter modelImporter)
         {
             return modelImporter.GetType().GetProperty("legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
         }
 
-        public void setLegacyBlendShapeNomals(ModelImporter modelImporter, bool legacyBlendShapeNomals)
+        public void ChangeLegacyBlendShapeNomals(ModelImporter modelImporter)
         {
-            PropertyInfo prop = getLegacyBlendShapeNomalsProp(modelImporter);
+            PropertyInfo prop = GetLegacyBlendShapeNomalsProp(modelImporter);
             if (prop != null)
             {
                 prop.SetValue(modelImporter, legacyBlendShapeNomals);
             }
         }
 
-        public bool getLegacyBlendShapeNomals(ModelImporter modelImporter)
+        public bool GetLegacyBlendShapeNomals(ModelImporter modelImporter)
         {
-            PropertyInfo prop = getLegacyBlendShapeNomalsProp(modelImporter);
+            PropertyInfo prop = GetLegacyBlendShapeNomalsProp(modelImporter);
             bool value = (bool)prop.GetValue(modelImporter);
             return value;
 
         }
 
+        internal void ChangeImportCameras(ModelImporter modelImporter)
+        {
+            modelImporter.importCameras = importCameras;
+        }
+
+        internal void ChangeImportLights(ModelImporter modelImporter)
+        {
+            modelImporter.importLights = importLights;
+        }
+
+        internal void ChangeIsReadable(ModelImporter modelImporter)
+        {
+            modelImporter.isReadable = isReadable;
+        }
+
+        internal void ChangeImportNormals(ModelImporter modelImporter)
+        {
+            modelImporter.importNormals = importNormals;
+        }
+
+        internal void ChangeImportBlendShapeNormals(ModelImporter modelImporter)
+        {
+            modelImporter.importBlendShapeNormals = importBlendShapeNormals;
+        }
 
         public float ScaleFactor { get => scaleFactor; set => scaleFactor = value; }
         public bool ConvertUnits { get => convertUnits; set => convertUnits = value; }

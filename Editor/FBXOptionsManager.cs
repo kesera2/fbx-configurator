@@ -159,12 +159,12 @@ namespace kesera2.FBXOptionsManager
                         ModelImporter modelImporter = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
                         if (modelImporter != null)
                         {
-                            modelImporter.importCameras = options.ImportCameras;
-                            modelImporter.importLights = options.ImportLights;
-                            modelImporter.isReadable = options.IsReadable;
-                            modelImporter.importNormals = options.ImportNormals;
-                            modelImporter.importBlendShapeNormals = options.ImportBlendShapeNormals;
-                            options.setLegacyBlendShapeNomals(modelImporter, options.LegacyBlendShapeNomals);
+                            options.ChangeImportCameras(modelImporter);
+                            options.ChangeImportLights(modelImporter);
+                            options.ChangeIsReadable(modelImporter);
+                            options.ChangeImportNormals(modelImporter);
+                            options.ChangeImportBlendShapeNormals(modelImporter);
+                            options.ChangeLegacyBlendShapeNomals(modelImporter);
                             //modelImporter.SaveAndReimport();
                             //AssetDatabase.SaveAssets();
                             Debug.Log($"{fbxFile}のオプションを変更しました。");
@@ -278,8 +278,8 @@ namespace kesera2.FBXOptionsManager
                         Debug.Log(folderPath + fbxFile + " isReadable " + model.isReadable);
                         Debug.Log(folderPath + fbxFile + " importNormals " + model.importNormals);
                         Debug.Log(folderPath + fbxFile + " importBlendShapeNormals " + model.importBlendShapeNormals);
-                        Debug.Log(folderPath + fbxFile + " LegacyBlendShapeNomals " + options.getLegacyBlendShapeNomals(model));
-                        options.getLegacyBlendShapeNomals(model);
+                        Debug.Log(folderPath + fbxFile + " LegacyBlendShapeNomals " + options.GetLegacyBlendShapeNomals(model));
+                        options.GetLegacyBlendShapeNomals(model);
                     }
                 }
             }
