@@ -161,12 +161,7 @@ namespace kesera2.FBXOptionsManager
                         ModelImporter modelImporter = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
                         if (modelImporter != null)
                         {
-                            options.ChangeImportCameras(modelImporter);
-                            options.ChangeImportLights(modelImporter);
-                            options.ChangeIsReadable(modelImporter);
-                            options.ChangeImportNormals(modelImporter);
-                            options.ChangeImportBlendShapeNormals(modelImporter);
-                            options.ChangeLegacyBlendShapeNomals(modelImporter);
+                            options.execute(modelImporter);
                             //modelImporter.SaveAndReimport();
                             //AssetDatabase.SaveAssets();
                             Debug.Log($"{fbxFile}のオプションを変更しました。");
