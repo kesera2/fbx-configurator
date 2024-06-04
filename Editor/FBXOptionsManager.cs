@@ -23,6 +23,8 @@ namespace kesera2.FBXOptionsManager
         FbxOptions options = new FbxOptions();
 
         internal bool[] targets = { };
+        private int WINDOW_WIDTH = 500;
+        private int WINDOW_HEIGHT = 150;
 
         [MenuItem("Tools/" + TOOL_NAME)]
         public static void ShowWindow()
@@ -46,7 +48,7 @@ namespace kesera2.FBXOptionsManager
 
         private void setWindowSize()
         {
-            Vector2 vector = new Vector2(400, 150);
+            Vector2 vector = new Vector2(WINDOW_WIDTH, WINDOW_HEIGHT);
             this.minSize = vector;
         }
 
@@ -205,27 +207,7 @@ namespace kesera2.FBXOptionsManager
             additionalOptionFoldOut = EditorGUILayout.Foldout(additionalOptionFoldOut, "Additional Options");
             if (additionalOptionFoldOut)
             {
-                using (new EditorGUILayout.VerticalScope())
-                {
-                    using (new EditorGUI.IndentLevelScope())
-                    {
-                        EditorGUILayout.LabelField("Scene", EditorStyles.boldLabel);
-                        using (new EditorGUI.IndentLevelScope())
-                        {
-                            options.showAdditoinalSceneOptions();
-                        }
-                        EditorGUILayout.LabelField("Mesh", EditorStyles.boldLabel);
-                        using (new EditorGUI.IndentLevelScope())
-                        {
-                            options.showAddtionalMeshOptions();
-                        }
-                        EditorGUILayout.LabelField("Geometory", EditorStyles.boldLabel);
-                        using (new EditorGUI.IndentLevelScope())
-                        {
-                            options.showAddtionalGeometoryOptions();
-                        }
-                    }
-                }
+                options.showAdditionalOption();
             }
         }
 
