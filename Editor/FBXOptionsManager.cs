@@ -149,8 +149,13 @@ namespace kesera2.FBXOptionsManager
 
                 if (GUILayout.Button("実行"))
                 {
-                    foreach (string fbxFile in fbxFiles)
+                    for (int i = 0; i < fbxFiles.Count; i++)
                     {
+                        if (!targets[i])
+                        {
+                            continue;
+                        }
+                        string fbxFile = fbxFiles[i].ToString();
                         ModelImporter modelImporter = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
                         if (modelImporter != null)
                         {
@@ -256,19 +261,24 @@ namespace kesera2.FBXOptionsManager
             if (GUILayout.Button("Debug"))
             {
                 Debug.Log($"対象ファイル数: {fbxFiles.Count}");
-                foreach (string fbx in fbxFiles)
+                for (int i = 0; i < fbxFiles.Count; i++)
                 {
-                    string folderPath = Path.GetDirectoryName(fbx);
-                    ModelImporter model = AssetImporter.GetAtPath(fbx) as ModelImporter;
-                    Debug.Log("model is null : " + model == null + ", file path : " + fbx);
+                    if (!targets[i])
+                    {
+                        continue;
+                    }
+                    string fbxFile = fbxFiles[i].ToString();
+                    string folderPath = Path.GetDirectoryName(fbxFile);
+                    ModelImporter model = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
+                    Debug.Log("model is null : " + model == null + ", file path : " + fbxFile);
                     if (model != null)
                     {
-                        Debug.Log(folderPath + fbx + " importCameras " + model.importCameras);
-                        Debug.Log(folderPath + fbx + " importLights " + model.importLights);
-                        Debug.Log(folderPath + fbx + " isReadable " + model.isReadable);
-                        Debug.Log(folderPath + fbx + " importNormals " + model.importNormals);
-                        Debug.Log(folderPath + fbx + " importBlendShapeNormals " + model.importBlendShapeNormals);
-                        Debug.Log(folderPath + fbx + " LegacyBlendShapeNomals " + options.getLegacyBlendShapeNomals(model));
+                        Debug.Log(folderPath + fbxFile + " importCameras " + model.importCameras);
+                        Debug.Log(folderPath + fbxFile + " importLights " + model.importLights);
+                        Debug.Log(folderPath + fbxFile + " isReadable " + model.isReadable);
+                        Debug.Log(folderPath + fbxFile + " importNormals " + model.importNormals);
+                        Debug.Log(folderPath + fbxFile + " importBlendShapeNormals " + model.importBlendShapeNormals);
+                        Debug.Log(folderPath + fbxFile + " LegacyBlendShapeNomals " + options.getLegacyBlendShapeNomals(model));
                         options.getLegacyBlendShapeNomals(model);
                     }
                 }
