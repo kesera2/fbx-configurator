@@ -79,7 +79,8 @@ namespace kesera2.FBXOptionsManager
         private Option<bool> _strictVertexDataChecks = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Strict Vertext Data Checks");
 
         private const int OPTION_WIDTH = 350;
-
+        private const float INTERVAL_WIDTH = 10;
+        private GUILayoutOption[] optionsWidth = { GUILayout.Width(OPTION_WIDTH) };
         // Enable/Disableを切り替える共通部品
         private int drawToggleEnableToolbar(int currentSelection)
         {
@@ -116,176 +117,259 @@ namespace kesera2.FBXOptionsManager
         private void showSceneOptions()
         {
             GUILayoutOption[] verticalOptions = { GUILayout.Width(OPTION_WIDTH) };
+
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUILayout.VerticalScope(verticalOptions))
+                using (new EditorGUI.DisabledScope(_scaleFactor.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
-                    using (new EditorGUI.DisabledScope(_scaleFactor.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _scaleFactor.Value = EditorGUILayout.FloatField(_scaleFactor.Label, _scaleFactor.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_convertUnits.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _convertUnits.Value = EditorGUILayout.Toggle(_convertUnits.Label, _convertUnits.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_bakeAxisConversion.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _bakeAxisConversion.Value = EditorGUILayout.Toggle(_bakeAxisConversion.Label, _bakeAxisConversion.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_importBlendShapes.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _importBlendShapes.Value = EditorGUILayout.Toggle(_importBlendShapes.Label, _importBlendShapes.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_importDeformPercent.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _importDeformPercent.Value = EditorGUILayout.Toggle(_importDeformPercent.Label, _importDeformPercent.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_importVisibility.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _importVisibility.Value = EditorGUILayout.Toggle(_importVisibility.Label, _importVisibility.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_importCameras.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _importCameras.Value = EditorGUILayout.Toggle(new GUIContent(_importCameras.Label, _importCameras.Tooltip), _importCameras.Value); ;
-                    }
-                    using (new EditorGUI.DisabledScope(_importLights.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _importLights.Value = EditorGUILayout.Toggle(_importLights.Label, _importLights.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_preserveHierarchy.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _preserveHierarchy.Value = EditorGUILayout.Toggle(_preserveHierarchy.Label, _preserveHierarchy.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_sortHierarchyByName.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _sortHierarchyByName.Value = EditorGUILayout.Toggle(_sortHierarchyByName.Label, _sortHierarchyByName.Value);
-                    }
+                    _scaleFactor.Value = EditorGUILayout.FloatField(_scaleFactor.Label, _scaleFactor.Value, optionsWidth);
                 }
-                GUILayout.Space(10);
-                using (new EditorGUILayout.VerticalScope())
+                GUILayout.Space(INTERVAL_WIDTH);
+                _scaleFactor.ToolbarEnable = drawToggleEnableToolbar(_scaleFactor.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_convertUnits.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
-                    _scaleFactor.ToolbarEnable = drawToggleEnableToolbar(_scaleFactor.ToolbarEnable);
-                    _convertUnits.ToolbarEnable = drawToggleEnableToolbar(_convertUnits.ToolbarEnable);
-                    _bakeAxisConversion.ToolbarEnable = drawToggleEnableToolbar(_bakeAxisConversion.ToolbarEnable);
-                    _importBlendShapes.ToolbarEnable = drawToggleEnableToolbar(_importBlendShapes.ToolbarEnable);
-                    _importDeformPercent.ToolbarEnable = drawToggleEnableToolbar(_importDeformPercent.ToolbarEnable);
-                    _importVisibility.ToolbarEnable = drawToggleEnableToolbar(_importVisibility.ToolbarEnable);
-                    _importCameras.ToolbarEnable = drawToggleEnableToolbar(_importCameras.ToolbarEnable);
-                    _importLights.ToolbarEnable = drawToggleEnableToolbar(_importLights.ToolbarEnable);
-                    _preserveHierarchy.ToolbarEnable = drawToggleEnableToolbar(_preserveHierarchy.ToolbarEnable);
-                    _sortHierarchyByName.ToolbarEnable = drawToggleEnableToolbar(_sortHierarchyByName.ToolbarEnable);
+                    _convertUnits.Value = EditorGUILayout.Toggle(_convertUnits.Label, _convertUnits.Value, optionsWidth);
                 }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _convertUnits.ToolbarEnable = drawToggleEnableToolbar(_convertUnits.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_bakeAxisConversion.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _bakeAxisConversion.Value = EditorGUILayout.Toggle(_bakeAxisConversion.Label, _bakeAxisConversion.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _bakeAxisConversion.ToolbarEnable = drawToggleEnableToolbar(_bakeAxisConversion.ToolbarEnable);
+
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_importBlendShapes.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _importBlendShapes.Value = EditorGUILayout.Toggle(_importBlendShapes.Label, _importBlendShapes.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _importBlendShapes.ToolbarEnable = drawToggleEnableToolbar(_importBlendShapes.ToolbarEnable);
+
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_importDeformPercent.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _importDeformPercent.Value = EditorGUILayout.Toggle(_importDeformPercent.Label, _importDeformPercent.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _importDeformPercent.ToolbarEnable = drawToggleEnableToolbar(_importDeformPercent.ToolbarEnable);
+
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_importVisibility.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _importVisibility.Value = EditorGUILayout.Toggle(_importVisibility.Label, _importVisibility.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _importVisibility.ToolbarEnable = drawToggleEnableToolbar(_importVisibility.ToolbarEnable);
+
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_importCameras.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _importCameras.Value = EditorGUILayout.Toggle(new GUIContent(_importCameras.Label, _importCameras.Tooltip), _importCameras.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _importCameras.ToolbarEnable = drawToggleEnableToolbar(_importCameras.ToolbarEnable);
+
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_importLights.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _importLights.Value = EditorGUILayout.Toggle(_importLights.Label, _importLights.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _importLights.ToolbarEnable = drawToggleEnableToolbar(_importLights.ToolbarEnable);
+
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_preserveHierarchy.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _preserveHierarchy.Value = EditorGUILayout.Toggle(_preserveHierarchy.Label, _preserveHierarchy.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _preserveHierarchy.ToolbarEnable = drawToggleEnableToolbar(_preserveHierarchy.ToolbarEnable);
+
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_sortHierarchyByName.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _sortHierarchyByName.Value = EditorGUILayout.Toggle(_sortHierarchyByName.Label, _sortHierarchyByName.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _sortHierarchyByName.ToolbarEnable = drawToggleEnableToolbar(_sortHierarchyByName.ToolbarEnable);
             }
         }
 
         private void showMeshOptions()
         {
-            GUILayoutOption[] verticalOptions = { GUILayout.Width(OPTION_WIDTH) };
+
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUILayout.VerticalScope(verticalOptions))
+                using (new EditorGUI.DisabledScope(_meshCompression.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
-                    using (new EditorGUI.DisabledScope(_meshCompression.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _meshCompression.Value = (ModelImporterMeshCompression)EditorGUILayout.EnumPopup(_meshCompression.Label, _meshCompression.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_isReadable.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _isReadable.Value = EditorGUILayout.Toggle(_isReadable.Label, _isReadable.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_optimizeMesh.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _optimizeMesh.Value = (MeshOptimizationFlags)EditorGUILayout.EnumPopup(_optimizeMesh.Label, _optimizeMesh.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_generateColliders.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _generateColliders.Value = EditorGUILayout.Toggle(_generateColliders.Label, _generateColliders.Value);
-                    }
+                    _meshCompression.Value = (ModelImporterMeshCompression)EditorGUILayout.EnumPopup(_meshCompression.Label, _meshCompression.Value, optionsWidth);
                 }
-                GUILayout.Space(10);
-                using (new EditorGUILayout.VerticalScope())
+                GUILayout.Space(INTERVAL_WIDTH);
+                _meshCompression.ToolbarEnable = drawToggleEnableToolbar(_meshCompression.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_isReadable.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
-                    _meshCompression.ToolbarEnable = drawToggleEnableToolbar(_meshCompression.ToolbarEnable);
-                    _isReadable.ToolbarEnable = drawToggleEnableToolbar(_isReadable.ToolbarEnable);
-                    _optimizeMesh.ToolbarEnable = drawToggleEnableToolbar(_optimizeMesh.ToolbarEnable);
-                    _generateColliders.ToolbarEnable = drawToggleEnableToolbar(_generateColliders.ToolbarEnable);
-
+                    _isReadable.Value = EditorGUILayout.Toggle(_isReadable.Label, _isReadable.Value, optionsWidth);
                 }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _isReadable.ToolbarEnable = drawToggleEnableToolbar(_isReadable.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_optimizeMesh.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _optimizeMesh.Value = (MeshOptimizationFlags)EditorGUILayout.EnumPopup(_optimizeMesh.Label, _optimizeMesh.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _optimizeMesh.ToolbarEnable = drawToggleEnableToolbar(_optimizeMesh.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_generateColliders.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _generateColliders.Value = EditorGUILayout.Toggle(_generateColliders.Label, _generateColliders.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _generateColliders.ToolbarEnable = drawToggleEnableToolbar(_generateColliders.ToolbarEnable);
             }
         }
 
         private void showGeometoryOptions()
         {
             GUILayoutOption[] verticalOptions = { GUILayout.Width(350) };
+
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUILayout.VerticalScope(verticalOptions))
+                using (new EditorGUI.DisabledScope(_keepQuads.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
-                    using (new EditorGUI.DisabledScope(_keepQuads.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _keepQuads.Value = EditorGUILayout.Toggle(_keepQuads.Label, _keepQuads.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_weldVertices.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _weldVertices.Value = EditorGUILayout.Toggle(_weldVertices.Label, _weldVertices.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_indexFormat.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _indexFormat.Value = (ModelImporterIndexFormat)EditorGUILayout.EnumPopup(_indexFormat.Label, _indexFormat.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_legacyBlendShapeNomals.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _legacyBlendShapeNomals.Value = EditorGUILayout.Toggle(_legacyBlendShapeNomals.Label, _legacyBlendShapeNomals.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_importNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _importNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importNormals.Label, _importNormals.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_importBlendShapeNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _importBlendShapeNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importBlendShapeNormals.Label, _importBlendShapeNormals.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_normalsMode.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _normalsMode.Value = (ModelImporterNormalCalculationMode)EditorGUILayout.EnumPopup(_normalsMode.Label, _normalsMode.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_smoothingAngle.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _smoothingAngle.Value = EditorGUILayout.Slider(_smoothingAngle.Label, _smoothingAngle.Value, 0, 180);
-                    }
-                    using (new EditorGUI.DisabledScope(_tangents.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _tangents.Value = (ModelImporterTangents)EditorGUILayout.EnumPopup(_tangents.Label, _tangents.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_swapUvs.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _swapUvs.Value = EditorGUILayout.Toggle(_swapUvs.Label, _swapUvs.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_generateLightmapUvs.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _generateLightmapUvs.Value = EditorGUILayout.Toggle(_generateLightmapUvs.Label, _generateLightmapUvs.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_strictVertexDataChecks.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _strictVertexDataChecks.Value = EditorGUILayout.Toggle(_strictVertexDataChecks.Label, _strictVertexDataChecks.Value);
-                    }
+                    _keepQuads.Value = EditorGUILayout.Toggle(_keepQuads.Label, _keepQuads.Value, optionsWidth);
                 }
-                GUILayout.Space(10);
-                using (new EditorGUILayout.VerticalScope())
+                GUILayout.Space(INTERVAL_WIDTH);
+                _keepQuads.ToolbarEnable = drawToggleEnableToolbar(_keepQuads.ToolbarEnable);
+
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_weldVertices.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
-                    _keepQuads.ToolbarEnable = drawToggleEnableToolbar(_keepQuads.ToolbarEnable);
-                    _weldVertices.ToolbarEnable = drawToggleEnableToolbar(_weldVertices.ToolbarEnable);
-                    _indexFormat.ToolbarEnable = drawToggleEnableToolbar(_indexFormat.ToolbarEnable);
-                    _legacyBlendShapeNomals.ToolbarEnable = drawToggleEnableToolbar(_legacyBlendShapeNomals.ToolbarEnable);
-                    _importNormals.ToolbarEnable = drawToggleEnableToolbar(_importNormals.ToolbarEnable);
-                    _importBlendShapeNormals.ToolbarEnable = drawToggleEnableToolbar(_importBlendShapeNormals.ToolbarEnable);
-                    _normalsMode.ToolbarEnable = drawToggleEnableToolbar(_normalsMode.ToolbarEnable);
-                    _smoothingAngle.ToolbarEnable = drawToggleEnableToolbar(_smoothingAngle.ToolbarEnable);
-                    _tangents.ToolbarEnable = drawToggleEnableToolbar(_tangents.ToolbarEnable);
-                    _swapUvs.ToolbarEnable = drawToggleEnableToolbar(_swapUvs.ToolbarEnable);
-                    _generateLightmapUvs.ToolbarEnable = drawToggleEnableToolbar(_generateLightmapUvs.ToolbarEnable);
-                    _strictVertexDataChecks.ToolbarEnable = drawToggleEnableToolbar(_strictVertexDataChecks.ToolbarEnable);
+                    _weldVertices.Value = EditorGUILayout.Toggle(_weldVertices.Label, _weldVertices.Value, optionsWidth);
                 }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _weldVertices.ToolbarEnable = drawToggleEnableToolbar(_weldVertices.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_indexFormat.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _indexFormat.Value = (ModelImporterIndexFormat)EditorGUILayout.EnumPopup(_indexFormat.Label, _indexFormat.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _indexFormat.ToolbarEnable = drawToggleEnableToolbar(_indexFormat.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_legacyBlendShapeNomals.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _legacyBlendShapeNomals.Value = EditorGUILayout.Toggle(_legacyBlendShapeNomals.Label, _legacyBlendShapeNomals.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _legacyBlendShapeNomals.ToolbarEnable = drawToggleEnableToolbar(_legacyBlendShapeNomals.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_importNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _importNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importNormals.Label, _importNormals.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _importNormals.ToolbarEnable = drawToggleEnableToolbar(_importNormals.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_importBlendShapeNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _importBlendShapeNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importBlendShapeNormals.Label, _importBlendShapeNormals.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _importBlendShapeNormals.ToolbarEnable = drawToggleEnableToolbar(_importBlendShapeNormals.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_normalsMode.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _normalsMode.Value = (ModelImporterNormalCalculationMode)EditorGUILayout.EnumPopup(_normalsMode.Label, _normalsMode.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _normalsMode.ToolbarEnable = drawToggleEnableToolbar(_normalsMode.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_smoothingAngle.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _smoothingAngle.Value = EditorGUILayout.Slider(_smoothingAngle.Label, _smoothingAngle.Value, 0, 180, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _smoothingAngle.ToolbarEnable = drawToggleEnableToolbar(_smoothingAngle.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_tangents.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _tangents.Value = (ModelImporterTangents)EditorGUILayout.EnumPopup(_tangents.Label, _tangents.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _tangents.ToolbarEnable = drawToggleEnableToolbar(_tangents.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_swapUvs.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _swapUvs.Value = EditorGUILayout.Toggle(_swapUvs.Label, _swapUvs.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _swapUvs.ToolbarEnable = drawToggleEnableToolbar(_swapUvs.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_generateLightmapUvs.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _generateLightmapUvs.Value = EditorGUILayout.Toggle(_generateLightmapUvs.Label, _generateLightmapUvs.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _generateLightmapUvs.ToolbarEnable = drawToggleEnableToolbar(_generateLightmapUvs.ToolbarEnable);
+            }
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(_strictVertexDataChecks.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                {
+                    _strictVertexDataChecks.Value = EditorGUILayout.Toggle(_strictVertexDataChecks.Label, _strictVertexDataChecks.Value, optionsWidth);
+                }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _strictVertexDataChecks.ToolbarEnable = drawToggleEnableToolbar(_strictVertexDataChecks.ToolbarEnable);
             }
         }
 
