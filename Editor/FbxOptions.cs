@@ -2,7 +2,6 @@
 // 上無理
 // TODO: すべてDISABLEだったらメッセージを出す
 // ALL DISABLE ENABLE BUTTON
-using System;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -13,70 +12,33 @@ namespace kesera2.FBXOptionsManager
 
     public class FbxOptions
     {
-        // common
-        private Option<bool> _importCameras = new Option<bool>(
-            false,
-            (int)TOOLBAR.ENABLE,
-            "Import Cameras",
-            "これを有効にすると.FBXファイルからカメラをインポートできます。"
-            );
-        private Option<bool> _importLights = new Option<bool>(
-            false,
-            (int)TOOLBAR.ENABLE,
-            "Import Lights"
-            );
-        private Option<bool> _isReadable = new Option<bool>(
-            true,
-            (int)TOOLBAR.ENABLE,
-            "Read/Write"
-            );
-        private Option<ModelImporterNormals> _importNormals = new Option<ModelImporterNormals>(
-            ModelImporterNormals.Import,
-            (int)TOOLBAR.ENABLE,
-            "Nomals"
-            );
-        private Option<ModelImporterNormals> _importBlendShapeNormals = new Option<ModelImporterNormals>(
-            ModelImporterNormals.None,
-            (int)TOOLBAR.ENABLE,
-            "Blend Shape Nomals"
-            );
-        private Option<bool> _legacyBlendShapeNomals = new Option<bool>(
-            false,
-            (int)TOOLBAR.ENABLE,
-            "Legacy BlendShape Nomals"
-            );
-        // Scenes
-        private Option<float> _scaleFactor = new Option<float>(1.0f, (int)TOOLBAR.DISABLE, "Scale Factor");
-        private Option<bool> _convertUnits = new Option<bool>(true, 1, "Convert Units(Unsupported)", "このオプションは現在対応しておりません。");
-        private Option<bool> _bakeAxisConversion = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Bake Axis Conversion");
-        private Option<bool> _importBlendShapes = new Option<bool>(true, (int)TOOLBAR.DISABLE, "Import Blend Shapes");
-        private Option<bool> _importDeformPercent = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Import Deform Percent");
-        private Option<bool> _importVisibility = new Option<bool>(true, (int)TOOLBAR.DISABLE, "Import Visibility");
-        private Option<bool> _preserveHierarchy = new Option<bool>(true, (int)TOOLBAR.DISABLE, "Preserve Hierarchy");
-        private Option<bool> _sortHierarchyByName = new Option<bool>(true, (int)TOOLBAR.DISABLE, "Sort Hierarchy ByName");
-        // Meshes
-        private Option<ModelImporterMeshCompression> _meshCompression = new Option<ModelImporterMeshCompression>(
-            ModelImporterMeshCompression.Off, (int)TOOLBAR.DISABLE, "Mesh Compression");
-        private Option<MeshOptimizationFlags> _optimizeMesh = new Option<MeshOptimizationFlags>(
-            MeshOptimizationFlags.Everything, (int)TOOLBAR.DISABLE, "Optimize Mesh");
-        private Option<bool> _generateColliders = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Generate Colliders");
-        // Germetory
-        private Option<bool> _keepQuads = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Keep Quads");
-        private Option<bool> _weldVertices = new Option<bool>(true, (int)TOOLBAR.DISABLE, "Weld Vertices");
-        private Option<ModelImporterIndexFormat> _indexFormat = new Option<ModelImporterIndexFormat>(
-            ModelImporterIndexFormat.Auto, (int)TOOLBAR.DISABLE, "Index Format");
-        private Option<ModelImporterNormalCalculationMode> _normalsMode = new Option<ModelImporterNormalCalculationMode>(
-            ModelImporterNormalCalculationMode.Unweighted_Legacy, (int)TOOLBAR.DISABLE, "Normals Mode");
-
-        private Option<ModelImporterNormalSmoothingSource> _smoothnessSource = new Option<ModelImporterNormalSmoothingSource>(
-            ModelImporterNormalSmoothingSource.PreferSmoothingGroups, (int)TOOLBAR.DISABLE, "");
-        [Range(0, 180)]
-        private Option<float> _smoothingAngle = new Option<float>(60, (int)TOOLBAR.DISABLE, "Smoothing Angle");
-        private Option<ModelImporterTangents> _tangents = new Option<ModelImporterTangents>(
-            ModelImporterTangents.CalculateMikk, (int)TOOLBAR.DISABLE, "Tangents");
-        private Option<bool> _swapUvs = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Swap Uvs");
-        private Option<bool> _generateLightmapUvs = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Generate Lightmap UVs");
-        private Option<bool> _strictVertexDataChecks = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Strict Vertext Data Checks");
+        private Option<bool> _importCameras = OptionSettings._importCameras;
+        private Option<bool> _importLights = OptionSettings._importLights;
+        private Option<bool> _isReadable = OptionSettings._isReadable;
+        private Option<ModelImporterNormals> _importNormals = OptionSettings._importNormals;
+        private Option<ModelImporterNormals> _importBlendShapeNormals = OptionSettings._importBlendShapeNormals;
+        private Option<bool> _legacyBlendShapeNomals = OptionSettings._legacyBlendShapeNomals;
+        private Option<float> _scaleFactor = OptionSettings._scaleFactor;
+        private Option<bool> _convertUnits = OptionSettings._convertUnits;
+        private Option<bool> _bakeAxisConversion = OptionSettings._bakeAxisConversion;
+        private Option<bool> _importBlendShapes = OptionSettings._importBlendShapes;
+        private Option<bool> _importDeformPercent = OptionSettings._importDeformPercent;
+        private Option<bool> _importVisibility = OptionSettings._importVisibility;
+        private Option<bool> _preserveHierarchy = OptionSettings._preserveHierarchy;
+        private Option<bool> _sortHierarchyByName = OptionSettings._sortHierarchyByName;
+        private Option<ModelImporterMeshCompression> _meshCompression = OptionSettings._meshCompression;
+        private Option<MeshOptimizationFlags> _optimizeMesh = OptionSettings._optimizeMesh;
+        private Option<bool> _generateColliders = OptionSettings._generateColliders;
+        private Option<bool> _keepQuads = OptionSettings._keepQuads;
+        private Option<bool> _weldVertices = OptionSettings._weldVertices;
+        private Option<ModelImporterIndexFormat> _indexFormat = OptionSettings._indexFormat;
+        private Option<ModelImporterNormalCalculationMode> _normalsMode = OptionSettings._normalsMode;
+        private Option<ModelImporterNormalSmoothingSource> _smoothnessSource = OptionSettings._smoothnessSource;
+        private Option<float> _smoothingAngle = OptionSettings._smoothingAngle;
+        private Option<ModelImporterTangents> _tangents = OptionSettings._tangents;
+        private Option<bool> _swapUvs = OptionSettings._swapUvs;
+        private Option<bool> _generateLightmapUvs = OptionSettings._generateLightmapUvs;
+        private Option<bool> _strictVertexDataChecks = OptionSettings._strictVertexDataChecks;
 
         public void showOptions()
         {
@@ -124,7 +86,7 @@ namespace kesera2.FBXOptionsManager
 
         private void showMeshOptions()
         {
-            Option<ModelImporterMeshCompression>.showOption(_isReadable);
+            Option<ModelImporterMeshCompression>.showOption(_meshCompression);
             Option<bool>.showOption(_isReadable);
             Option<MeshOptimizationFlags>.showOption(_optimizeMesh);
             Option<bool>.showOption(_generateColliders);
