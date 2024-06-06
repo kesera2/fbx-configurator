@@ -3,8 +3,6 @@ using UnityEngine;
 
 namespace kesera2.FBXOptionsManager
 {
-
-
     internal class Option<T>
     {
         private class OptionT
@@ -30,29 +28,24 @@ namespace kesera2.FBXOptionsManager
             get { return _value; }
             set { _value = value; }
         }
-
         public int ToolbarEnable
         {
             get { return _toolbarEnable; }
             set { _toolbarEnable = value; }
         }
-
         public string Label
         {
             get { return _label; }
         }
-
         public string Tooltip
         {
             get { return _tooltip; }
         }
-
         // Enable/Disableを切り替える共通部品
         private static int drawToggleEnableToolbar(int currentSelection)
         {
             return GUILayout.Toolbar(currentSelection, Toolbar.TOOLBAR_LABLE);
         }
-
         public static void showOption(Option<float> option)
         {
             ShowTOption(option);
@@ -69,7 +62,6 @@ namespace kesera2.FBXOptionsManager
         {
             ShowTOption(option);
         }
-
         public static void showOption(Option<ModelImporterTangents> option)
         {
             ShowTOption(option);
@@ -86,7 +78,6 @@ namespace kesera2.FBXOptionsManager
         {
             ShowTOption(option);
         }
-
         public static void ShowTOption<T>(Option<T> option)
         {
             using (new EditorGUILayout.HorizontalScope())
@@ -110,7 +101,6 @@ namespace kesera2.FBXOptionsManager
                 }
             }
         }
-
         private static void UpdateOptionValue<T>(Option<T> option)
         {
             if (typeof(T) == typeof(float))

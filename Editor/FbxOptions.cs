@@ -80,8 +80,6 @@ namespace kesera2.FBXOptionsManager
             Option<bool>.showOption(_importLights);
             Option<bool>.showOption(_preserveHierarchy);
             Option<bool>.showOption(_sortHierarchyByName);
-
-
         }
 
         private void showMeshOptions()
@@ -90,8 +88,6 @@ namespace kesera2.FBXOptionsManager
             Option<bool>.showOption(_isReadable);
             Option<MeshOptimizationFlags>.showOption(_optimizeMesh);
             Option<bool>.showOption(_generateColliders);
-
-
         }
 
         private void showGeometoryOptions()
@@ -129,7 +125,6 @@ namespace kesera2.FBXOptionsManager
             PropertyInfo prop = GetLegacyBlendShapeNomalsProp(modelImporter);
             bool value = (bool)prop.GetValue(modelImporter);
             return value;
-
         }
 
         internal void execute(ModelImporter modelImporter)
@@ -269,7 +264,6 @@ namespace kesera2.FBXOptionsManager
             {
                 modelImporter.strictVertexDataChecks = _strictVertexDataChecks.Value;
             }
-
         }
     }
 }
