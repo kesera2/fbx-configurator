@@ -116,8 +116,6 @@ namespace kesera2.FBXOptionsManager
 
         private void showSceneOptions()
         {
-            GUILayoutOption[] verticalOptions = { GUILayout.Width(OPTION_WIDTH) };
-
             using (new EditorGUILayout.HorizontalScope())
             {
                 bool isDisabled = _scaleFactor.ToolbarEnable == (int)TOOLBAR.DISABLE;
@@ -373,8 +371,6 @@ namespace kesera2.FBXOptionsManager
 
         private void showGeometoryOptions()
         {
-            GUILayoutOption[] verticalOptions = { GUILayout.Width(350) };
-
             using (new EditorGUILayout.HorizontalScope())
             {
                 bool isDisabled = _keepQuads.ToolbarEnable == (int)TOOLBAR.DISABLE;
