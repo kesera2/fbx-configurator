@@ -46,6 +46,8 @@ namespace kesera2.FBXOptionsManager
         {
             get { return _tooltip; }
         }
+
+        // Enable/Disableを切り替える共通部品
         private static int drawToggleEnableToolbar(int currentSelection)
         {
             return GUILayout.Toolbar(currentSelection, Toolbar.TOOLBAR_LABLE);

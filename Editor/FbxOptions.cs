@@ -78,15 +78,6 @@ namespace kesera2.FBXOptionsManager
         private Option<bool> _generateLightmapUvs = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Generate Lightmap UVs");
         private Option<bool> _strictVertexDataChecks = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Strict Vertext Data Checks");
 
-        private const int OPTION_WIDTH = 350;
-        private const float INTERVAL_WIDTH = 10;
-        private GUILayoutOption[] optionsWidth = { GUILayout.Width(OPTION_WIDTH) };
-        // Enable/Disableを切り替える共通部品
-        private int drawToggleEnableToolbar(int currentSelection)
-        {
-            return GUILayout.Toolbar(currentSelection, TOOLBAR_LABLE);
-        }
-
         public void showOptions()
         {
             using (new EditorGUILayout.HorizontalScope())
