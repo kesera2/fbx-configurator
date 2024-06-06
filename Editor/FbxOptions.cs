@@ -120,7 +120,7 @@ namespace kesera2.FBXOptionsManager
 
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_scaleFactor.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _scaleFactor.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _scaleFactor.Value = EditorGUILayout.FloatField(_scaleFactor.Label, _scaleFactor.Value, optionsWidth);
                 }
@@ -129,7 +129,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_convertUnits.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _convertUnits.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _convertUnits.Value = EditorGUILayout.Toggle(_convertUnits.Label, _convertUnits.Value, optionsWidth);
                 }
@@ -138,7 +138,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_bakeAxisConversion.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _bakeAxisConversion.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _bakeAxisConversion.Value = EditorGUILayout.Toggle(_bakeAxisConversion.Label, _bakeAxisConversion.Value, optionsWidth);
                 }
@@ -148,7 +148,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_importBlendShapes.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _importBlendShapes.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _importBlendShapes.Value = EditorGUILayout.Toggle(_importBlendShapes.Label, _importBlendShapes.Value, optionsWidth);
                 }
@@ -158,7 +158,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_importDeformPercent.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _importDeformPercent.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _importDeformPercent.Value = EditorGUILayout.Toggle(_importDeformPercent.Label, _importDeformPercent.Value, optionsWidth);
                 }
@@ -168,7 +168,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_importVisibility.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _importVisibility.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _importVisibility.Value = EditorGUILayout.Toggle(_importVisibility.Label, _importVisibility.Value, optionsWidth);
                 }
@@ -178,7 +178,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_importCameras.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _importCameras.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _importCameras.Value = EditorGUILayout.Toggle(new GUIContent(_importCameras.Label, _importCameras.Tooltip), _importCameras.Value, optionsWidth);
                 }
@@ -188,7 +188,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_importLights.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _importLights.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _importLights.Value = EditorGUILayout.Toggle(_importLights.Label, _importLights.Value, optionsWidth);
                 }
@@ -198,7 +198,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_preserveHierarchy.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _preserveHierarchy.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _preserveHierarchy.Value = EditorGUILayout.Toggle(_preserveHierarchy.Label, _preserveHierarchy.Value, optionsWidth);
                 }
@@ -208,7 +208,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_sortHierarchyByName.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _sortHierarchyByName.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _sortHierarchyByName.Value = EditorGUILayout.Toggle(_sortHierarchyByName.Label, _sortHierarchyByName.Value, optionsWidth);
                 }
@@ -219,19 +219,21 @@ namespace kesera2.FBXOptionsManager
 
         private void showMeshOptions()
         {
-
+            Color defaultColor = GUI.backgroundColor;
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_meshCompression.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
-                    _meshCompression.Value = (ModelImporterMeshCompression)EditorGUILayout.EnumPopup(_meshCompression.Label, _meshCompression.Value, optionsWidth);
+                    using (new DisabledColorScope(Color.gray, _meshCompression.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                    {
+                        _meshCompression.Value = (ModelImporterMeshCompression)EditorGUILayout.EnumPopup(_meshCompression.Label, _meshCompression.Value, optionsWidth);
+                    }
+                    GUILayout.Space(INTERVAL_WIDTH);
+                    _meshCompression.ToolbarEnable = drawToggleEnableToolbar(_meshCompression.ToolbarEnable);
                 }
-                GUILayout.Space(INTERVAL_WIDTH);
-                _meshCompression.ToolbarEnable = drawToggleEnableToolbar(_meshCompression.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_isReadable.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.gray, _isReadable.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _isReadable.Value = EditorGUILayout.Toggle(_isReadable.Label, _isReadable.Value, optionsWidth);
                 }
@@ -240,7 +242,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_optimizeMesh.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.gray, _optimizeMesh.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _optimizeMesh.Value = (MeshOptimizationFlags)EditorGUILayout.EnumPopup(_optimizeMesh.Label, _optimizeMesh.Value, optionsWidth);
                 }
@@ -249,7 +251,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_generateColliders.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.gray, _generateColliders.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _generateColliders.Value = EditorGUILayout.Toggle(_generateColliders.Label, _generateColliders.Value, optionsWidth);
                 }
@@ -264,7 +266,7 @@ namespace kesera2.FBXOptionsManager
 
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_keepQuads.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _keepQuads.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _keepQuads.Value = EditorGUILayout.Toggle(_keepQuads.Label, _keepQuads.Value, optionsWidth);
                 }
@@ -274,7 +276,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_weldVertices.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _weldVertices.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _weldVertices.Value = EditorGUILayout.Toggle(_weldVertices.Label, _weldVertices.Value, optionsWidth);
                 }
@@ -283,7 +285,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_indexFormat.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _indexFormat.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _indexFormat.Value = (ModelImporterIndexFormat)EditorGUILayout.EnumPopup(_indexFormat.Label, _indexFormat.Value, optionsWidth);
                 }
@@ -292,7 +294,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_legacyBlendShapeNomals.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _legacyBlendShapeNomals.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _legacyBlendShapeNomals.Value = EditorGUILayout.Toggle(_legacyBlendShapeNomals.Label, _legacyBlendShapeNomals.Value, optionsWidth);
                 }
@@ -301,7 +303,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_importNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _importNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _importNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importNormals.Label, _importNormals.Value, optionsWidth);
                 }
@@ -310,7 +312,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_importBlendShapeNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _importBlendShapeNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _importBlendShapeNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importBlendShapeNormals.Label, _importBlendShapeNormals.Value, optionsWidth);
                 }
@@ -319,7 +321,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_normalsMode.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _normalsMode.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _normalsMode.Value = (ModelImporterNormalCalculationMode)EditorGUILayout.EnumPopup(_normalsMode.Label, _normalsMode.Value, optionsWidth);
                 }
@@ -328,7 +330,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_smoothingAngle.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _smoothingAngle.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _smoothingAngle.Value = EditorGUILayout.Slider(_smoothingAngle.Label, _smoothingAngle.Value, 0, 180, optionsWidth);
                 }
@@ -337,7 +339,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_tangents.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _tangents.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _tangents.Value = (ModelImporterTangents)EditorGUILayout.EnumPopup(_tangents.Label, _tangents.Value, optionsWidth);
                 }
@@ -346,7 +348,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_swapUvs.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _swapUvs.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _swapUvs.Value = EditorGUILayout.Toggle(_swapUvs.Label, _swapUvs.Value, optionsWidth);
                 }
@@ -355,7 +357,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_generateLightmapUvs.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _generateLightmapUvs.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _generateLightmapUvs.Value = EditorGUILayout.Toggle(_generateLightmapUvs.Label, _generateLightmapUvs.Value, optionsWidth);
                 }
@@ -364,7 +366,7 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUI.DisabledScope(_strictVertexDataChecks.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                using (new DisabledColorScope(Color.grey, _strictVertexDataChecks.ToolbarEnable == (int)TOOLBAR.DISABLE))
                 {
                     _strictVertexDataChecks.Value = EditorGUILayout.Toggle(_strictVertexDataChecks.Label, _strictVertexDataChecks.Value, optionsWidth);
                 }
