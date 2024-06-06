@@ -59,15 +59,13 @@ namespace kesera2.FBXOptionsManager
             EditorGUIUtility.labelWidth = 200; // TODO: call at once
             EditorGUILayout.LabelField(TOOL_NAME);
             setWindowSize();
-            showHelp();
+            showTargetList();
             showFolderPath();
             showSelectTargets();
+            showOptionFoldOut();
+            showDebug();
             showExecute();
             showWarning();
-            showTargetList();
-            showOptionFoldOut();
-            showAdditionalOptionFoldOut();
-            showDebug();
             EditorGUILayout.EndScrollView();
         }
 
@@ -190,22 +188,12 @@ namespace kesera2.FBXOptionsManager
                 {
                     using (new EditorGUI.IndentLevelScope())
                     {
-                        options.showCommonOptions();
+                        options.showOptions();
                         EditorGUILayout.HelpBox("通常の場合、オプションを変更する必要はありません。", MessageType.Info);
                     }
                 }
             }
         }
-
-        private void showAdditionalOptionFoldOut()
-        {
-            additionalOptionFoldOut = EditorGUILayout.Foldout(additionalOptionFoldOut, "Additional Options");
-            if (additionalOptionFoldOut)
-            {
-                options.showAdditionalOption();
-            }
-        }
-
         private void RefreshFBXFileList()
         {
 

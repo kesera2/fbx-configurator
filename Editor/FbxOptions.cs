@@ -80,59 +80,13 @@ namespace kesera2.FBXOptionsManager
 
         private const int OPTION_WIDTH = 350;
 
-        public void showCommonOptions()
-        {
-            //TODO: Add tooltips
-            GUILayoutOption[] options = { GUILayout.Width(20) };
-            GUILayoutOption[] verticalOptions = { GUILayout.Width(OPTION_WIDTH) };
-            using (new EditorGUILayout.HorizontalScope())
-            {
-                using (new EditorGUILayout.VerticalScope(verticalOptions))
-                {
-                    using (new EditorGUI.DisabledScope(_importCameras.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _importCameras.Value = EditorGUILayout.Toggle(new GUIContent(_importCameras.Label, _importCameras.Tooltip), _importCameras.Value); ;
-                    }
-                    using (new EditorGUI.DisabledScope(_importLights.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _importLights.Value = EditorGUILayout.Toggle(_importLights.Label, _importLights.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_isReadable.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _isReadable.Value = EditorGUILayout.Toggle(_isReadable.Label, _isReadable.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_importNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _importNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importNormals.Label, _importNormals.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_importBlendShapeNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _importBlendShapeNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importBlendShapeNormals.Label, _importBlendShapeNormals.Value);
-                    }
-                    using (new EditorGUI.DisabledScope(_legacyBlendShapeNomals.ToolbarEnable == (int)TOOLBAR.DISABLE))
-                    {
-                        _legacyBlendShapeNomals.Value = EditorGUILayout.Toggle(_legacyBlendShapeNomals.Label, _legacyBlendShapeNomals.Value);
-                    }
-                }
-                GUILayout.Space(10);
-                using (new EditorGUILayout.VerticalScope())
-                {
-                    _importCameras.ToolbarEnable = drawToggleEnableToolbar(_importCameras.ToolbarEnable);
-                    _importLights.ToolbarEnable = drawToggleEnableToolbar(_importLights.ToolbarEnable);
-                    _isReadable.ToolbarEnable = drawToggleEnableToolbar(_isReadable.ToolbarEnable);
-                    _importNormals.ToolbarEnable = drawToggleEnableToolbar(_importNormals.ToolbarEnable);
-                    _importBlendShapeNormals.ToolbarEnable = drawToggleEnableToolbar(_importBlendShapeNormals.ToolbarEnable);
-                    _legacyBlendShapeNomals.ToolbarEnable = drawToggleEnableToolbar(_legacyBlendShapeNomals.ToolbarEnable);
-                }
-            }
-        }
-
+        // Enable/Disableを切り替える共通部品
         private int drawToggleEnableToolbar(int currentSelection)
         {
             return GUILayout.Toolbar(currentSelection, TOOLBAR_LABLE);
         }
 
-        public void showAdditionalOption()
+        public void showOptions()
         {
             {
                 using (new EditorGUI.IndentLevelScope())
@@ -140,23 +94,23 @@ namespace kesera2.FBXOptionsManager
                     EditorGUILayout.LabelField("Scene", EditorStyles.boldLabel);
                     using (new EditorGUI.IndentLevelScope())
                     {
-                        showAdditoinalSceneOptions();
+                        showSceneOptions();
                     }
-                    EditorGUILayout.LabelField("Mesh", EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField("Meshes", EditorStyles.boldLabel);
                     using (new EditorGUI.IndentLevelScope())
                     {
-                        showAddtionalMeshOptions();
+                        showMeshOptions();
                     }
                     EditorGUILayout.LabelField("Geometory", EditorStyles.boldLabel);
                     using (new EditorGUI.IndentLevelScope())
                     {
-                        showAddtionalGeometoryOptions();
+                        showGeometoryOptions();
                     }
                 }
             }
         }
 
-        private void showAdditoinalSceneOptions()
+        private void showSceneOptions()
         {
             GUILayoutOption[] verticalOptions = { GUILayout.Width(OPTION_WIDTH) };
             using (new EditorGUILayout.HorizontalScope())
@@ -187,6 +141,14 @@ namespace kesera2.FBXOptionsManager
                     {
                         _importVisibility.Value = EditorGUILayout.Toggle(_importVisibility.Label, _importVisibility.Value);
                     }
+                    using (new EditorGUI.DisabledScope(_importCameras.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                    {
+                        _importCameras.Value = EditorGUILayout.Toggle(new GUIContent(_importCameras.Label, _importCameras.Tooltip), _importCameras.Value); ;
+                    }
+                    using (new EditorGUI.DisabledScope(_importLights.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                    {
+                        _importLights.Value = EditorGUILayout.Toggle(_importLights.Label, _importLights.Value);
+                    }
                     using (new EditorGUI.DisabledScope(_preserveHierarchy.ToolbarEnable == (int)TOOLBAR.DISABLE))
                     {
                         _preserveHierarchy.Value = EditorGUILayout.Toggle(_preserveHierarchy.Label, _preserveHierarchy.Value);
@@ -205,13 +167,15 @@ namespace kesera2.FBXOptionsManager
                     _importBlendShapes.ToolbarEnable = drawToggleEnableToolbar(_importBlendShapes.ToolbarEnable);
                     _importDeformPercent.ToolbarEnable = drawToggleEnableToolbar(_importDeformPercent.ToolbarEnable);
                     _importVisibility.ToolbarEnable = drawToggleEnableToolbar(_importVisibility.ToolbarEnable);
+                    _importCameras.ToolbarEnable = drawToggleEnableToolbar(_importCameras.ToolbarEnable);
+                    _importLights.ToolbarEnable = drawToggleEnableToolbar(_importLights.ToolbarEnable);
                     _preserveHierarchy.ToolbarEnable = drawToggleEnableToolbar(_preserveHierarchy.ToolbarEnable);
                     _sortHierarchyByName.ToolbarEnable = drawToggleEnableToolbar(_sortHierarchyByName.ToolbarEnable);
                 }
             }
         }
 
-        private void showAddtionalMeshOptions()
+        private void showMeshOptions()
         {
             GUILayoutOption[] verticalOptions = { GUILayout.Width(OPTION_WIDTH) };
             using (new EditorGUILayout.HorizontalScope())
@@ -221,6 +185,10 @@ namespace kesera2.FBXOptionsManager
                     using (new EditorGUI.DisabledScope(_meshCompression.ToolbarEnable == (int)TOOLBAR.DISABLE))
                     {
                         _meshCompression.Value = (ModelImporterMeshCompression)EditorGUILayout.EnumPopup(_meshCompression.Label, _meshCompression.Value);
+                    }
+                    using (new EditorGUI.DisabledScope(_isReadable.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                    {
+                        _isReadable.Value = EditorGUILayout.Toggle(_isReadable.Label, _isReadable.Value);
                     }
                     using (new EditorGUI.DisabledScope(_optimizeMesh.ToolbarEnable == (int)TOOLBAR.DISABLE))
                     {
@@ -235,6 +203,7 @@ namespace kesera2.FBXOptionsManager
                 using (new EditorGUILayout.VerticalScope())
                 {
                     _meshCompression.ToolbarEnable = drawToggleEnableToolbar(_meshCompression.ToolbarEnable);
+                    _isReadable.ToolbarEnable = drawToggleEnableToolbar(_isReadable.ToolbarEnable);
                     _optimizeMesh.ToolbarEnable = drawToggleEnableToolbar(_optimizeMesh.ToolbarEnable);
                     _generateColliders.ToolbarEnable = drawToggleEnableToolbar(_generateColliders.ToolbarEnable);
 
@@ -242,7 +211,7 @@ namespace kesera2.FBXOptionsManager
             }
         }
 
-        private void showAddtionalGeometoryOptions()
+        private void showGeometoryOptions()
         {
             GUILayoutOption[] verticalOptions = { GUILayout.Width(350) };
             using (new EditorGUILayout.HorizontalScope())
@@ -260,6 +229,18 @@ namespace kesera2.FBXOptionsManager
                     using (new EditorGUI.DisabledScope(_indexFormat.ToolbarEnable == (int)TOOLBAR.DISABLE))
                     {
                         _indexFormat.Value = (ModelImporterIndexFormat)EditorGUILayout.EnumPopup(_indexFormat.Label, _indexFormat.Value);
+                    }
+                    using (new EditorGUI.DisabledScope(_legacyBlendShapeNomals.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                    {
+                        _legacyBlendShapeNomals.Value = EditorGUILayout.Toggle(_legacyBlendShapeNomals.Label, _legacyBlendShapeNomals.Value);
+                    }
+                    using (new EditorGUI.DisabledScope(_importNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                    {
+                        _importNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importNormals.Label, _importNormals.Value);
+                    }
+                    using (new EditorGUI.DisabledScope(_importBlendShapeNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                    {
+                        _importBlendShapeNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importBlendShapeNormals.Label, _importBlendShapeNormals.Value);
                     }
                     using (new EditorGUI.DisabledScope(_normalsMode.ToolbarEnable == (int)TOOLBAR.DISABLE))
                     {
@@ -292,6 +273,9 @@ namespace kesera2.FBXOptionsManager
                     _keepQuads.ToolbarEnable = drawToggleEnableToolbar(_keepQuads.ToolbarEnable);
                     _weldVertices.ToolbarEnable = drawToggleEnableToolbar(_weldVertices.ToolbarEnable);
                     _indexFormat.ToolbarEnable = drawToggleEnableToolbar(_indexFormat.ToolbarEnable);
+                    _legacyBlendShapeNomals.ToolbarEnable = drawToggleEnableToolbar(_legacyBlendShapeNomals.ToolbarEnable);
+                    _importNormals.ToolbarEnable = drawToggleEnableToolbar(_importNormals.ToolbarEnable);
+                    _importBlendShapeNormals.ToolbarEnable = drawToggleEnableToolbar(_importBlendShapeNormals.ToolbarEnable);
                     _normalsMode.ToolbarEnable = drawToggleEnableToolbar(_normalsMode.ToolbarEnable);
                     _smoothingAngle.ToolbarEnable = drawToggleEnableToolbar(_smoothingAngle.ToolbarEnable);
                     _tangents.ToolbarEnable = drawToggleEnableToolbar(_tangents.ToolbarEnable);
