@@ -88,24 +88,27 @@ namespace kesera2.FBXOptionsManager
 
         public void showOptions()
         {
+            using (new EditorGUILayout.HorizontalScope())
             {
+                string[] label = { "Model", "Other options are comming Soon" };
+                GUILayout.Toolbar(0, label);
+            }
+            using (new EditorGUI.IndentLevelScope())
+            {
+                EditorGUILayout.LabelField("Scene", EditorStyles.boldLabel);
                 using (new EditorGUI.IndentLevelScope())
                 {
-                    EditorGUILayout.LabelField("Scene", EditorStyles.boldLabel);
-                    using (new EditorGUI.IndentLevelScope())
-                    {
-                        showSceneOptions();
-                    }
-                    EditorGUILayout.LabelField("Meshes", EditorStyles.boldLabel);
-                    using (new EditorGUI.IndentLevelScope())
-                    {
-                        showMeshOptions();
-                    }
-                    EditorGUILayout.LabelField("Geometory", EditorStyles.boldLabel);
-                    using (new EditorGUI.IndentLevelScope())
-                    {
-                        showGeometoryOptions();
-                    }
+                    showSceneOptions();
+                }
+                EditorGUILayout.LabelField("Meshes", EditorStyles.boldLabel);
+                using (new EditorGUI.IndentLevelScope())
+                {
+                    showMeshOptions();
+                }
+                EditorGUILayout.LabelField("Geometory", EditorStyles.boldLabel);
+                using (new EditorGUI.IndentLevelScope())
+                {
+                    showGeometoryOptions();
                 }
             }
         }
