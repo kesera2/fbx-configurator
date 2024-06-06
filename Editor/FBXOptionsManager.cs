@@ -16,11 +16,11 @@ namespace kesera2.FBXOptionsManager
         private List<string> fbxFiles;
         private bool processAllFBXFiles = true;
         private bool targetFoldOut = false;
-        private bool optionFoldOut = false;
+        internal bool optionFoldOut = false;
         private bool additionalOptionFoldOut = false;
         // Options
         private string folderPath;
-        FbxOptions options = new FbxOptions();
+        internal FbxOptions options = new FbxOptions();
 
         private bool[] targets = { };
         private int WINDOW_WIDTH = 500;

@@ -136,5 +136,11 @@ namespace kesera2.FBXOptionsManager
                 option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip), (ModelImporterTangents)(object)option.Value, optionsWidth);
             }
         }
+
+        public void update(ModelImporter modelImporter)
+        {
+            if (modelImporter == null) return;
+
+        }
     }
 }

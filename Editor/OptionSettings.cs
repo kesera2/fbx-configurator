@@ -117,7 +117,8 @@ namespace kesera2.FBXOptionsManager
             (int)TOOLBAR.DISABLE,
             ""
         );
-        internal static Option<float> _smoothingAngle { get; } = new Option<float>(60,
+        internal static Option<float> _smoothingAngle { get; } = new Option<float>(
+            60,
             (int)TOOLBAR.DISABLE,
             "Smoothing Angle"
         );

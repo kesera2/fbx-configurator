@@ -12,33 +12,33 @@ namespace kesera2.FBXOptionsManager
 
     internal class FbxOptions
     {
-        private Option<bool> _importCameras = OptionSettings._importCameras;
-        private Option<bool> _importLights = OptionSettings._importLights;
-        private Option<bool> _isReadable = OptionSettings._isReadable;
-        private Option<ModelImporterNormals> _importNormals = OptionSettings._importNormals;
-        private Option<ModelImporterNormals> _importBlendShapeNormals = OptionSettings._importBlendShapeNormals;
-        private Option<bool> _legacyBlendShapeNomals = OptionSettings._legacyBlendShapeNomals;
-        private Option<float> _scaleFactor = OptionSettings._scaleFactor;
-        private Option<bool> _convertUnits = OptionSettings._convertUnits;
-        private Option<bool> _bakeAxisConversion = OptionSettings._bakeAxisConversion;
-        private Option<bool> _importBlendShapes = OptionSettings._importBlendShapes;
-        private Option<bool> _importDeformPercent = OptionSettings._importDeformPercent;
-        private Option<bool> _importVisibility = OptionSettings._importVisibility;
-        private Option<bool> _preserveHierarchy = OptionSettings._preserveHierarchy;
-        private Option<bool> _sortHierarchyByName = OptionSettings._sortHierarchyByName;
-        private Option<ModelImporterMeshCompression> _meshCompression = OptionSettings._meshCompression;
-        private Option<MeshOptimizationFlags> _optimizeMesh = OptionSettings._optimizeMesh;
-        private Option<bool> _generateColliders = OptionSettings._generateColliders;
-        private Option<bool> _keepQuads = OptionSettings._keepQuads;
-        private Option<bool> _weldVertices = OptionSettings._weldVertices;
-        private Option<ModelImporterIndexFormat> _indexFormat = OptionSettings._indexFormat;
-        private Option<ModelImporterNormalCalculationMode> _normalsMode = OptionSettings._normalsMode;
-        private Option<ModelImporterNormalSmoothingSource> _smoothnessSource = OptionSettings._smoothnessSource;
-        private Option<float> _smoothingAngle = OptionSettings._smoothingAngle;
-        private Option<ModelImporterTangents> _tangents = OptionSettings._tangents;
-        private Option<bool> _swapUvs = OptionSettings._swapUvs;
-        private Option<bool> _generateLightmapUvs = OptionSettings._generateLightmapUvs;
-        private Option<bool> _strictVertexDataChecks = OptionSettings._strictVertexDataChecks;
+        internal Option<bool> _importCameras = OptionSettings._importCameras;
+        internal Option<bool> _importLights = OptionSettings._importLights;
+        internal Option<bool> _isReadable = OptionSettings._isReadable;
+        internal Option<ModelImporterNormals> _importNormals = OptionSettings._importNormals;
+        internal Option<ModelImporterNormals> _importBlendShapeNormals = OptionSettings._importBlendShapeNormals;
+        internal Option<bool> _legacyBlendShapeNomals = OptionSettings._legacyBlendShapeNomals;
+        internal Option<float> _scaleFactor = OptionSettings._scaleFactor;
+        internal Option<bool> _convertUnits = OptionSettings._convertUnits;
+        internal Option<bool> _bakeAxisConversion = OptionSettings._bakeAxisConversion;
+        internal Option<bool> _importBlendShapes = OptionSettings._importBlendShapes;
+        internal Option<bool> _importDeformPercent = OptionSettings._importDeformPercent;
+        internal Option<bool> _importVisibility = OptionSettings._importVisibility;
+        internal Option<bool> _preserveHierarchy = OptionSettings._preserveHierarchy;
+        internal Option<bool> _sortHierarchyByName = OptionSettings._sortHierarchyByName;
+        internal Option<ModelImporterMeshCompression> _meshCompression = OptionSettings._meshCompression;
+        internal Option<MeshOptimizationFlags> _optimizeMesh = OptionSettings._optimizeMesh;
+        internal Option<bool> _generateColliders = OptionSettings._generateColliders;
+        internal Option<bool> _keepQuads = OptionSettings._keepQuads;
+        internal Option<bool> _weldVertices = OptionSettings._weldVertices;
+        internal Option<ModelImporterIndexFormat> _indexFormat = OptionSettings._indexFormat;
+        internal Option<ModelImporterNormalCalculationMode> _normalsMode = OptionSettings._normalsMode;
+        internal Option<ModelImporterNormalSmoothingSource> _smoothnessSource = OptionSettings._smoothnessSource;
+        internal Option<float> _smoothingAngle = OptionSettings._smoothingAngle;
+        internal Option<ModelImporterTangents> _tangents = OptionSettings._tangents;
+        internal Option<bool> _swapUvs = OptionSettings._swapUvs;
+        internal Option<bool> _generateLightmapUvs = OptionSettings._generateLightmapUvs;
+        internal Option<bool> _strictVertexDataChecks = OptionSettings._strictVertexDataChecks;
 
         public void showOptions()
         {
