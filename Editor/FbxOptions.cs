@@ -10,7 +10,7 @@ using static kesera2.FBXOptionsManager.Toolbar;
 namespace kesera2.FBXOptionsManager
 {
 
-    public class FbxOptions
+    internal class FbxOptions
     {
         private Option<bool> _importCameras = OptionSettings._importCameras;
         private Option<bool> _importLights = OptionSettings._importLights;

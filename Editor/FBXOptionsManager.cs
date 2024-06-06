@@ -9,20 +9,20 @@ namespace kesera2.FBXOptionsManager
     public class FBXOptionsManager : EditorWindow
     {
         public const string TOOL_NAME = "FBX Options Manager";
-        internal Vector2 _scrollPosition = Vector2.zero;         // スクロール位置
+        private Vector2 _scrollPosition = Vector2.zero;         // スクロール位置
 
-        internal string projectPath;
+        private string projectPath;
         internal string relativePath;
-        internal List<string> fbxFiles;
-        internal bool processAllFBXFiles = true;
-        internal bool targetFoldOut = false;
-        internal bool optionFoldOut = false;
-        internal bool additionalOptionFoldOut = false;
+        private List<string> fbxFiles;
+        private bool processAllFBXFiles = true;
+        private bool targetFoldOut = false;
+        private bool optionFoldOut = false;
+        private bool additionalOptionFoldOut = false;
         // Options
-        internal string folderPath;
+        private string folderPath;
         FbxOptions options = new FbxOptions();
 
-        internal bool[] targets = { };
+        private bool[] targets = { };
         private int WINDOW_WIDTH = 500;
         private int WINDOW_HEIGHT = 150;
 

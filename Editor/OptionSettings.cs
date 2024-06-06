@@ -1,11 +1,9 @@
-﻿using System;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEditor;
 using static kesera2.FBXOptionsManager.Toolbar;
 
 namespace kesera2.FBXOptionsManager
 {
-    public static class OptionSettings
+    internal static class OptionSettings
     {
         // -------------- Scenes -------------- 
         internal static Option<float> _scaleFactor { get; } = new Option<float>(
@@ -119,7 +117,6 @@ namespace kesera2.FBXOptionsManager
             (int)TOOLBAR.DISABLE,
             ""
         );
-        [Range(0, 180)]
         internal static Option<float> _smoothingAngle { get; } = new Option<float>(60,
             (int)TOOLBAR.DISABLE,
             "Smoothing Angle"
