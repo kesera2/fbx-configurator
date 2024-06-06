@@ -184,14 +184,8 @@ namespace kesera2.FBXOptionsManager
 
             if (optionFoldOut)
             {
-                using (new EditorGUILayout.VerticalScope())
-                {
-                    using (new EditorGUI.IndentLevelScope())
-                    {
-                        options.showOptions();
-                        EditorGUILayout.HelpBox("通常の場合、オプションを変更する必要はありません。", MessageType.Info);
-                    }
-                }
+                options.showOptions();
+                EditorGUILayout.HelpBox("通常の場合、オプションを変更する必要はありません。", MessageType.Info);
             }
         }
         private void RefreshFBXFileList()

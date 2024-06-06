@@ -120,27 +120,52 @@ namespace kesera2.FBXOptionsManager
 
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _scaleFactor.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _scaleFactor.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _scaleFactor.Value = EditorGUILayout.FloatField(_scaleFactor.Label, _scaleFactor.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_scaleFactor.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _scaleFactor.Value = EditorGUILayout.FloatField(_scaleFactor.Label, _scaleFactor.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _scaleFactor.ToolbarEnable = drawToggleEnableToolbar(_scaleFactor.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _convertUnits.ToolbarEnable == (int)TOOLBAR.DISABLE))
+
+                bool isDisabled = _convertUnits.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _convertUnits.Value = EditorGUILayout.Toggle(_convertUnits.Label, _convertUnits.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_convertUnits.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _convertUnits.Value = EditorGUILayout.Toggle(_convertUnits.Label, _convertUnits.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _convertUnits.ToolbarEnable = drawToggleEnableToolbar(_convertUnits.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _bakeAxisConversion.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _bakeAxisConversion.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _bakeAxisConversion.Value = EditorGUILayout.Toggle(_bakeAxisConversion.Label, _bakeAxisConversion.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_bakeAxisConversion.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _bakeAxisConversion.Value = EditorGUILayout.Toggle(_bakeAxisConversion.Label, _bakeAxisConversion.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _bakeAxisConversion.ToolbarEnable = drawToggleEnableToolbar(_bakeAxisConversion.ToolbarEnable);
@@ -148,9 +173,17 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _importBlendShapes.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _importBlendShapes.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _importBlendShapes.Value = EditorGUILayout.Toggle(_importBlendShapes.Label, _importBlendShapes.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_importBlendShapes.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _importBlendShapes.Value = EditorGUILayout.Toggle(_importBlendShapes.Label, _importBlendShapes.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _importBlendShapes.ToolbarEnable = drawToggleEnableToolbar(_importBlendShapes.ToolbarEnable);
@@ -158,9 +191,17 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _importDeformPercent.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _importDeformPercent.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _importDeformPercent.Value = EditorGUILayout.Toggle(_importDeformPercent.Label, _importDeformPercent.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_importDeformPercent.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _importDeformPercent.Value = EditorGUILayout.Toggle(_importDeformPercent.Label, _importDeformPercent.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _importDeformPercent.ToolbarEnable = drawToggleEnableToolbar(_importDeformPercent.ToolbarEnable);
@@ -168,9 +209,17 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _importVisibility.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _importVisibility.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _importVisibility.Value = EditorGUILayout.Toggle(_importVisibility.Label, _importVisibility.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_importVisibility.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _importVisibility.Value = EditorGUILayout.Toggle(_importVisibility.Label, _importVisibility.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _importVisibility.ToolbarEnable = drawToggleEnableToolbar(_importVisibility.ToolbarEnable);
@@ -178,9 +227,17 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _importCameras.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _importCameras.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _importCameras.Value = EditorGUILayout.Toggle(new GUIContent(_importCameras.Label, _importCameras.Tooltip), _importCameras.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_importCameras.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _importCameras.Value = EditorGUILayout.Toggle(new GUIContent(_importCameras.Label, _importCameras.Tooltip), _importCameras.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _importCameras.ToolbarEnable = drawToggleEnableToolbar(_importCameras.ToolbarEnable);
@@ -188,9 +245,17 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _importLights.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _importLights.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _importLights.Value = EditorGUILayout.Toggle(_importLights.Label, _importLights.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_importLights.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _importLights.Value = EditorGUILayout.Toggle(_importLights.Label, _importLights.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _importLights.ToolbarEnable = drawToggleEnableToolbar(_importLights.ToolbarEnable);
@@ -198,9 +263,17 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _preserveHierarchy.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _preserveHierarchy.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _preserveHierarchy.Value = EditorGUILayout.Toggle(_preserveHierarchy.Label, _preserveHierarchy.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_preserveHierarchy.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _preserveHierarchy.Value = EditorGUILayout.Toggle(_preserveHierarchy.Label, _preserveHierarchy.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _preserveHierarchy.ToolbarEnable = drawToggleEnableToolbar(_preserveHierarchy.ToolbarEnable);
@@ -208,9 +281,17 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _sortHierarchyByName.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _sortHierarchyByName.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _sortHierarchyByName.Value = EditorGUILayout.Toggle(_sortHierarchyByName.Label, _sortHierarchyByName.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_sortHierarchyByName.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _sortHierarchyByName.Value = EditorGUILayout.Toggle(_sortHierarchyByName.Label, _sortHierarchyByName.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _sortHierarchyByName.ToolbarEnable = drawToggleEnableToolbar(_sortHierarchyByName.ToolbarEnable);
@@ -219,41 +300,71 @@ namespace kesera2.FBXOptionsManager
 
         private void showMeshOptions()
         {
-            Color defaultColor = GUI.backgroundColor;
             using (new EditorGUILayout.HorizontalScope())
             {
+                bool isDisabled = _meshCompression.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    using (new DisabledColorScope(Color.gray, _meshCompression.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_meshCompression.Label, optionsWidth);
+                    }
+                    else
                     {
                         _meshCompression.Value = (ModelImporterMeshCompression)EditorGUILayout.EnumPopup(_meshCompression.Label, _meshCompression.Value, optionsWidth);
                     }
-                    GUILayout.Space(INTERVAL_WIDTH);
-                    _meshCompression.ToolbarEnable = drawToggleEnableToolbar(_meshCompression.ToolbarEnable);
                 }
+                GUILayout.Space(INTERVAL_WIDTH);
+                _meshCompression.ToolbarEnable = drawToggleEnableToolbar(_meshCompression.ToolbarEnable);
+
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.gray, _isReadable.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _isReadable.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _isReadable.Value = EditorGUILayout.Toggle(_isReadable.Label, _isReadable.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_isReadable.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _isReadable.Value = EditorGUILayout.Toggle(_isReadable.Label, _isReadable.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _isReadable.ToolbarEnable = drawToggleEnableToolbar(_isReadable.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.gray, _optimizeMesh.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _optimizeMesh.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _optimizeMesh.Value = (MeshOptimizationFlags)EditorGUILayout.EnumPopup(_optimizeMesh.Label, _optimizeMesh.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_optimizeMesh.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _optimizeMesh.Value = (MeshOptimizationFlags)EditorGUILayout.EnumPopup(_optimizeMesh.Label, _optimizeMesh.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _optimizeMesh.ToolbarEnable = drawToggleEnableToolbar(_optimizeMesh.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.gray, _generateColliders.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _generateColliders.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _generateColliders.Value = EditorGUILayout.Toggle(_generateColliders.Label, _generateColliders.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_generateColliders.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _generateColliders.Value = EditorGUILayout.Toggle(_generateColliders.Label, _generateColliders.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _generateColliders.ToolbarEnable = drawToggleEnableToolbar(_generateColliders.ToolbarEnable);
@@ -266,9 +377,17 @@ namespace kesera2.FBXOptionsManager
 
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _keepQuads.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _keepQuads.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _keepQuads.Value = EditorGUILayout.Toggle(_keepQuads.Label, _keepQuads.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_keepQuads.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _keepQuads.Value = EditorGUILayout.Toggle(_keepQuads.Label, _keepQuads.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _keepQuads.ToolbarEnable = drawToggleEnableToolbar(_keepQuads.ToolbarEnable);
@@ -276,99 +395,187 @@ namespace kesera2.FBXOptionsManager
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _weldVertices.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _weldVertices.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _weldVertices.Value = EditorGUILayout.Toggle(_weldVertices.Label, _weldVertices.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_weldVertices.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _weldVertices.Value = EditorGUILayout.Toggle(_weldVertices.Label, _weldVertices.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _weldVertices.ToolbarEnable = drawToggleEnableToolbar(_weldVertices.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _indexFormat.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _indexFormat.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _indexFormat.Value = (ModelImporterIndexFormat)EditorGUILayout.EnumPopup(_indexFormat.Label, _indexFormat.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_indexFormat.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _indexFormat.Value = (ModelImporterIndexFormat)EditorGUILayout.EnumPopup(_indexFormat.Label, _indexFormat.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _indexFormat.ToolbarEnable = drawToggleEnableToolbar(_indexFormat.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _legacyBlendShapeNomals.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _legacyBlendShapeNomals.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _legacyBlendShapeNomals.Value = EditorGUILayout.Toggle(_legacyBlendShapeNomals.Label, _legacyBlendShapeNomals.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_legacyBlendShapeNomals.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _legacyBlendShapeNomals.Value = EditorGUILayout.Toggle(_legacyBlendShapeNomals.Label, _legacyBlendShapeNomals.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _legacyBlendShapeNomals.ToolbarEnable = drawToggleEnableToolbar(_legacyBlendShapeNomals.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _importNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _importNormals.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _importNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importNormals.Label, _importNormals.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_importNormals.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _importNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importNormals.Label, _importNormals.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _importNormals.ToolbarEnable = drawToggleEnableToolbar(_importNormals.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _importBlendShapeNormals.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _importBlendShapeNormals.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _importBlendShapeNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importBlendShapeNormals.Label, _importBlendShapeNormals.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_importBlendShapeNormals.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _importBlendShapeNormals.Value = (ModelImporterNormals)EditorGUILayout.EnumPopup(_importBlendShapeNormals.Label, _importBlendShapeNormals.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _importBlendShapeNormals.ToolbarEnable = drawToggleEnableToolbar(_importBlendShapeNormals.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _normalsMode.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _normalsMode.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _normalsMode.Value = (ModelImporterNormalCalculationMode)EditorGUILayout.EnumPopup(_normalsMode.Label, _normalsMode.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_normalsMode.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _normalsMode.Value = (ModelImporterNormalCalculationMode)EditorGUILayout.EnumPopup(_normalsMode.Label, _normalsMode.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _normalsMode.ToolbarEnable = drawToggleEnableToolbar(_normalsMode.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _smoothingAngle.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _smoothingAngle.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _smoothingAngle.Value = EditorGUILayout.Slider(_smoothingAngle.Label, _smoothingAngle.Value, 0, 180, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_smoothingAngle.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _smoothingAngle.Value = EditorGUILayout.Slider(_smoothingAngle.Label, _smoothingAngle.Value, 0, 180, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _smoothingAngle.ToolbarEnable = drawToggleEnableToolbar(_smoothingAngle.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _tangents.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _tangents.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _tangents.Value = (ModelImporterTangents)EditorGUILayout.EnumPopup(_tangents.Label, _tangents.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_tangents.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _tangents.Value = (ModelImporterTangents)EditorGUILayout.EnumPopup(_tangents.Label, _tangents.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _tangents.ToolbarEnable = drawToggleEnableToolbar(_tangents.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _swapUvs.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _swapUvs.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _swapUvs.Value = EditorGUILayout.Toggle(_swapUvs.Label, _swapUvs.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_swapUvs.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _swapUvs.Value = EditorGUILayout.Toggle(_swapUvs.Label, _swapUvs.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _swapUvs.ToolbarEnable = drawToggleEnableToolbar(_swapUvs.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _generateLightmapUvs.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _generateLightmapUvs.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _generateLightmapUvs.Value = EditorGUILayout.Toggle(_generateLightmapUvs.Label, _generateLightmapUvs.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_generateLightmapUvs.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _generateLightmapUvs.Value = EditorGUILayout.Toggle(_generateLightmapUvs.Label, _generateLightmapUvs.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _generateLightmapUvs.ToolbarEnable = drawToggleEnableToolbar(_generateLightmapUvs.ToolbarEnable);
             }
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new DisabledColorScope(Color.grey, _strictVertexDataChecks.ToolbarEnable == (int)TOOLBAR.DISABLE))
+                bool isDisabled = _strictVertexDataChecks.ToolbarEnable == (int)TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    _strictVertexDataChecks.Value = EditorGUILayout.Toggle(_strictVertexDataChecks.Label, _strictVertexDataChecks.Value, optionsWidth);
+                    if (isDisabled)
+                    {
+                        EditorGUILayout.LabelField(_strictVertexDataChecks.Label, optionsWidth);
+                    }
+                    else
+                    {
+                        _strictVertexDataChecks.Value = EditorGUILayout.Toggle(_strictVertexDataChecks.Label, _strictVertexDataChecks.Value, optionsWidth);
+                    }
                 }
                 GUILayout.Space(INTERVAL_WIDTH);
                 _strictVertexDataChecks.ToolbarEnable = drawToggleEnableToolbar(_strictVertexDataChecks.ToolbarEnable);
