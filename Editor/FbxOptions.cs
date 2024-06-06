@@ -47,7 +47,7 @@ namespace kesera2.FBXOptionsManager
             );
         // Scenes
         private Option<float> _scaleFactor = new Option<float>(1.0f, (int)TOOLBAR.DISABLE, "Scale Factor");
-        private Option<bool> _convertUnits = new Option<bool>(true, (int)TOOLBAR.DISABLE, "Convert Units");
+        private Option<bool> _convertUnits = new Option<bool>(true, 1, "Convert Units(Unsupported)", "このオプションは現在対応しておりません。");
         private Option<bool> _bakeAxisConversion = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Bake Axis Conversion");
         private Option<bool> _importBlendShapes = new Option<bool>(true, (int)TOOLBAR.DISABLE, "Import Blend Shapes");
         private Option<bool> _importDeformPercent = new Option<bool>(false, (int)TOOLBAR.DISABLE, "Import Deform Percent");
@@ -108,7 +108,8 @@ namespace kesera2.FBXOptionsManager
         private void showSceneOptions()
         {
             Option<float>.showOption(_scaleFactor);
-            Option<bool>.showOption(_convertUnits);
+            //Option<bool>.showOption(_convertUnits); // TODO: uncomment out
+            using (new DisabledColorScope(Color.gray, true)) { EditorGUILayout.LabelField(new GUIContent(_convertUnits.Label, _convertUnits.Tooltip)); };
             Option<bool>.showOption(_bakeAxisConversion);
             Option<bool>.showOption(_importBlendShapes);
             Option<bool>.showOption(_importDeformPercent);
@@ -206,10 +207,11 @@ namespace kesera2.FBXOptionsManager
                 modelImporter.globalScale = _scaleFactor.Value;
             }
 
-            if (_convertUnits.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.useFileUnits = _convertUnits.Value;
-            }
+            // FIXME: 調査中
+            //if (_convertUnits.ToolbarEnable == (int)TOOLBAR.ENABLE)
+            //{
+            //    modelImporter.useFileUnits = _convertUnits.Value;
+            //}
 
             if (_bakeAxisConversion.ToolbarEnable == (int)TOOLBAR.ENABLE)
             {

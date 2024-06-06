@@ -98,7 +98,7 @@ namespace kesera2.FBXOptionsManager
                     {
                         if (isDisabled)
                         {
-                            EditorGUILayout.LabelField(option._label, optionsWidth);
+                            EditorGUILayout.LabelField(new GUIContent(option.Label, option.Tooltip), optionsWidth);
                         }
                         else
                         {
@@ -115,35 +115,35 @@ namespace kesera2.FBXOptionsManager
         {
             if (typeof(T) == typeof(float))
             {
-                option.Value = (T)(object)EditorGUILayout.FloatField(option._label, (float)(object)option._value, optionsWidth);
+                option.Value = (T)(object)EditorGUILayout.FloatField(new GUIContent(option.Label, option.Tooltip), (float)(object)option._value, optionsWidth);
             }
             else if (typeof(T) == typeof(bool))
             {
-                option.Value = (T)(object)EditorGUILayout.Toggle(option._label, (bool)(object)option._value, optionsWidth);
+                option.Value = (T)(object)EditorGUILayout.Toggle(new GUIContent(option.Label, option.Tooltip), (bool)(object)option._value, optionsWidth);
             }
             else if (typeof(T) == typeof(ModelImporterMeshCompression))
             {
-                option.Value = (T)(object)EditorGUILayout.EnumPopup(option.Label, (ModelImporterMeshCompression)(object)option.Value, optionsWidth);
+                option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip), (ModelImporterMeshCompression)(object)option.Value, optionsWidth);
             }
             else if (typeof(T) == typeof(MeshOptimizationFlags))
             {
-                option.Value = (T)(object)EditorGUILayout.EnumFlagsField(option.Label, (MeshOptimizationFlags)(object)option.Value, optionsWidth);
+                option.Value = (T)(object)EditorGUILayout.EnumFlagsField(new GUIContent(option.Label, option.Tooltip), (MeshOptimizationFlags)(object)option.Value, optionsWidth);
             }
             else if (typeof(T) == typeof(ModelImporterIndexFormat))
             {
-                option.Value = (T)(object)EditorGUILayout.EnumPopup(option.Label, (ModelImporterIndexFormat)(object)option.Value, optionsWidth);
+                option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip), (ModelImporterIndexFormat)(object)option.Value, optionsWidth);
             }
             else if (typeof(T) == typeof(ModelImporterNormals))
             {
-                option.Value = (T)(object)EditorGUILayout.EnumPopup(option.Label, (ModelImporterNormals)(object)option.Value, optionsWidth);
+                option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip), (ModelImporterNormals)(object)option.Value, optionsWidth);
             }
             else if (typeof(T) == typeof(ModelImporterNormalCalculationMode))
             {
-                option.Value = (T)(object)EditorGUILayout.EnumPopup(option.Label, (ModelImporterNormalCalculationMode)(object)option.Value, optionsWidth);
+                option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip), (ModelImporterNormalCalculationMode)(object)option.Value, optionsWidth);
             }
             else if (typeof(T) == typeof(ModelImporterTangents))
             {
-                option.Value = (T)(object)EditorGUILayout.EnumPopup(option.Label, (ModelImporterTangents)(object)option.Value, optionsWidth);
+                option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip), (ModelImporterTangents)(object)option.Value, optionsWidth);
             }
         }
     }
