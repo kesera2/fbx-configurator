@@ -2,7 +2,6 @@
 // 上無理
 // TODO: すべてDISABLEだったらメッセージを出す
 // ALL DISABLE ENABLE BUTTON
-using System;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -106,167 +105,35 @@ namespace kesera2.FBXOptionsManager
         }
         internal void execute(ModelImporter modelImporter)
         {
-            ApplyScaleFactor(modelImporter);
-            //ApplyConvertUntis(modelImporter);
-            ApplyBakeAxisConversion(modelImporter);
-            ApplyImportBlendShapes(modelImporter);
-            ApplyImportDeformPercent(modelImporter);
-            ApplyImportVisibility(modelImporter);
-            ApplyImportCamera(modelImporter);
-            ApplyImportLights(modelImporter);
-            ApplyPreserveHierarchy(modelImporter);
-            ApplySortHierarchyByName(modelImporter);
-            ApplyMeshCompression(modelImporter);
-            ApplyIsReadable(modelImporter);
-            ApplyOptimizeMesh(modelImporter);
-            ApplyGenerateColliders(modelImporter);
-            ApplyKeepQuads(modelImporter);
-            ApplyWeldVertices(modelImporter);
-            ApplyIndexFormat(modelImporter);
-            ApplyLegacyBlendShapeNomals(modelImporter);
-            ApplyImportNormals(modelImporter);
-            ApplyImportBlendShapeNormals(modelImporter);
-            ApplyNormalsMode(modelImporter);
-            ApplySmoothnessSource(modelImporter);
-            ApplySmoothingAngle(modelImporter);
-            ApplyTangents(modelImporter);
-            ApplySwapUvs(modelImporter);
-            ApplyGenerateLightmapUvs(modelImporter);
-            ApplyStrictVertexDataChecks(modelImporter);
-            //modelImporter.SaveAndReimport();
-            //AssetDatabase.SaveAssets();
-        }
-
-        internal void ApplyScaleFactor(ModelImporter modelImporter)
-        {
             _scaleFactor.Update(modelImporter);
-        }
-
-        /// <summary>
-        /// アップデートできないので調査中。
-        /// </summary>
-        [Obsolete("このメソッドの使用はサポートしていません。")]
-        internal void ApplyConvertUntis(ModelImporter modelImporter)
-        {
             _convertUnits.Update(modelImporter);
-        }
-
-        internal void ApplyBakeAxisConversion(ModelImporter modelImporter)
-        {
             _bakeAxisConversion.Update(modelImporter);
-
-        }
-
-        internal void ApplyImportBlendShapes(ModelImporter modelImporter)
-        {
             _importBlendShapes.Update(modelImporter);
-        }
-
-        internal void ApplyImportDeformPercent(ModelImporter modelImporter)
-        {
             _importDeformPercent.Update(modelImporter);
-        }
-
-        internal void ApplyImportVisibility(ModelImporter modelImporter)
-        {
             _importVisibility.Update(modelImporter);
-        }
-
-        internal void ApplyImportCamera(ModelImporter modelImporter)
-        {
             _importCameras.Update(modelImporter);
-        }
-
-        internal void ApplyImportLights(ModelImporter modelImporter)
-        {
             _importLights.Update(modelImporter);
-        }
-
-        internal void ApplyPreserveHierarchy(ModelImporter modelImporter)
-        {
             _preserveHierarchy.Update(modelImporter);
-        }
-
-        internal void ApplySortHierarchyByName(ModelImporter modelImporter)
-        {
             _sortHierarchyByName.Update(modelImporter);
-        }
-
-        internal void ApplyMeshCompression(ModelImporter modelImporter)
-        {
             _meshCompression.Update(modelImporter);
-        }
-
-        internal void ApplyIsReadable(ModelImporter modelImporter)
-        {
             _isReadable.Update(modelImporter);
-        }
-
-        internal void ApplyOptimizeMesh(ModelImporter modelImporter)
-        {
             _optimizeMesh.Update(modelImporter);
-        }
-        internal void ApplyGenerateColliders(ModelImporter modelImporter)
-        {
             _generateColliders.Update(modelImporter);
-        }
-
-        internal void ApplyKeepQuads(ModelImporter modelImporter)
-        {
             _keepQuads.Update(modelImporter);
-        }
-        internal void ApplyWeldVertices(ModelImporter modelImporter)
-        {
             _weldVertices.Update(modelImporter);
-        }
-
-        internal void ApplyIndexFormat(ModelImporter modelImporter)
-        {
             _indexFormat.Update(modelImporter);
-        }
-
-
-        internal void ApplyImportNormals(ModelImporter modelImporter)
-        {
             _importNormals.Update(modelImporter);
-        }
-
-        internal void ApplyImportBlendShapeNormals(ModelImporter modelImporter)
-        {
             _importBlendShapeNormals.Update(modelImporter);
-        }
-
-        internal void ApplyNormalsMode(ModelImporter modelImporter)
-        {
             _normalsMode.Update(modelImporter);
-        }
-
-        internal void ApplySmoothnessSource(ModelImporter modelImporter)
-        {
             _smoothnessSource.Update(modelImporter);
-        }
-
-        internal void ApplySmoothingAngle(ModelImporter modelImporter)
-        {
             _smoothingAngle.Update(modelImporter);
-        }
-        internal void ApplyTangents(ModelImporter modelImporter)
-        {
             _tangents.Update(modelImporter);
+            _swapUvs.Update(modelImporter);
+            _generateLightmapUvs.Update(modelImporter);
+            _strictVertexDataChecks.Update(modelImporter);
+            ApplyLegacyBlendShapeNomals(modelImporter);
         }
 
-        internal void ApplySwapUvs(ModelImporter modelImporter)
-        {
-            _swapUvs.Update(modelImporter);
-        }
-        internal void ApplyGenerateLightmapUvs(ModelImporter modelImporter)
-        {
-            _generateLightmapUvs.Update(modelImporter);
-        }
-        internal void ApplyStrictVertexDataChecks(ModelImporter modelImporter)
-        {
-            _strictVertexDataChecks.Update(modelImporter);
-        }
         public PropertyInfo GetLegacyBlendShapeNomalsProp(ModelImporter modelImporter)
         {
             return modelImporter.GetType().GetProperty("legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);

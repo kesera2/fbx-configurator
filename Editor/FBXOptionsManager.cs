@@ -160,8 +160,8 @@ namespace kesera2.FBXOptionsManager
                         if (modelImporter != null)
                         {
                             options.execute(modelImporter);
-                            //modelImporter.SaveAndReimport();
-                            //AssetDatabase.SaveAssets();
+                            modelImporter.SaveAndReimport();
+                            AssetDatabase.SaveAssets();
                             Debug.Log($"{fbxFile}のオプションを変更しました。");
                         }
                     }
