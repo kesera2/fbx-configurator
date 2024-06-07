@@ -130,7 +130,7 @@ namespace kesera2.FBXOptionsManager
             value: false,
             toolbarEnable: (int)TOOLBAR.ENABLE,
             label: "Legacy BlendShape Nomals",
-            fieldName: "legacyBlendShapeNomals",
+            fieldName: "legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes",
             tooltip: ""
         );
         internal static Option<ModelImporterNormals> _importNormals { get; } = new Option<ModelImporterNormals>(

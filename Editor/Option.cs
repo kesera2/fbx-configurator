@@ -13,7 +13,7 @@ namespace kesera2.FBXOptionsManager
         private int _toolbarEnable = 0;
         private string _label;
         private string _tooltip;
-        private string _fieldName;
+        internal string _fieldName;
         private const int OPTION_WIDTH = 350;
         private const float INTERVAL_WIDTH = 10;
         private static GUILayoutOption[] optionsWidth = { GUILayout.Width(OPTION_WIDTH) };
@@ -143,6 +143,7 @@ namespace kesera2.FBXOptionsManager
         {
             var propertyInfo = modelImporter.GetType().GetProperty(_fieldName);
             if (modelImporter == null || propertyInfo == null) return;
+            // ツールバーがEnableの場合のみ変更
             if (_toolbarEnable == (int)Toolbar.TOOLBAR.ENABLE)
             {
                 propertyInfo.SetValue(modelImporter, _value);
