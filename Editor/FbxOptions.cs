@@ -126,7 +126,7 @@ namespace kesera2.FBXOptionsManager
             _importNormals.Update(modelImporter);
 
             _importBlendShapeNormals.Update(modelImporter);
-            // WARNING: Nomals Mode, Smoothing Angle and Tangents has dependency of ImportBlendShapeNormals.Import or Caluclute!
+            // FIXME: Nomals Mode, Smoothing Angle and Tangents has dependency of ImportBlendShapeNormals.Import or Caluclute!
             _normalsMode.Update(modelImporter);
             _smoothingAngle.Update(modelImporter);
             _tangents.Update(modelImporter);
