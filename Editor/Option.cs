@@ -13,14 +13,16 @@ namespace kesera2.FBXOptionsManager
         private int _toolbarEnable = 0;
         private string _label;
         private string _tooltip;
+        private string _fieldName;
         private const int OPTION_WIDTH = 350;
         private const float INTERVAL_WIDTH = 10;
         private static GUILayoutOption[] optionsWidth = { GUILayout.Width(OPTION_WIDTH) };
-        internal Option(T value, int toolbarEnable, string label, string tooltip = "")
+        internal Option(T value, int toolbarEnable, string label, string fieldName, string tooltip = "")
         {
             _value = value;
             _toolbarEnable = toolbarEnable;
             _label = label;
+            _fieldName = fieldName;
             _tooltip = tooltip;
         }
         public T Value
@@ -137,10 +139,14 @@ namespace kesera2.FBXOptionsManager
             }
         }
 
-        public void update(ModelImporter modelImporter)
+        public void Update(ModelImporter modelImporter)
         {
-            if (modelImporter == null) return;
-
+            var propertyInfo = modelImporter.GetType().GetProperty(_fieldName);
+            if (modelImporter == null || propertyInfo == null) return;
+            if (_toolbarEnable == (int)Toolbar.TOOLBAR.ENABLE)
+            {
+                propertyInfo.SetValue(modelImporter, true);
+            }
         }
     }
 }

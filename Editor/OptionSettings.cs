@@ -7,137 +7,194 @@ namespace kesera2.FBXOptionsManager
     {
         // -------------- Scenes -------------- 
         internal static Option<float> _scaleFactor { get; } = new Option<float>(
-            1.0f,
-            (int)TOOLBAR.DISABLE,
-            "Scale Factor"
+            value: 1.0f,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Scale Factor",
+            fieldName: "globalScale",
+            tooltip: ""
         );
         internal static Option<bool> _convertUnits { get; } = new Option<bool>(
-            true,
-            1,
-            "Convert Units(Unsupported)",
-            "このオプションは現在対応しておりません。"
+            value: true,
+            toolbarEnable: 1,
+            label: "Convert Units(Unsupported)",
+            fieldName: "useFileUnits",
+            tooltip: "このオプションは現在対応しておりません。"
         );
         internal static Option<bool> _bakeAxisConversion { get; } = new Option<bool>(
-            false,
-            (int)TOOLBAR.DISABLE,
-            "Bake Axis Conversion"
+            value: false,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Bake Axis Conversion",
+            fieldName: "bakeAxisConversion",
+            tooltip: ""
         );
         internal static Option<bool> _importBlendShapes { get; } = new Option<bool>(
-            true,
-            (int)TOOLBAR.DISABLE,
-            "Import Blend Shapes"
+            value: true,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Import Blend Shapes",
+            fieldName: "importBlendShapes",
+            tooltip: ""
         );
         internal static Option<bool> _importDeformPercent { get; } = new Option<bool>(
-            false,
-            (int)TOOLBAR.DISABLE,
-            "Import Deform Percent"
+            value: false,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Import Deform Percent",
+            fieldName: "importBlendShapeDeformPercent",
+            tooltip: ""
         );
         internal static Option<bool> _importVisibility { get; } = new Option<bool>(
-            true,
-            (int)TOOLBAR.DISABLE,
-            "Import Visibility"
+            value: true,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Import Visibility",
+            fieldName: "importVisibility",
+            tooltip: ""
         );
         internal static Option<bool> _importCameras { get; } = new Option<bool>(
-            false,
-            (int)TOOLBAR.ENABLE,
-            "Import Cameras",
-            "これを有効にすると.FBXファイルからカメラをインポートできます。"
+            value: false,
+            toolbarEnable: (int)TOOLBAR.ENABLE,
+            label: "Import Cameras",
+            fieldName: "importCameras",
+            tooltip: "これを有効にすると.FBXファイルからカメラをインポートできます。"
         );
         internal static Option<bool> _importLights { get; } = new Option<bool>(
-            false,
-            (int)TOOLBAR.ENABLE,
-            "Import Lights"
+            value: false,
+            toolbarEnable: (int)TOOLBAR.ENABLE,
+            label: "Import Lights",
+            fieldName: "importLights",
+            tooltip: ""
         );
         internal static Option<bool> _preserveHierarchy { get; } = new Option<bool>(
-            true,
-            (int)TOOLBAR.DISABLE,
-            "Preserve Hierarchy"
+            value: true,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Preserve Hierarchy",
+            fieldName: "preserveHierarchy",
+            tooltip: ""
         );
         internal static Option<bool> _sortHierarchyByName { get; } = new Option<bool>(
-            true,
-            (int)TOOLBAR.DISABLE,
-            "Sort Hierarchy ByName"
+            value: true,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Sort Hierarchy ByName",
+            fieldName: "sortHierarchyByName",
+            tooltip: ""
         );
         // -------------- Meshes -------------- 
         internal static Option<ModelImporterMeshCompression> _meshCompression { get; } = new Option<ModelImporterMeshCompression>(
-            ModelImporterMeshCompression.Off,
-            (int)TOOLBAR.DISABLE,
-            "Mesh Compression"
+            value: ModelImporterMeshCompression.Off,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Mesh Compression",
+            fieldName: "meshCompression",
+            tooltip: ""
         );
         internal static Option<bool> _isReadable { get; } = new Option<bool>(
-            true,
-            (int)TOOLBAR.ENABLE,
-            "Read/Write"
+            value: true,
+            toolbarEnable: (int)TOOLBAR.ENABLE,
+            label: "Read/Write",
+            fieldName: "isReadable",
+            tooltip: ""
         );
         internal static Option<MeshOptimizationFlags> _optimizeMesh { get; } = new Option<MeshOptimizationFlags>(
-            MeshOptimizationFlags.Everything,
-            (int)TOOLBAR.DISABLE,
-            "Optimize Mesh"
+            value: MeshOptimizationFlags.Everything,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Optimize Mesh",
+            fieldName: "meshOptimizationFlags",
+            tooltip: ""
         );
-        internal static Option<bool> _generateColliders { get; } = new Option<bool>(false,
-            (int)TOOLBAR.DISABLE,
-            "Generate Colliders"
-        );
+        internal static Option<bool> _generateColliders { get; } = new Option<bool>(
+            value: false,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Generate Colliders",
+            fieldName: "addCollider",
+            tooltip: "");
         // --------------  Germetory -------------- 
-        internal static Option<bool> _keepQuads { get; } = new Option<bool>(false,
-            (int)TOOLBAR.DISABLE,
-            "Keep Quads"
+        internal static Option<bool> _keepQuads { get; } = new Option<bool>(
+            value: false,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Keep Quads",
+            fieldName: "keepQuads",
+            tooltip: ""
         );
-        internal static Option<bool> _weldVertices { get; } = new Option<bool>(true,
-            (int)TOOLBAR.DISABLE,
-            "Weld Vertices"
+        internal static Option<bool> _weldVertices { get; } = new Option<bool>(
+            value: true,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Weld Vertices",
+            fieldName: "weldVertices",
+            tooltip: ""
         );
         internal static Option<ModelImporterIndexFormat> _indexFormat { get; } = new Option<ModelImporterIndexFormat>(
-            ModelImporterIndexFormat.Auto,
-            (int)TOOLBAR.DISABLE,
-            "Index Format"
+            value: ModelImporterIndexFormat.Auto,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Index Format",
+            fieldName: "indexFormat",
+            tooltip: ""
         );
         internal static Option<bool> _legacyBlendShapeNomals { get; } = new Option<bool>(
-            false,
-            (int)TOOLBAR.ENABLE,
-            "Legacy BlendShape Nomals"
+            value: false,
+            toolbarEnable: (int)TOOLBAR.ENABLE,
+            label: "Legacy BlendShape Nomals",
+            fieldName: "legacyBlendShapeNomals",
+            tooltip: ""
         );
         internal static Option<ModelImporterNormals> _importNormals { get; } = new Option<ModelImporterNormals>(
-            ModelImporterNormals.Import,
-            (int)TOOLBAR.ENABLE,
-            "Nomals"
+            value: ModelImporterNormals.Import,
+            toolbarEnable: (int)TOOLBAR.ENABLE,
+            label: "Nomals",
+            fieldName: "importNormals",
+            tooltip: ""
         );
         internal static Option<ModelImporterNormals> _importBlendShapeNormals { get; } = new Option<ModelImporterNormals>(
-            ModelImporterNormals.None,
-            (int)TOOLBAR.ENABLE,
-            "Blend Shape Nomals"
+            value: ModelImporterNormals.None,
+            toolbarEnable: (int)TOOLBAR.ENABLE,
+            label: "Blend Shape Nomals",
+            fieldName: "importBlendShapeNormals",
+            tooltip: ""
         );
         internal static Option<ModelImporterNormalCalculationMode> _normalsMode { get; } = new Option<ModelImporterNormalCalculationMode>(
-            ModelImporterNormalCalculationMode.Unweighted_Legacy,
-            (int)TOOLBAR.DISABLE,
-            "Normals Mode"
+            value: ModelImporterNormalCalculationMode.Unweighted_Legacy,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Normals Mode",
+            fieldName: "normalCalculationMode",
+            tooltip: ""
         );
         internal static Option<ModelImporterNormalSmoothingSource> _smoothnessSource { get; } = new Option<ModelImporterNormalSmoothingSource>(
-            ModelImporterNormalSmoothingSource.PreferSmoothingGroups,
-            (int)TOOLBAR.DISABLE,
-            ""
+            value: ModelImporterNormalSmoothingSource.PreferSmoothingGroups,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Smoothness Source",
+            fieldName: "normalSmoothingSource",
+            tooltip: ""
         );
         internal static Option<float> _smoothingAngle { get; } = new Option<float>(
-            60,
-            (int)TOOLBAR.DISABLE,
-            "Smoothing Angle"
+            value: 60,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Smoothing Angle",
+            fieldName: "normalSmoothingAngle",
+            tooltip: ""
         );
         internal static Option<ModelImporterTangents> _tangents { get; } = new Option<ModelImporterTangents>(
-            ModelImporterTangents.CalculateMikk,
-            (int)TOOLBAR.DISABLE,
-            "Tangents"
+            value: ModelImporterTangents.CalculateMikk,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Tangents",
+            fieldName: "importTangents",
+            tooltip: ""
         );
-        internal static Option<bool> _swapUvs { get; } = new Option<bool>(false,
-            (int)TOOLBAR.DISABLE,
-            "Swap Uvs"
+        internal static Option<bool> _swapUvs { get; } = new Option<bool>(
+            value: false,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Swap Uvs",
+            fieldName: "swapUVChannels",
+            tooltip: ""
         );
-        internal static Option<bool> _generateLightmapUvs { get; } = new Option<bool>(false,
-            (int)TOOLBAR.DISABLE,
-            "Generate Lightmap UVs"
-        );
-        internal static Option<bool> _strictVertexDataChecks { get; } = new Option<bool>(false,
-            (int)TOOLBAR.DISABLE,
-            "Strict Vertext Data Checks"
+        internal static Option<bool> _generateLightmapUvs { get; } = new Option<bool>(
+            value: false,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Generate Lightmap UVs",
+            fieldName: "generateSecondaryUV",
+            tooltip: ""
+            );
+        internal static Option<bool> _strictVertexDataChecks { get; } = new Option<bool>(
+            value: false,
+            toolbarEnable: (int)TOOLBAR.DISABLE,
+            label: "Strict Vertext Data Checks",
+            fieldName: "strictVertexDataChecks",
+            tooltip: ""
         );
     }
 }
