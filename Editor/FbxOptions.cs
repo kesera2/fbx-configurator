@@ -122,12 +122,16 @@ namespace kesera2.FBXOptionsManager
             _keepQuads.Update(modelImporter);
             _weldVertices.Update(modelImporter);
             _indexFormat.Update(modelImporter);
+
             _importNormals.Update(modelImporter);
+
             _importBlendShapeNormals.Update(modelImporter);
+            // WARNING: Nomals Mode, Smoothing Angle and Tangents has dependency of ImportBlendShapeNormals.Import or Caluclute!
             _normalsMode.Update(modelImporter);
-            _smoothnessSource.Update(modelImporter);
             _smoothingAngle.Update(modelImporter);
             _tangents.Update(modelImporter);
+
+            _smoothnessSource.Update(modelImporter);
             _swapUvs.Update(modelImporter);
             _generateLightmapUvs.Update(modelImporter);
             _strictVertexDataChecks.Update(modelImporter);
