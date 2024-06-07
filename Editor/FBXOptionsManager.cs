@@ -232,6 +232,7 @@ namespace kesera2.FBXOptionsManager
                     Debug.Log("model is null : " + model == null + ", file path : " + fbxFile);
                     if (model != null)
                     {
+
                         Debug.Log(folderPath + fbxFile + " importCameras " + model.importCameras);
                         Debug.Log(folderPath + fbxFile + " importLights " + model.importLights);
                         Debug.Log(folderPath + fbxFile + " isReadable " + model.isReadable);

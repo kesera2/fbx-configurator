@@ -2,14 +2,13 @@
 // 上無理
 // TODO: すべてDISABLEだったらメッセージを出す
 // ALL DISABLE ENABLE BUTTON
+using System;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using static kesera2.FBXOptionsManager.Toolbar;
 
 namespace kesera2.FBXOptionsManager
 {
-
     internal class FbxOptions
     {
         internal Option<bool> _importCameras = OptionSettings._importCameras;
@@ -105,13 +104,175 @@ namespace kesera2.FBXOptionsManager
             Option<bool>.showOption(_generateLightmapUvs);
             Option<bool>.showOption(_strictVertexDataChecks);
         }
+        internal void execute(ModelImporter modelImporter)
+        {
+            ApplyScaleFactor(modelImporter);
+            //ApplyConvertUntis(modelImporter);
+            ApplyBakeAxisConversion(modelImporter);
+            ApplyImportBlendShapes(modelImporter);
+            ApplyImportDeformPercent(modelImporter);
+            ApplyImportVisibility(modelImporter);
+            ApplyImportCamera(modelImporter);
+            ApplyImportLights(modelImporter);
+            ApplyPreserveHierarchy(modelImporter);
+            ApplySortHierarchyByName(modelImporter);
+            ApplyMeshCompression(modelImporter);
+            ApplyIsReadable(modelImporter);
+            ApplyOptimizeMesh(modelImporter);
+            ApplyGenerateColliders(modelImporter);
+            ApplyKeepQuads(modelImporter);
+            ApplyWeldVertices(modelImporter);
+            ApplyIndexFormat(modelImporter);
+            ApplyLegacyBlendShapeNomals(modelImporter);
+            ApplyImportNormals(modelImporter);
+            ApplyImportBlendShapeNormals(modelImporter);
+            ApplyNormalsMode(modelImporter);
+            ApplySmoothnessSource(modelImporter);
+            ApplySmoothingAngle(modelImporter);
+            ApplyTangents(modelImporter);
+            ApplySwapUvs(modelImporter);
+            ApplyGenerateLightmapUvs(modelImporter);
+            ApplyStrictVertexDataChecks(modelImporter);
+            //modelImporter.SaveAndReimport();
+            //AssetDatabase.SaveAssets();
+        }
 
+        internal void ApplyScaleFactor(ModelImporter modelImporter)
+        {
+            _scaleFactor.Update(modelImporter);
+        }
+
+        /// <summary>
+        /// アップデートできないので調査中。
+        /// </summary>
+        [Obsolete("このメソッドの使用はサポートしていません。")]
+        internal void ApplyConvertUntis(ModelImporter modelImporter)
+        {
+            _convertUnits.Update(modelImporter);
+        }
+
+        internal void ApplyBakeAxisConversion(ModelImporter modelImporter)
+        {
+            _bakeAxisConversion.Update(modelImporter);
+
+        }
+
+        internal void ApplyImportBlendShapes(ModelImporter modelImporter)
+        {
+            _importBlendShapes.Update(modelImporter);
+        }
+
+        internal void ApplyImportDeformPercent(ModelImporter modelImporter)
+        {
+            _importDeformPercent.Update(modelImporter);
+        }
+
+        internal void ApplyImportVisibility(ModelImporter modelImporter)
+        {
+            _importVisibility.Update(modelImporter);
+        }
+
+        internal void ApplyImportCamera(ModelImporter modelImporter)
+        {
+            _importCameras.Update(modelImporter);
+        }
+
+        internal void ApplyImportLights(ModelImporter modelImporter)
+        {
+            _importLights.Update(modelImporter);
+        }
+
+        internal void ApplyPreserveHierarchy(ModelImporter modelImporter)
+        {
+            _preserveHierarchy.Update(modelImporter);
+        }
+
+        internal void ApplySortHierarchyByName(ModelImporter modelImporter)
+        {
+            _sortHierarchyByName.Update(modelImporter);
+        }
+
+        internal void ApplyMeshCompression(ModelImporter modelImporter)
+        {
+            _meshCompression.Update(modelImporter);
+        }
+
+        internal void ApplyIsReadable(ModelImporter modelImporter)
+        {
+            _isReadable.Update(modelImporter);
+        }
+
+        internal void ApplyOptimizeMesh(ModelImporter modelImporter)
+        {
+            _optimizeMesh.Update(modelImporter);
+        }
+        internal void ApplyGenerateColliders(ModelImporter modelImporter)
+        {
+            _generateColliders.Update(modelImporter);
+        }
+
+        internal void ApplyKeepQuads(ModelImporter modelImporter)
+        {
+            _keepQuads.Update(modelImporter);
+        }
+        internal void ApplyWeldVertices(ModelImporter modelImporter)
+        {
+            _weldVertices.Update(modelImporter);
+        }
+
+        internal void ApplyIndexFormat(ModelImporter modelImporter)
+        {
+            _indexFormat.Update(modelImporter);
+        }
+
+
+        internal void ApplyImportNormals(ModelImporter modelImporter)
+        {
+            _importNormals.Update(modelImporter);
+        }
+
+        internal void ApplyImportBlendShapeNormals(ModelImporter modelImporter)
+        {
+            _importBlendShapeNormals.Update(modelImporter);
+        }
+
+        internal void ApplyNormalsMode(ModelImporter modelImporter)
+        {
+            _normalsMode.Update(modelImporter);
+        }
+
+        internal void ApplySmoothnessSource(ModelImporter modelImporter)
+        {
+            _smoothnessSource.Update(modelImporter);
+        }
+
+        internal void ApplySmoothingAngle(ModelImporter modelImporter)
+        {
+            _smoothingAngle.Update(modelImporter);
+        }
+        internal void ApplyTangents(ModelImporter modelImporter)
+        {
+            _tangents.Update(modelImporter);
+        }
+
+        internal void ApplySwapUvs(ModelImporter modelImporter)
+        {
+            _swapUvs.Update(modelImporter);
+        }
+        internal void ApplyGenerateLightmapUvs(ModelImporter modelImporter)
+        {
+            _generateLightmapUvs.Update(modelImporter);
+        }
+        internal void ApplyStrictVertexDataChecks(ModelImporter modelImporter)
+        {
+            _strictVertexDataChecks.Update(modelImporter);
+        }
         public PropertyInfo GetLegacyBlendShapeNomalsProp(ModelImporter modelImporter)
         {
             return modelImporter.GetType().GetProperty("legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
         }
 
-        public void ChangeLegacyBlendShapeNomals(ModelImporter modelImporter)
+        public void ApplyLegacyBlendShapeNomals(ModelImporter modelImporter)
         {
             PropertyInfo prop = GetLegacyBlendShapeNomalsProp(modelImporter);
             if (prop != null)
@@ -125,145 +286,6 @@ namespace kesera2.FBXOptionsManager
             PropertyInfo prop = GetLegacyBlendShapeNomalsProp(modelImporter);
             bool value = (bool)prop.GetValue(modelImporter);
             return value;
-        }
-
-        internal void execute(ModelImporter modelImporter)
-        {
-            if (_importCameras.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.importCameras = _importCameras.Value;
-            }
-
-            if (_importLights.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.importLights = _importLights.Value;
-            }
-
-            if (_isReadable.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.isReadable = _isReadable.Value;
-            }
-
-            if (_importNormals.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.importNormals = _importNormals.Value;
-            }
-
-            if (_importBlendShapeNormals.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.importBlendShapeNormals = _importBlendShapeNormals.Value;
-            }
-
-            if (_legacyBlendShapeNomals.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                ChangeLegacyBlendShapeNomals(modelImporter);
-            }
-
-            if (_scaleFactor.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.globalScale = _scaleFactor.Value;
-            }
-
-            // FIXME: 調査中
-            //if (_convertUnits.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            //{
-            //    modelImporter.useFileUnits = _convertUnits.Value;
-            //}
-
-            if (_bakeAxisConversion.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.bakeAxisConversion = _bakeAxisConversion.Value;
-            }
-
-            if (_importBlendShapes.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.importBlendShapes = _importBlendShapes.Value;
-            }
-
-            if (_importDeformPercent.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.importBlendShapeDeformPercent = _importDeformPercent.Value;
-            }
-
-            if (_importVisibility.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.importVisibility = _importVisibility.Value;
-            }
-
-            if (_preserveHierarchy.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.preserveHierarchy = _preserveHierarchy.Value;
-            }
-
-            if (_sortHierarchyByName.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.sortHierarchyByName = _sortHierarchyByName.Value;
-            }
-
-            if (_meshCompression.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.meshCompression = _meshCompression.Value;
-            }
-
-            if (_optimizeMesh.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.meshOptimizationFlags = _optimizeMesh.Value;
-            }
-
-            if (_generateColliders.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.addCollider = _generateColliders.Value;
-            }
-
-            if (_keepQuads.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.keepQuads = _keepQuads.Value;
-            }
-
-            if (_weldVertices.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.weldVertices = _weldVertices.Value;
-            }
-
-            if (_indexFormat.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.indexFormat = _indexFormat.Value;
-            }
-
-            if (_normalsMode.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.normalCalculationMode = _normalsMode.Value;
-            }
-
-            if (_smoothnessSource.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.normalSmoothingSource = _smoothnessSource.Value;
-            }
-
-            if (_smoothingAngle.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.normalSmoothingAngle = _smoothingAngle.Value;
-            }
-
-            if (_tangents.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.importTangents = _tangents.Value;
-            }
-
-            if (_swapUvs.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.swapUVChannels = _swapUvs.Value;
-            }
-
-            if (_generateLightmapUvs.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.generateSecondaryUV = _generateLightmapUvs.Value;
-            }
-
-            if (_strictVertexDataChecks.ToolbarEnable == (int)TOOLBAR.ENABLE)
-            {
-                modelImporter.strictVertexDataChecks = _strictVertexDataChecks.Value;
-            }
         }
     }
 }
