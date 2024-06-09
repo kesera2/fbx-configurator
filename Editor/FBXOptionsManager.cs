@@ -192,8 +192,16 @@ namespace kesera2.FBXOptionsManager
         {
 
 #if UNITY_2019_4_31
+            int index = folderPath.IndexOf("Assets");
             // Assetsからの相対パスを取得
-            relativePath = folderPath.Substring(folderPath.IndexOf("Assets/"));
+            if (index > 0)
+            {
+                relativePath = folderPath.Substring(index);
+            }
+            else
+            {
+                relativePath = Application.dataPath;
+            }
 #elif UNITY_2019_4_OR_NEWER
             relativePath = Path.GetRelativePath(projectPath, folderPath);
 #endif
@@ -220,6 +228,7 @@ namespace kesera2.FBXOptionsManager
             if (GUILayout.Button("Debug"))
             {
                 Debug.Log($"対象ファイル数: {fbxFiles.Count}");
+                Debug.Log($"folderPath: {folderPath} relativePath:  {relativePath} projectPath: {projectPath}");
                 for (int i = 0; i < fbxFiles.Count; i++)
                 {
                     if (!targets[i])
