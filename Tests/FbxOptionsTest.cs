@@ -6,7 +6,11 @@ using UnityEngine;
 public class FbxOptionsTest
 {
     private FBXOptionsManager window;
-    private static string fbxFile = "Assets/Ç‡ÇøÇ‡ÇøÇ‹Å[Ç∆/FBXOptionsManager/Tests/FBX/cube.fbx";
+#if UNITY_EDITOR_WIN
+    private static string fbxFile = "Assets/„ÇÇ„Å°„ÇÇ„Å°„Åæ„Éº„Å®/FBXOptionsManager/Tests/FBX/cube.fbx";
+#elif UNITY_EDITOR_OSX
+    private static string fbxFile = "Assets/FBXOptionsManager/Tests/FBX/cube.fbx";
+#endif
     private FbxOptions options;
     private readonly ModelImporter modelImporter = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
 
@@ -59,6 +63,11 @@ public class FbxOptionsTest
         AssetDatabase.Refresh();
     }
 
+    private void showCommonLog<T>(Option<T> option)
+    {
+        Debug.Log($"Label: {option.Label}, fieldName: {option._fieldName}, Value: {option.Value}, Tooltip: {option.Tooltip}, ToolbarEnable: {option.ToolbarEnable}");
+    }
+
     [Test]
     public void showOptionsPasses()
     {
@@ -75,6 +84,7 @@ public class FbxOptionsTest
 
     private void TestBoolOption(Option<bool> option)
     {
+        showCommonLog(option);
         option.Value = false;
         option.Update(modelImporter);
         Apply();
@@ -89,6 +99,7 @@ public class FbxOptionsTest
 
     private void TestFloatOption(Option<float> option)
     {
+        showCommonLog(option);
         option.Value = 0.1f;
         option.Update(modelImporter);
         Apply();
@@ -103,6 +114,7 @@ public class FbxOptionsTest
 
     private void TestModelImporterNomalsOption(Option<ModelImporterNormals> option)
     {
+        showCommonLog(option);
         option.Value = ModelImporterNormals.Calculate;
         option.Update(modelImporter);
         Apply();
@@ -265,6 +277,7 @@ public class FbxOptionsTest
     public void TestModelImporterMeshCompression()
     {
         Option<ModelImporterMeshCompression> option = options._meshCompression;
+        showCommonLog(option);
         option.Value = ModelImporterMeshCompression.Low;
         option.Update(modelImporter);
         Apply();
@@ -294,6 +307,7 @@ public class FbxOptionsTest
     public void TestMeshOptimizationFlags()
     {
         Option<MeshOptimizationFlags> option = options._optimizeMesh;
+        showCommonLog(option);
         option.Value = MeshOptimizationFlags.Everything;
         option.Update(modelImporter);
         Apply();
@@ -317,6 +331,7 @@ public class FbxOptionsTest
     public void TestModelImporterIndexFormat()
     {
         Option<ModelImporterIndexFormat> option = options._indexFormat;
+        showCommonLog(option);
         option.Value = ModelImporterIndexFormat.UInt16;
         option.Update(modelImporter);
         Apply();
@@ -340,6 +355,7 @@ public class FbxOptionsTest
     public void TestModelImporterNormalCalculationMode()
     {
         Option<ModelImporterNormalCalculationMode> option = options._normalsMode;
+        showCommonLog(option);
         option.Value = ModelImporterNormalCalculationMode.Unweighted_Legacy;
         option.Update(modelImporter);
         Apply();
@@ -375,6 +391,7 @@ public class FbxOptionsTest
     public void TestModelImporterNormalSmoothingSource()
     {
         Option<ModelImporterNormalSmoothingSource> option = options._smoothnessSource;
+        showCommonLog(option);
         option.Value = ModelImporterNormalSmoothingSource.FromAngle;
         option.Update(modelImporter);
         Apply();
@@ -409,6 +426,7 @@ public class FbxOptionsTest
         options._importNormals.Update(modelImporter);
 
         Option<ModelImporterTangents> option = options._tangents;
+        showCommonLog(option);
         option.Value = ModelImporterTangents.Import;
         option.Update(modelImporter);
         Apply();
