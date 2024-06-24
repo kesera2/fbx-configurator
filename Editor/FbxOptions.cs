@@ -86,7 +86,7 @@ namespace kesera2.FBXOptionsManager
             using (new EditorGUI.IndentLevelScope())
             {
                 showToggleToolbarButton();
-                scenesFoldOut = CustomFoldout.Foldout("Scenes", scenesFoldOut);
+                scenesFoldOut = EditorGUILayout.Foldout(scenesFoldOut, "Scenes", toggleOnLabelClick: true);
                 if (scenesFoldOut)
                 {
                     using (new EditorGUI.IndentLevelScope())
@@ -94,7 +94,7 @@ namespace kesera2.FBXOptionsManager
                         showSceneOptions();
                     }
                 }
-                meshesFoldOut = CustomFoldout.Foldout("Meshes", meshesFoldOut);
+                meshesFoldOut = EditorGUILayout.Foldout(meshesFoldOut, "Meshes", toggleOnLabelClick: true);
                 if (meshesFoldOut)
                 {
                     using (new EditorGUI.IndentLevelScope())
@@ -102,7 +102,7 @@ namespace kesera2.FBXOptionsManager
                         showMeshOptions();
                     }
                 }
-                geometoryFoldOut = CustomFoldout.Foldout("Geometory", geometoryFoldOut);
+                geometoryFoldOut = EditorGUILayout.Foldout(geometoryFoldOut, "Geometory", toggleOnLabelClick: true);
                 if (geometoryFoldOut)
                 {
                     using (new EditorGUI.IndentLevelScope())
@@ -124,7 +124,7 @@ namespace kesera2.FBXOptionsManager
 
         private void showToggleToolbarButton()
         {
-            toggleToolbarFoldOut = CustomFoldout.Foldout("Toggle Toolbar", toggleToolbarFoldOut);
+            toggleToolbarFoldOut = EditorGUILayout.Foldout(toggleToolbarFoldOut, "Toggle Toolbar", toggleOnLabelClick: true);
             if (toggleToolbarFoldOut)
             {
                 using (new EditorGUILayout.VerticalScope())
