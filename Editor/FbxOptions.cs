@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityEngine.Rendering;
 using BestHTTP.SecureProtocol.Org.BouncyCastle.Cms;
 using UnityEditor.Overlays;
+using UnityEngine.XR;
 
 namespace kesera2.FBXOptionsManager
 {
@@ -44,6 +45,11 @@ namespace kesera2.FBXOptionsManager
         internal Option<bool> _strictVertexDataChecks = OptionSettings.strictVertexDataChecks;
         internal List<Option<bool>> boolOptions;
         internal List<Option<float>> floatOptions;
+        private bool toggleToolbarFoldOut = true;
+        private bool scenesFoldOut = true;
+        private bool meshesFoldOut = true;
+        private bool geometoryFoldOut = true;
+
 
         public FbxOptions()
         {
@@ -80,20 +86,29 @@ namespace kesera2.FBXOptionsManager
             using (new EditorGUI.IndentLevelScope())
             {
                 showToggleToolbarButton();
-                EditorGUILayout.LabelField("Scene", EditorStyles.boldLabel);
-                using (new EditorGUI.IndentLevelScope())
+                scenesFoldOut = CustomFoldout.Foldout("Scenes", scenesFoldOut);
+                if (scenesFoldOut)
                 {
-                    showSceneOptions();
+                    using (new EditorGUI.IndentLevelScope())
+                    {
+                        showSceneOptions();
+                    }
                 }
-                EditorGUILayout.LabelField("Meshes", EditorStyles.boldLabel);
-                using (new EditorGUI.IndentLevelScope())
+                meshesFoldOut = CustomFoldout.Foldout("Meshes", meshesFoldOut);
+                if (meshesFoldOut)
                 {
-                    showMeshOptions();
+                    using (new EditorGUI.IndentLevelScope())
+                    {
+                        showMeshOptions();
+                    }
                 }
-                EditorGUILayout.LabelField("Geometory", EditorStyles.boldLabel);
-                using (new EditorGUI.IndentLevelScope())
+                geometoryFoldOut = CustomFoldout.Foldout("Geometory", geometoryFoldOut);
+                if (geometoryFoldOut)
                 {
-                    showGeometoryOptions();
+                    using (new EditorGUI.IndentLevelScope())
+                    {
+                        showGeometoryOptions();
+                    }
                 }
             }
         }
@@ -109,33 +124,36 @@ namespace kesera2.FBXOptionsManager
 
         private void showToggleToolbarButton()
         {
-            EditorGUILayout.LabelField("Toggle Toolbar", EditorStyles.boldLabel);
-            using (new EditorGUILayout.VerticalScope())
+            toggleToolbarFoldOut = CustomFoldout.Foldout("Toggle Toolbar", toggleToolbarFoldOut);
+            if (toggleToolbarFoldOut)
             {
-                using (new EditorGUI.IndentLevelScope())
+                using (new EditorGUILayout.VerticalScope())
                 {
-                    using (new EditorGUILayout.HorizontalScope())
+                    using (new EditorGUI.IndentLevelScope())
                     {
-                        EditorGUILayout.LabelField("Toggle toolbar to Enable", GUILayout.Width(360));
-                        if (GUILayout.Button("All Enable"))
+                        using (new EditorGUILayout.HorizontalScope())
                         {
-                            toggleToolbar(Toolbar.TOOLBAR.ENABLE);
+                            EditorGUILayout.LabelField("Toggle toolbar to Enable", GUILayout.Width(360));
+                            if (GUILayout.Button("All Enable"))
+                            {
+                                toggleToolbar(Toolbar.TOOLBAR.ENABLE);
+                            }
                         }
-                    }
-                    using (new EditorGUILayout.HorizontalScope())
-                    {
-                        EditorGUILayout.LabelField("Toggle toolbar to Default", GUILayout.Width(360));
-                        if (GUILayout.Button("Use Default"))
+                        using (new EditorGUILayout.HorizontalScope())
                         {
-                            setToolbarDefault();
+                            EditorGUILayout.LabelField("Toggle toolbar to Default", GUILayout.Width(360));
+                            if (GUILayout.Button("Use Default"))
+                            {
+                                setToolbarDefault();
+                            }
                         }
-                    }
-                    using (new EditorGUILayout.HorizontalScope())
-                    {
-                        EditorGUILayout.LabelField("Toggle toolbar to Disable", GUILayout.Width(360));
-                        if (GUILayout.Button("All Disable"))
+                        using (new EditorGUILayout.HorizontalScope())
                         {
-                            toggleToolbar(Toolbar.TOOLBAR.DISABLE);
+                            EditorGUILayout.LabelField("Toggle toolbar to Disable", GUILayout.Width(360));
+                            if (GUILayout.Button("All Disable"))
+                            {
+                                toggleToolbar(Toolbar.TOOLBAR.DISABLE);
+                            }
                         }
                     }
                 }
