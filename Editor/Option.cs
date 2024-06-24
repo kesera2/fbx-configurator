@@ -5,12 +5,9 @@ namespace kesera2.FBXOptionsManager
 {
     internal class Option<T>
     {
-        private class OptionT
-        {
-            public T value;
-        }
         private T _value { get; set; }
         private int _toolbarEnable = 0;
+        internal readonly int defaultSelected;
         private string _label;
         private string _tooltip;
         internal string _fieldName;
@@ -21,6 +18,7 @@ namespace kesera2.FBXOptionsManager
         {
             _value = value;
             _toolbarEnable = toolbarEnable;
+            defaultSelected = toolbarEnable;
             _label = label;
             _fieldName = fieldName;
             _tooltip = tooltip;
@@ -84,23 +82,20 @@ namespace kesera2.FBXOptionsManager
         {
             using (new EditorGUILayout.HorizontalScope())
             {
-                using (new EditorGUILayout.HorizontalScope())
+                bool isDisabled = option._toolbarEnable == (int)Toolbar.TOOLBAR.DISABLE;
+                using (new DisabledColorScope(Color.gray, isDisabled))
                 {
-                    bool isDisabled = option._toolbarEnable == (int)Toolbar.TOOLBAR.DISABLE;
-                    using (new DisabledColorScope(Color.gray, isDisabled))
+                    if (isDisabled)
                     {
-                        if (isDisabled)
-                        {
-                            EditorGUILayout.LabelField(new GUIContent(option.Label, option.Tooltip), optionsWidth);
-                        }
-                        else
-                        {
-                            UpdateOptionValue(option);
-                        }
+                        EditorGUILayout.LabelField(new GUIContent(option.Label, option.Tooltip), optionsWidth);
                     }
-                    GUILayout.Space(INTERVAL_WIDTH);
-                    option.ToolbarEnable = drawToggleEnableToolbar(option.ToolbarEnable);
+                    else
+                    {
+                        UpdateOptionValue(option);
+                    }
                 }
+                GUILayout.Space(INTERVAL_WIDTH);
+                option.ToolbarEnable = drawToggleEnableToolbar(option.ToolbarEnable);
             }
         }
         private static void UpdateOptionValue<T>(Option<T> option)
