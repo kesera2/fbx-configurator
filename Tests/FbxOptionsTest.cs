@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FbxOptionsTest
 {
-    private FBXOptionsManager window;
+    private FBXOptionsManagerView window;
 #if UNITY_EDITOR_WIN
     private static string fbxFile = "Assets/もちもちまーと/FBXOptionsManager/Tests/FBX/cube.fbx";
 #elif UNITY_EDITOR_OSX
@@ -17,7 +17,7 @@ public class FbxOptionsTest
     [OneTimeSetUp]
     public void SetUpTestClass()
     {
-        window = EditorWindow.GetWindow<FBXOptionsManager>("FbxOptionsTest Window");
+        window = EditorWindow.GetWindow<FBXOptionsManagerView>("FbxOptionsTest Window");
         options = new FbxOptions();
         options._importCameras.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
         options._importLights.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;

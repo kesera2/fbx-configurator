@@ -4,12 +4,12 @@ using UnityEditor;
 
 public class FBXOptionsManagerViewTest
 {
-    private static FBXOptionsManager window;
+    private static FBXOptionsManagerView window;
 
     [SetUp]
     public void Setup()
     {
-        window = EditorWindow.GetWindow<FBXOptionsManager>("Test Window");
+        window = EditorWindow.GetWindow<FBXOptionsManagerView>("Test Window");
     }
     [Test]
     public void TestShowWindow()
@@ -27,7 +27,7 @@ public class FBXOptionsManagerViewTest
     public void TestButtonClick()
     {
         // ウィンドウを表示する
-        FBXOptionsManager.ShowWindow();
+        FBXOptionsManagerView.ShowWindow();
 
         // ボタンをクリックする
         //EditorWindow.GetWindow<FBXOptionsManager>().OnGUI();

@@ -15,38 +15,66 @@ namespace kesera2.FBXOptionsManager
 {
     internal class FbxOptions
     {
-        internal Option<bool> _importCameras = OptionSettings.importCameras;
-        internal Option<bool> _importLights = OptionSettings.importLights;
-        internal Option<bool> _isReadable = OptionSettings.isReadable;
-        internal Option<ModelImporterNormals> _importNormals = OptionSettings.importNormals;
-        internal Option<ModelImporterNormals> _importBlendShapeNormals = OptionSettings.importBlendShapeNormals;
-        internal Option<bool> _legacyBlendShapeNomals = OptionSettings.legacyBlendShapeNomals;
-        internal Option<float> _scaleFactor = OptionSettings.scaleFactor;
-        internal Option<bool> _convertUnits = OptionSettings.convertUnits;
-        internal Option<bool> _bakeAxisConversion = OptionSettings.bakeAxisConversion;
-        internal Option<bool> _importBlendShapes = OptionSettings.importBlendShapes;
-        internal Option<bool> _importDeformPercent = OptionSettings.importDeformPercent;
-        internal Option<bool> _importVisibility = OptionSettings.importVisibility;
-        internal Option<bool> _preserveHierarchy = OptionSettings.preserveHierarchy;
-        internal Option<bool> _sortHierarchyByName = OptionSettings.sortHierarchyByName;
-        internal Option<ModelImporterMeshCompression> _meshCompression = OptionSettings.meshCompression;
-        internal Option<MeshOptimizationFlags> _optimizeMesh = OptionSettings.optimizeMesh;
-        internal Option<bool> _generateColliders = OptionSettings.generateColliders;
-        internal Option<bool> _keepQuads = OptionSettings.keepQuads;
-        internal Option<bool> _weldVertices = OptionSettings.weldVertices;
-        internal Option<ModelImporterIndexFormat> _indexFormat = OptionSettings.indexFormat;
-        internal Option<ModelImporterNormalCalculationMode> _normalsMode = OptionSettings.normalsMode;
-        internal Option<ModelImporterNormalSmoothingSource> _smoothnessSource = OptionSettings.smoothnessSource;
-        internal Option<float> _smoothingAngle = OptionSettings.smoothingAngle;
-        internal Option<ModelImporterTangents> _tangents = OptionSettings.tangents;
-        internal Option<bool> _swapUvs = OptionSettings.swapUvs;
-        internal Option<bool> _generateLightmapUvs = OptionSettings.generateLightmapUvs;
-        internal Option<bool> _strictVertexDataChecks = OptionSettings.strictVertexDataChecks;
+        internal Option<bool> _importCameras;
+        internal Option<bool> _importLights;
+        internal Option<bool> _isReadable;
+        internal Option<ModelImporterNormals> _importNormals;
+        internal Option<ModelImporterNormals> _importBlendShapeNormals;
+        internal Option<bool> _legacyBlendShapeNomals;
+        internal Option<float> _scaleFactor;
+        internal Option<bool> _convertUnits;
+        internal Option<bool> _bakeAxisConversion;
+        internal Option<bool> _importBlendShapes;
+        internal Option<bool> _importDeformPercent;
+        internal Option<bool> _importVisibility;
+        internal Option<bool> _preserveHierarchy;
+        internal Option<bool> _sortHierarchyByName;
+        internal Option<ModelImporterMeshCompression> _meshCompression;
+        internal Option<MeshOptimizationFlags> _optimizeMesh;
+        internal Option<bool> _generateColliders;
+        internal Option<bool> _keepQuads;
+        internal Option<bool> _weldVertices;
+        internal Option<ModelImporterIndexFormat> _indexFormat;
+        internal Option<ModelImporterNormalCalculationMode> _normalsMode;
+        internal Option<ModelImporterNormalSmoothingSource> _smoothnessSource;
+        internal Option<float> _smoothingAngle;
+        internal Option<ModelImporterTangents> _tangents;
+        internal Option<bool> _swapUvs;
+        internal Option<bool> _generateLightmapUvs;
+        internal Option<bool> _strictVertexDataChecks;
         internal List<Option<bool>> boolOptions;
         internal List<Option<float>> floatOptions;
-
+        OptionSettings optionSettings;
         public FbxOptions()
         {
+            optionSettings = new OptionSettings();
+            _importCameras = optionSettings.importCameras;
+            _importLights = optionSettings.importLights;
+            _isReadable = optionSettings.isReadable;
+            _importNormals = optionSettings.importNormals;
+            _importBlendShapeNormals = optionSettings.importBlendShapeNormals;
+            _legacyBlendShapeNomals = optionSettings.legacyBlendShapeNomals;
+            _scaleFactor = optionSettings.scaleFactor;
+            _convertUnits = optionSettings.convertUnits;
+            _bakeAxisConversion = optionSettings.bakeAxisConversion;
+            _importBlendShapes = optionSettings.importBlendShapes;
+            _importDeformPercent = optionSettings.importDeformPercent;
+            _importVisibility = optionSettings.importVisibility;
+            _preserveHierarchy = optionSettings.preserveHierarchy;
+            _sortHierarchyByName = optionSettings.sortHierarchyByName;
+            _meshCompression = optionSettings.meshCompression;
+            _optimizeMesh = optionSettings.optimizeMesh;
+            _generateColliders = optionSettings.generateColliders;
+            _keepQuads = optionSettings.keepQuads;
+            _weldVertices = optionSettings.weldVertices;
+            _indexFormat = optionSettings.indexFormat;
+            _normalsMode = optionSettings.normalsMode;
+            _smoothnessSource = optionSettings.smoothnessSource;
+            _smoothingAngle = optionSettings.smoothingAngle;
+            _tangents = optionSettings.tangents;
+            _swapUvs = optionSettings.swapUvs;
+            _generateLightmapUvs = optionSettings.generateLightmapUvs;
+            _strictVertexDataChecks = optionSettings.strictVertexDataChecks;
             boolOptions = new List<Option<bool>>
             {
                 _importCameras,
@@ -80,17 +108,17 @@ namespace kesera2.FBXOptionsManager
             using (new EditorGUI.IndentLevelScope())
             {
                 showToggleToolbarButton();
-                EditorGUILayout.LabelField("Scene", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(Localization.lang.labelSceneGroup, EditorStyles.boldLabel);
                 using (new EditorGUI.IndentLevelScope())
                 {
                     showSceneOptions();
                 }
-                EditorGUILayout.LabelField("Meshes", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(Localization.lang.labelMeshGroup, EditorStyles.boldLabel);
                 using (new EditorGUI.IndentLevelScope())
                 {
                     showMeshOptions();
                 }
-                EditorGUILayout.LabelField("Geometory", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(Localization.lang.labelGeometoryGroup, EditorStyles.boldLabel);
                 using (new EditorGUI.IndentLevelScope())
                 {
                     showGeometoryOptions();
@@ -102,38 +130,39 @@ namespace kesera2.FBXOptionsManager
         {
             using (new EditorGUILayout.HorizontalScope())
             {
-                string[] label = { "Model", "Other options are comming Soon" };
+                // TODO: move to filed label
+                string[] label = { Localization.lang.toolbarMenuGroupModel, Localization.lang.toolbarMenuGroupOther };
                 GUILayout.Toolbar(0, label);
             }
         }
 
         private void showToggleToolbarButton()
         {
-            EditorGUILayout.LabelField("Toggle Toolbar", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(Localization.lang.labelToggleToolbar, EditorStyles.boldLabel);
             using (new EditorGUILayout.VerticalScope())
             {
                 using (new EditorGUI.IndentLevelScope())
                 {
                     using (new EditorGUILayout.HorizontalScope())
                     {
-                        EditorGUILayout.LabelField("Toggle toolbar to Enable", GUILayout.Width(360));
-                        if (GUILayout.Button("All Enable"))
+                        EditorGUILayout.LabelField(Localization.lang.labelToggleToolbarToEnable, GUILayout.Width(360));
+                        if (GUILayout.Button(Localization.lang.buttonAllEnable))
                         {
                             toggleToolbar(Toolbar.TOOLBAR.ENABLE);
                         }
                     }
                     using (new EditorGUILayout.HorizontalScope())
                     {
-                        EditorGUILayout.LabelField("Toggle toolbar to Default", GUILayout.Width(360));
-                        if (GUILayout.Button("Use Default"))
+                        EditorGUILayout.LabelField(Localization.lang.labelToggleToolbarToDefault, GUILayout.Width(360));
+                        if (GUILayout.Button(Localization.lang.buttonUseDefault))
                         {
                             setToolbarDefault();
                         }
                     }
                     using (new EditorGUILayout.HorizontalScope())
                     {
-                        EditorGUILayout.LabelField("Toggle toolbar to Disable", GUILayout.Width(360));
-                        if (GUILayout.Button("All Disable"))
+                        EditorGUILayout.LabelField(Localization.lang.labelToggleToolbarToDisable, GUILayout.Width(360));
+                        if (GUILayout.Button(Localization.lang.buttonAllDisable))
                         {
                             toggleToolbar(Toolbar.TOOLBAR.DISABLE);
                         }

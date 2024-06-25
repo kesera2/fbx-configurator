@@ -7,6 +7,6 @@
             ENABLE,
             DISABLE
         }
-        public static string[] TOOLBAR_LABLE = { "Enable", "Disable" };
+        public static string[] TOOLBAR_LABLE = { Localization.lang.toolbarEnable, Localization.lang.toolbarDisable };
     }
 }

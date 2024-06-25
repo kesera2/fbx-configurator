@@ -6,9 +6,8 @@ using UnityEngine;
 
 namespace kesera2.FBXOptionsManager
 {
-    public class FBXOptionsManager : EditorWindow
+    public class FBXOptionsManagerView : EditorWindow
     {
-        public const string TOOL_NAME = "FBX Options Manager";
         private Vector2 _scrollPosition = Vector2.zero;         // スクロール位置
 
         private string projectPath;
@@ -20,20 +19,22 @@ namespace kesera2.FBXOptionsManager
         private bool additionalOptionFoldOut = false;
         // Options
         private string folderPath;
-        internal FbxOptions options = new FbxOptions();
+        internal FbxOptions options;
 
         private bool[] targets = { };
         private int WINDOW_WIDTH = 500;
         private int WINDOW_HEIGHT = 150;
 
-        [MenuItem("Tools/" + TOOL_NAME)]
+        [MenuItem(Settings.TOOL_MENU_PLACE + "/" + Settings.TOOL_NAME)]
         public static void ShowWindow()
         {
-            GetWindow<FBXOptionsManager>(TOOL_NAME);
+            GetWindow<FBXOptionsManagerView>(Settings.TOOL_NAME);
         }
 
         private void OnEnable()
         {
+            Localization.Localize();
+            options = new FbxOptions();
             // フォルダパス初期化
             folderPath = Application.dataPath;
             projectPath = Path.GetDirectoryName(Application.dataPath);
@@ -55,9 +56,10 @@ namespace kesera2.FBXOptionsManager
         private void OnGUI()
         {
             _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
+
             // ラベル幅の調整
             EditorGUIUtility.labelWidth = 200; // TODO: call at once
-            EditorGUILayout.LabelField(TOOL_NAME);
+            showSelectLangage();
             setWindowSize();
             showTargetList();
             showFolderPath();
@@ -69,9 +71,16 @@ namespace kesera2.FBXOptionsManager
             EditorGUILayout.EndScrollView();
         }
 
+        internal static int selectedLanguage;
+
+        private void showSelectLangage()
+        {
+            selectedLanguage = GUILayout.Toolbar(selectedLanguage, Localization.languages);
+        }
+
         private void showSelectTargets()
         {
-            targetFoldOut = EditorGUILayout.Foldout(targetFoldOut, "FBXファイル");
+            targetFoldOut = EditorGUILayout.Foldout(targetFoldOut, Localization.lang.foldoutTargetFbxFiles);
 
             if (targetFoldOut)
             {
@@ -107,7 +116,7 @@ namespace kesera2.FBXOptionsManager
 
         private void UncheckAllCheckboxes()
         {
-            if (GUILayout.Button("全てのチェックを外す"))
+            if (GUILayout.Button(Localization.lang.buttonUncheckAll))
             {
                 Utility.toggleArrayChecks(targets, false);
             }
@@ -115,7 +124,7 @@ namespace kesera2.FBXOptionsManager
 
         private void CheckAllCheckboxes()
         {
-            if (GUILayout.Button("全てにチェックを入れる"))
+            if (GUILayout.Button(Localization.lang.checkSelectAll))
             {
                 Utility.toggleArrayChecks(targets, true);
             }
@@ -123,7 +132,7 @@ namespace kesera2.FBXOptionsManager
 
         private void containsAllFbx()
         {
-            processAllFBXFiles = EditorGUILayout.ToggleLeft("全てを対象にする", processAllFBXFiles);
+            processAllFBXFiles = EditorGUILayout.ToggleLeft(Localization.lang.buttonCheckAll, processAllFBXFiles);
             if (processAllFBXFiles)
             {
                 Utility.toggleArrayChecks(targets, true);
@@ -133,11 +142,11 @@ namespace kesera2.FBXOptionsManager
         private void showFolderPath()
         {
             GUILayoutOption[] options = { GUILayout.ExpandWidth(true) };
-            EditorGUILayout.LabelField("選択中のフォルダ:");
+            EditorGUILayout.LabelField(Localization.lang.labelTargetDirectory);
             EditorGUILayout.LabelField(folderPath, EditorStyles.wordWrappedLabel, options);
-            if (GUILayout.Button("Open"))
+            if (GUILayout.Button(Localization.lang.buttonOpenDirectory))
             {
-                folderPath = EditorUtility.OpenFolderPanel("フォルダを選択", folderPath, string.Empty);
+                folderPath = EditorUtility.OpenFolderPanel(Localization.lang.windowLabelSelectFolder, folderPath, string.Empty);
                 RefreshFBXFileList();
             }
         }
@@ -147,7 +156,7 @@ namespace kesera2.FBXOptionsManager
             using (new EditorGUI.DisabledGroupScope(!canExecute()))
             {
 
-                if (GUILayout.Button("実行"))
+                if (GUILayout.Button(Localization.lang.buttonExecute))
                 {
                     for (int i = 0; i < fbxFiles.Count; i++)
                     {
@@ -162,10 +171,10 @@ namespace kesera2.FBXOptionsManager
                             options.execute(modelImporter);
                             modelImporter.SaveAndReimport();
                             AssetDatabase.SaveAssets();
-                            Debug.Log($"{fbxFile}のオプションを変更しました。");
+                            Debug.Log(string.Format(Localization.lang.logOptionChanged, fbxFile));
                         }
                     }
-                    Debug.Log($"{TOOL_NAME} : 実行が完了しました。");
+                    Debug.Log(string.Format(Localization.lang.logExecuted, Settings.TOOL_NAME));
                 }
             }
         }
@@ -185,7 +194,7 @@ namespace kesera2.FBXOptionsManager
             if (optionFoldOut)
             {
                 options.showOptions();
-                EditorGUILayout.HelpBox("通常の場合、オプションを変更する必要はありません。", MessageType.Info);
+                EditorGUILayout.HelpBox(Localization.lang.helpboxInfoNeedlessToChangeOptions, MessageType.Info);
             }
         }
         private void RefreshFBXFileList()
@@ -208,18 +217,11 @@ namespace kesera2.FBXOptionsManager
             fbxFiles = Utility.GetFBXFiles(relativePath);
         }
 
-
-
-        private void showHelp()
-        {
-            EditorGUILayout.HelpBox("Assets配下の全てのFBXのオプションを推奨設定に変更します。", MessageType.Info);
-        }
-
         private void showWarning()
         {
             if (!canExecute())
             {
-                EditorGUILayout.HelpBox("対象のFBXが存在しません。", MessageType.Warning);
+                EditorGUILayout.HelpBox(Localization.lang.helpboxWarningTargetFbxNotFound, MessageType.Warning);
             }
         }
 
