@@ -13,14 +13,12 @@ namespace kesera2.FBXOptionsManager
         private string projectPath;
         internal string relativePath;
         private List<string> fbxFiles;
-        private bool processAllFBXFiles = true;
+        private bool isSelectTargetFBX = false;
         private bool targetFoldOut = false;
         internal bool optionFoldOut = false;
-        private bool additionalOptionFoldOut = false;
         // Options
         private string folderPath;
         internal FbxOptions options;
-
         private bool[] targets = { };
         private int WINDOW_WIDTH = 500;
         private int WINDOW_HEIGHT = 150;
@@ -33,8 +31,6 @@ namespace kesera2.FBXOptionsManager
 
         private void OnEnable()
         {
-            Localization.Localize();
-            options = new FbxOptions();
             // フォルダパス初期化
             folderPath = Application.dataPath;
             projectPath = Path.GetDirectoryName(Application.dataPath);
@@ -45,6 +41,8 @@ namespace kesera2.FBXOptionsManager
                 targets = new bool[fbxFiles.Count];
                 Utility.toggleArrayChecks(targets, true);
             }
+            Localization.Localize();
+            options = new FbxOptions();
         }
 
         private void setWindowSize()
@@ -56,12 +54,11 @@ namespace kesera2.FBXOptionsManager
         private void OnGUI()
         {
             _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
-
+            Localization.Localize();
             // ラベル幅の調整
             EditorGUIUtility.labelWidth = 200; // TODO: call at once
             showSelectLangage();
             setWindowSize();
-            showTargetList();
             showFolderPath();
             showSelectTargets();
             showOptionFoldOut();
@@ -72,10 +69,14 @@ namespace kesera2.FBXOptionsManager
         }
 
         internal static int selectedLanguage;
-
+        internal int currentLanguage = 0;
         private void showSelectLangage()
         {
             selectedLanguage = GUILayout.Toolbar(selectedLanguage, Localization.languages);
+            if (currentLanguage != selectedLanguage)
+            {
+            }
+            currentLanguage = selectedLanguage;
         }
 
         private void showSelectTargets()
@@ -86,28 +87,24 @@ namespace kesera2.FBXOptionsManager
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    containsAllFbx();
+                    ShowSelectTargetFBXCheckbox();
                 }
-                using (new EditorGUI.DisabledGroupScope(processAllFBXFiles))
+                using (new EditorGUI.DisabledGroupScope(!isSelectTargetFBX))
                 {
                     using (new EditorGUILayout.HorizontalScope())
                     {
                         CheckAllCheckboxes();
                         UncheckAllCheckboxes();
                     }
-                }
-                if (fbxFiles != null)
-                {
-                    using (new EditorGUILayout.VerticalScope("box"))
+                    if (fbxFiles != null)
                     {
-                        for (int i = 0; i < fbxFiles.Count; i++)
+                        using (new EditorGUILayout.VerticalScope("box"))
                         {
-                            string fbxFile = fbxFiles[i];
-                            using (new EditorGUI.DisabledGroupScope(processAllFBXFiles))
+                            for (int i = 0; i < fbxFiles.Count; i++)
                             {
+                                string fbxFile = fbxFiles[i];
                                 targets[i] = EditorGUILayout.ToggleLeft(fbxFile, targets[i]);
                             }
-
                         }
                     }
                 }
@@ -116,7 +113,7 @@ namespace kesera2.FBXOptionsManager
 
         private void UncheckAllCheckboxes()
         {
-            if (GUILayout.Button(Localization.lang.buttonUncheckAll))
+            if (GUILayout.Button(Localization.lang.buttonUnselectAllFbx))
             {
                 Utility.toggleArrayChecks(targets, false);
             }
@@ -124,16 +121,16 @@ namespace kesera2.FBXOptionsManager
 
         private void CheckAllCheckboxes()
         {
-            if (GUILayout.Button(Localization.lang.checkSelectAll))
+            if (GUILayout.Button(Localization.lang.buttonSelectAllFbx))
             {
                 Utility.toggleArrayChecks(targets, true);
             }
         }
 
-        private void containsAllFbx()
+        private void ShowSelectTargetFBXCheckbox()
         {
-            processAllFBXFiles = EditorGUILayout.ToggleLeft(Localization.lang.buttonCheckAll, processAllFBXFiles);
-            if (processAllFBXFiles)
+            isSelectTargetFBX = EditorGUILayout.ToggleLeft(Localization.lang.checkboxSelectTargetFBX, isSelectTargetFBX);
+            if (!isSelectTargetFBX)
             {
                 Utility.toggleArrayChecks(targets, true);
             }
@@ -179,14 +176,6 @@ namespace kesera2.FBXOptionsManager
             }
         }
 
-        private void showTargetList()
-        {
-            using (new EditorGUILayout.HorizontalScope())
-            {
-
-            }
-        }
-
         private void showOptionFoldOut()
         {
             optionFoldOut = EditorGUILayout.Foldout(optionFoldOut, "Options");
@@ -221,7 +210,7 @@ namespace kesera2.FBXOptionsManager
         {
             if (!canExecute())
             {
-                EditorGUILayout.HelpBox(Localization.lang.helpboxWarningTargetFbxNotFound, MessageType.Warning);
+                EditorGUILayout.HelpBox(Localization.lang.helpboxWarningTargetFbxIsNotFound, MessageType.Warning);
             }
         }
 

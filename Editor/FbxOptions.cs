@@ -15,66 +15,38 @@ namespace kesera2.FBXOptionsManager
 {
     internal class FbxOptions
     {
-        internal Option<bool> _importCameras;
-        internal Option<bool> _importLights;
-        internal Option<bool> _isReadable;
-        internal Option<ModelImporterNormals> _importNormals;
-        internal Option<ModelImporterNormals> _importBlendShapeNormals;
-        internal Option<bool> _legacyBlendShapeNomals;
-        internal Option<float> _scaleFactor;
-        internal Option<bool> _convertUnits;
-        internal Option<bool> _bakeAxisConversion;
-        internal Option<bool> _importBlendShapes;
-        internal Option<bool> _importDeformPercent;
-        internal Option<bool> _importVisibility;
-        internal Option<bool> _preserveHierarchy;
-        internal Option<bool> _sortHierarchyByName;
-        internal Option<ModelImporterMeshCompression> _meshCompression;
-        internal Option<MeshOptimizationFlags> _optimizeMesh;
-        internal Option<bool> _generateColliders;
-        internal Option<bool> _keepQuads;
-        internal Option<bool> _weldVertices;
-        internal Option<ModelImporterIndexFormat> _indexFormat;
-        internal Option<ModelImporterNormalCalculationMode> _normalsMode;
-        internal Option<ModelImporterNormalSmoothingSource> _smoothnessSource;
-        internal Option<float> _smoothingAngle;
-        internal Option<ModelImporterTangents> _tangents;
-        internal Option<bool> _swapUvs;
-        internal Option<bool> _generateLightmapUvs;
-        internal Option<bool> _strictVertexDataChecks;
+        internal static OptionSettings optionSettings = new OptionSettings();
+        internal Option<bool> _importCameras = optionSettings.importCameras;
+        internal Option<bool> _importLights = optionSettings.importLights;
+        internal Option<bool> _isReadable = optionSettings.isReadable;
+        internal Option<ModelImporterNormals> _importNormals = optionSettings.importNormals;
+        internal Option<ModelImporterNormals> _importBlendShapeNormals = optionSettings.importBlendShapeNormals;
+        internal Option<bool> _legacyBlendShapeNomals = optionSettings.legacyBlendShapeNomals;
+        internal Option<float> _scaleFactor = optionSettings.scaleFactor;
+        internal Option<bool> _convertUnits = optionSettings.convertUnits;
+        internal Option<bool> _bakeAxisConversion = optionSettings.bakeAxisConversion;
+        internal Option<bool> _importBlendShapes = optionSettings.importBlendShapes;
+        internal Option<bool> _importDeformPercent = optionSettings.importDeformPercent;
+        internal Option<bool> _importVisibility = optionSettings.importVisibility;
+        internal Option<bool> _preserveHierarchy = optionSettings.preserveHierarchy;
+        internal Option<bool> _sortHierarchyByName = optionSettings.sortHierarchyByName;
+        internal Option<ModelImporterMeshCompression> _meshCompression = optionSettings.meshCompression;
+        internal Option<MeshOptimizationFlags> _optimizeMesh = optionSettings.optimizeMesh;
+        internal Option<bool> _generateColliders = optionSettings.generateColliders;
+        internal Option<bool> _keepQuads = optionSettings.keepQuads;
+        internal Option<bool> _weldVertices = optionSettings.weldVertices;
+        internal Option<ModelImporterIndexFormat> _indexFormat = optionSettings.indexFormat;
+        internal Option<ModelImporterNormalCalculationMode> _normalsMode = optionSettings.normalsMode;
+        internal Option<ModelImporterNormalSmoothingSource> _smoothnessSource = optionSettings.smoothnessSource;
+        internal Option<float> _smoothingAngle = optionSettings.smoothingAngle;
+        internal Option<ModelImporterTangents> _tangents = optionSettings.tangents;
+        internal Option<bool> _swapUvs = optionSettings.swapUvs;
+        internal Option<bool> _generateLightmapUvs = optionSettings.generateLightmapUvs;
+        internal Option<bool> _strictVertexDataChecks = optionSettings.strictVertexDataChecks;
         internal List<Option<bool>> boolOptions;
         internal List<Option<float>> floatOptions;
-        OptionSettings optionSettings;
         public FbxOptions()
         {
-            optionSettings = new OptionSettings();
-            _importCameras = optionSettings.importCameras;
-            _importLights = optionSettings.importLights;
-            _isReadable = optionSettings.isReadable;
-            _importNormals = optionSettings.importNormals;
-            _importBlendShapeNormals = optionSettings.importBlendShapeNormals;
-            _legacyBlendShapeNomals = optionSettings.legacyBlendShapeNomals;
-            _scaleFactor = optionSettings.scaleFactor;
-            _convertUnits = optionSettings.convertUnits;
-            _bakeAxisConversion = optionSettings.bakeAxisConversion;
-            _importBlendShapes = optionSettings.importBlendShapes;
-            _importDeformPercent = optionSettings.importDeformPercent;
-            _importVisibility = optionSettings.importVisibility;
-            _preserveHierarchy = optionSettings.preserveHierarchy;
-            _sortHierarchyByName = optionSettings.sortHierarchyByName;
-            _meshCompression = optionSettings.meshCompression;
-            _optimizeMesh = optionSettings.optimizeMesh;
-            _generateColliders = optionSettings.generateColliders;
-            _keepQuads = optionSettings.keepQuads;
-            _weldVertices = optionSettings.weldVertices;
-            _indexFormat = optionSettings.indexFormat;
-            _normalsMode = optionSettings.normalsMode;
-            _smoothnessSource = optionSettings.smoothnessSource;
-            _smoothingAngle = optionSettings.smoothingAngle;
-            _tangents = optionSettings.tangents;
-            _swapUvs = optionSettings.swapUvs;
-            _generateLightmapUvs = optionSettings.generateLightmapUvs;
-            _strictVertexDataChecks = optionSettings.strictVertexDataChecks;
             boolOptions = new List<Option<bool>>
             {
                 _importCameras,
@@ -118,10 +90,10 @@ namespace kesera2.FBXOptionsManager
                 {
                     showMeshOptions();
                 }
-                EditorGUILayout.LabelField(Localization.lang.labelGeometoryGroup, EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(Localization.lang.labelGeometryGroup, EditorStyles.boldLabel);
                 using (new EditorGUI.IndentLevelScope())
                 {
-                    showGeometoryOptions();
+                    showGeometryOptions();
                 }
             }
         }
@@ -245,7 +217,7 @@ namespace kesera2.FBXOptionsManager
             Option<bool>.showOption(_generateColliders);
         }
 
-        private void showGeometoryOptions()
+        private void showGeometryOptions()
         {
             Option<bool>.showOption(_keepQuads);
             Option<bool>.showOption(_weldVertices);

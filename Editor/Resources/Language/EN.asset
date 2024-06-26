@@ -12,50 +12,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5a3a810170e6841a28142743e7864b, type: 3}
   m_Name: EN
   m_EditorClassIdentifier: 
-  labelTargetDirectory: 
-  labelSceneGroup: 
-  labelMeshGroup: 
-  labelGeometoryGroup: 
-  labelScaleFactor: 
-  labelConvertUnits: 
-  labelBakeAxisConversion: 
-  labelImportBlendShapes: 
-  labelImportDeformPercent: 
-  labelImportVisibility: 
-  labelImportCameras: 
-  labelImportLights: 
-  labelPreserveHierarchy: 
-  labelSortHierarchyByName: 
-  labelMeshCompression: 
-  labelIsReadable: 
-  labelOptimizeMesh: 
-  labelGenerateColliders: 
-  labelKeepQuads: 
-  labelWeldVertices: 
-  labelIndexFormat: 
-  labelLegacyBlendShapeNomals: 
-  labelImportNormals: 
-  labelImportBlendShapeNormals: 
-  labelNormalsMode: 
-  labelSmoothnessSource: 
-  labelSmoothingAngle: 
-  labelTangents: 
-  labelSwapUvs: 
-  labelGenerateLightmapUvs: 
-  labelStrictVertexDataChecks: 
-  foldoutTargetFbxFiles: 
-  buttonOpenDirectory: 
-  buttonCheckAll: 
-  buttonUncheckAll: 
-  buttonAllEnable: 
-  buttonUseDefault: 
-  buttonAllDisable: 
-  buttonExecute: 
-  checkSelectAll: 
-  toolbarEnable: 
-  toolbarDisable: 
-  windowLabelSelectFolder: 
-  helpboxInfoNeedlessToChangeOptions: 
-  helpboxWarningTargetFbxNotFound: 
-  logOptionChanged: 
-  logExecuted: 
+  labelTargetDirectory: Target Folder Path
+  labelToggleToolbar: Toggle Toolbar
+  labelToggleToolbarToEnable: Toggle toolbar to Enable
+  labelToggleToolbarToDefault: Toggle toolbar to Default
+  labelToggleToolbarToDisable: Toggle toolbar to Disable
+  labelSceneGroup: Scenes
+  labelScaleFactor: Scale Factor
+  labelConvertUnits: Convert Units
+  labelBakeAxisConversion: Bake Axis Conversion
+  labelImportBlendShapes: Import Blend Shapes
+  labelImportDeformPercent: Import Deform Percent
+  labelImportVisibility: Import Visibility
+  labelImportCameras: Import Cameras
+  labelImportLights: Import Lights
+  labelPreserveHierarchy: Preserver Hierarch
+  labelSortHierarchyByName: Sort Hierarchy By Name
+  labelMeshGroup: Meshes
+  labelMeshCompression: Mesh Compression
+  labelIsReadable: Read/Write
+  labelOptimizeMesh: Optimize Mesh
+  labelGenerateColliders: Generate Colliders
+  labelGeometryGroup: Geometry
+  labelKeepQuads: Keep Quads
+  labelWeldVertices: Weld Vertices
+  labelIndexFormat: Index Format
+  labelLegacyBlendShapeNomals: Legacy Blend Shape Normals
+  labelImportNormals: Nomals
+  labelImportBlendShapeNormals: Blend Shape Nomals
+  labelNormalsMode: Nomals Mode
+  labelSmoothnessSource: Smoothness Source
+  labelSmoothingAngle: Smoothing Angle
+  labelTangents: Tangents
+  labelSwapUvs: Swap UVs
+  labelGenerateLightmapUvs: Generate Lightmap UVs
+  labelStrictVertexDataChecks: Strict Vertex Data Checks
+  foldoutOptions: Options
+  foldoutTargetFbxFiles: 'Select Target FBX '
+  buttonOpenDirectory: Select Folder
+  buttonSelectAllFbx: Select All
+  buttonUnselectAllFbx: Unselect All
+  buttonAllEnable: All Enable
+  buttonUseDefault: Use Default
+  buttonAllDisable: All Disable
+  buttonExecute: Execute
+  checkboxSelectTargetFBX: Select Target FBX
+  toolbarMenuGroupModel: Model
+  toolbarMenuGroupOther: Other Menu will be comming soon
+  toolbarEnable: Enable
+  toolbarDisable: Disable
+  windowLabelSelectFolder: Select Folder
+  helpboxInfoNeedlessToChangeOptions: Under normal situations, it is not necessary
+    to change the options.
+  helpboxWarningTargetFbxIsNotFound: Target FBX is Not Found
+  logOptionChanged: '{0} options are changed.'
+  logExecuted: '{0} : Done'

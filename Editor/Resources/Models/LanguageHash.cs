@@ -34,8 +34,8 @@ namespace kesera2.FBXOptionsManager
         public string labelOptimizeMesh;
         public string labelGenerateColliders;
 
-        // Geometory
-        public string labelGeometoryGroup;
+        // Geometry
+        public string labelGeometryGroup;
         public string labelKeepQuads;
         public string labelWeldVertices;
         public string labelIndexFormat;
@@ -56,15 +56,15 @@ namespace kesera2.FBXOptionsManager
 
         [Header("Button")]
         public string buttonOpenDirectory;
-        public string buttonCheckAll;
-        public string buttonUncheckAll;
+        public string buttonSelectAllFbx;
+        public string buttonUnselectAllFbx;
         public string buttonAllEnable;
         public string buttonUseDefault;
         public string buttonAllDisable;
         public string buttonExecute;
 
         [Header("CheckBox")]
-        public string checkSelectAll;
+        public string checkboxSelectTargetFBX;
 
         [Header("Toolbar")]
         public string toolbarMenuGroupModel;
@@ -79,7 +79,7 @@ namespace kesera2.FBXOptionsManager
 
         [Header("Help Box")]
         public string helpboxInfoNeedlessToChangeOptions;
-        public string helpboxWarningTargetFbxNotFound;
+        public string helpboxWarningTargetFbxIsNotFound;
 
         [Header("Log")]
         public string logOptionChanged;
