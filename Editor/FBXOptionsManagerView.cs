@@ -36,14 +36,12 @@ namespace kesera2.FBXOptionsManager
 
             // targetsの初期化
             InitializeTargets();
+            UpdateOptions();
         }
 
         private void OnGUI()
         {
-            Localization.Localize();
-            Options = new FbxOptions();
             _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
-
             // ラベル幅の調整
             EditorGUIUtility.labelWidth = LabelWidth;
 
@@ -56,6 +54,12 @@ namespace kesera2.FBXOptionsManager
             ShowWarning();
 
             EditorGUILayout.EndScrollView();
+        }
+
+        private void UpdateOptions()
+        {
+            Localization.Localize();
+            Options = new FbxOptions();
         }
 
         [MenuItem(Settings.ToolMenuPlace + "/" + Settings.ToolName)]
@@ -73,10 +77,7 @@ namespace kesera2.FBXOptionsManager
         private void ShowSelectLanguage()
         {
             SelectedLanguage = GUILayout.Toolbar(SelectedLanguage, Localization.Languages);
-            if (_selectedLanguage != SelectedLanguage)
-            {
-                // ここに選択言語変更時の処理を追加できます。
-            }
+            if (_selectedLanguage != SelectedLanguage) UpdateOptions();
 
             _selectedLanguage = SelectedLanguage;
         }
@@ -143,7 +144,8 @@ namespace kesera2.FBXOptionsManager
         {
             using (new EditorGUI.DisabledGroupScope(!CanExecute()))
             {
-                if (GUILayout.Button(Localization.Lang.buttonExecute)) ExecuteOptions();
+                if (!GUILayout.Button(Localization.Lang.buttonExecute)) return;
+                ExecuteOptions();
                 Debug.Log(string.Format(Localization.Lang.logExecuted, Settings.ToolName));
             }
         }
