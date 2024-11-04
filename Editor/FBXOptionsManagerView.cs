@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace kesera2.FBXOptionsManager
 {
@@ -150,8 +151,16 @@ namespace kesera2.FBXOptionsManager
             using (new EditorGUI.DisabledGroupScope(!CanExecute()))
             {
                 if (!GUILayout.Button(Localization.Lang.buttonExecute)) return;
+                if (!DisplayConfirmDialog()) return;
                 ExecuteOptions();
-                Debug.Log(string.Format(Localization.Lang.logExecuted, Settings.ToolName));
+
+                var message = string.Format(Localization.Lang.logExecuted, Settings.ToolName);
+                Debug.Log(message);
+                EditorUtility.DisplayDialog(
+                    Settings.ToolName,
+                    message,
+                    "OK"
+                );
             }
         }
 
@@ -175,6 +184,17 @@ namespace kesera2.FBXOptionsManager
             // 選択オブジェクトの復元
             RestoreSelection();
             AssetDatabase.SaveAssets();
+        }
+
+        private bool DisplayConfirmDialog()
+        {
+            // メッセージボックスを表示
+            return EditorUtility.DisplayDialog(
+                Settings.ToolName, // ダイアログのタイトル
+                string.Format(Localization.Lang.executeDialogMessage, _fbxFiles.Count), // メッセージ
+                "OK",
+                "Cancel"
+            );
         }
 
         private void ShowOptionFoldOut()
