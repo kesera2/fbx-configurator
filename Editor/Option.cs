@@ -5,9 +5,9 @@ namespace kesera2.FBXOptionsManager
 {
     internal class Option<T>
     {
-        private const int OptionWidth = 350;
         private const float IntervalWidth = 10;
-        private static readonly GUILayoutOption[] OptionsWidth = { GUILayout.Width(OptionWidth) };
+        private const int OptionWidth = 350;
+        private readonly GUILayoutOption[] _optionsWidth;
         internal readonly int DefaultSelected;
         internal readonly string FieldName;
         private Toolbar _toolbar;
@@ -20,6 +20,7 @@ namespace kesera2.FBXOptionsManager
             Label = label;
             FieldName = fieldName;
             Tooltip = tooltip;
+            _optionsWidth = new[] { GUILayout.Width(OptionWidth) };
         }
 
         public T Value { get; set; }
@@ -43,7 +44,7 @@ namespace kesera2.FBXOptionsManager
             ShowTOption(this);
         }
 
-        private void ShowTOption<T>(Option<T> option)
+        private void ShowTOption(Option<T> option)
         {
             using (new EditorGUILayout.HorizontalScope())
             {
@@ -51,7 +52,7 @@ namespace kesera2.FBXOptionsManager
                 using (new DisabledColorScope(Color.gray, isDisabled))
                 {
                     if (isDisabled)
-                        EditorGUILayout.LabelField(new GUIContent(option.Label, option.Tooltip), OptionsWidth);
+                        EditorGUILayout.LabelField(new GUIContent(option.Label, option.Tooltip), _optionsWidth);
                     else
                         UpdateOptionValue(option);
                 }
@@ -61,32 +62,32 @@ namespace kesera2.FBXOptionsManager
             }
         }
 
-        private static void UpdateOptionValue<T>(Option<T> option)
+        private static void UpdateOptionValue(Option<T> option)
         {
             if (typeof(T) == typeof(float))
                 option.Value = (T)(object)EditorGUILayout.FloatField(new GUIContent(option.Label, option.Tooltip),
-                    (float)(object)option.Value, OptionsWidth);
+                    (float)(object)option.Value, option._optionsWidth);
             else if (typeof(T) == typeof(bool))
                 option.Value = (T)(object)EditorGUILayout.Toggle(new GUIContent(option.Label, option.Tooltip),
-                    (bool)(object)option.Value, OptionsWidth);
+                    (bool)(object)option.Value, option._optionsWidth);
             else if (typeof(T) == typeof(ModelImporterMeshCompression))
                 option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip),
-                    (ModelImporterMeshCompression)(object)option.Value, OptionsWidth);
+                    (ModelImporterMeshCompression)(object)option.Value, option._optionsWidth);
             else if (typeof(T) == typeof(MeshOptimizationFlags))
                 option.Value = (T)(object)EditorGUILayout.EnumFlagsField(new GUIContent(option.Label, option.Tooltip),
-                    (MeshOptimizationFlags)(object)option.Value, OptionsWidth);
+                    (MeshOptimizationFlags)(object)option.Value, option._optionsWidth);
             else if (typeof(T) == typeof(ModelImporterIndexFormat))
                 option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip),
-                    (ModelImporterIndexFormat)(object)option.Value, OptionsWidth);
+                    (ModelImporterIndexFormat)(object)option.Value, option._optionsWidth);
             else if (typeof(T) == typeof(ModelImporterNormals))
                 option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip),
-                    (ModelImporterNormals)(object)option.Value, OptionsWidth);
+                    (ModelImporterNormals)(object)option.Value, option._optionsWidth);
             else if (typeof(T) == typeof(ModelImporterNormalCalculationMode))
                 option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip),
-                    (ModelImporterNormalCalculationMode)(object)option.Value, OptionsWidth);
+                    (ModelImporterNormalCalculationMode)(object)option.Value, option._optionsWidth);
             else if (typeof(T) == typeof(ModelImporterTangents))
                 option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip),
-                    (ModelImporterTangents)(object)option.Value, OptionsWidth);
+                    (ModelImporterTangents)(object)option.Value, option._optionsWidth);
         }
 
         public void Update(ModelImporter modelImporter)
