@@ -12,9 +12,10 @@ namespace kesera2.FBXOptionsManager
         private const int WindowHeight = 150;
         private const int LabelWidth = 200;
 
-        private const string OptionsFoldoutLabel = "Options"; // 定数の導入
+        private const string OptionsFoldoutLabel = "Options";
 
         public static int SelectedLanguage;
+        private Object _currentSelectedObject;
         private List<string> _fbxFiles;
 
         // Options
@@ -53,6 +54,7 @@ namespace kesera2.FBXOptionsManager
             ShowFolderPath();
             ShowSelectTargets();
             ShowOptionFoldOut();
+            // ShowDebug();
             ShowExecute();
             ShowWarning();
 
@@ -155,6 +157,8 @@ namespace kesera2.FBXOptionsManager
 
         private void ExecuteOptions()
         {
+            // NOTE: InspectorでFBXがアクティブになっているとSaveAssetsが適用されないため一旦退避する
+            StashAndClearCurrentSelection();
             for (var i = 0; i < _fbxFiles.Count; i++)
             {
                 if (!_targets[i]) continue;
@@ -165,9 +169,12 @@ namespace kesera2.FBXOptionsManager
 
                 Options.Execute(modelImporter);
                 modelImporter.SaveAndReimport();
-                AssetDatabase.SaveAssets();
                 Debug.Log(string.Format(Localization.Lang.logOptionChanged, fbxFile));
             }
+
+            // 選択オブジェクトの復元
+            RestoreSelection();
+            AssetDatabase.SaveAssets();
         }
 
         private void ShowOptionFoldOut()
@@ -213,6 +220,53 @@ namespace kesera2.FBXOptionsManager
         private bool CanExecute()
         {
             return _fbxFiles.Count > 0 && _targets.Any(c => c);
+        }
+
+        private void ShowDebug()
+        {
+            if (GUILayout.Button("Debug"))
+            {
+                Debug.Log($"対象ファイル数: {_fbxFiles.Count}");
+                Debug.Log($"folderPath: {_folderPath} relativePath:  {RelativePath} projectPath: {_projectPath}");
+                for (var i = 0; i < _fbxFiles.Count; i++)
+                {
+                    if (!_targets[i]) continue;
+                    var fbxFile = _fbxFiles[i];
+                    var folderPath = Path.GetDirectoryName(fbxFile);
+                    var model = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
+                    Debug.Log("model is null : " + model == null + ", file path : " + fbxFile);
+                    if (model != null)
+                    {
+                        Debug.Log(folderPath + fbxFile + " importCameras " + model.importCameras);
+                        Debug.Log(folderPath + fbxFile + " importLights " + model.importLights);
+                        Debug.Log(folderPath + fbxFile + " isReadable " + model.isReadable);
+                        Debug.Log(folderPath + fbxFile + " importNormals " + model.importNormals);
+                        Debug.Log(folderPath + fbxFile + " importBlendShapeNormals " + model.importBlendShapeNormals);
+                        Debug.Log(folderPath + fbxFile + " LegacyBlendShapeNomals " +
+                                  Options.GetLegacyBlendShapeNormals(model));
+                        Options.GetLegacyBlendShapeNormals(model);
+                    }
+                }
+            }
+        }
+
+        private void StashAndClearCurrentSelection()
+        {
+            _currentSelectedObject = Selection.activeObject;
+
+            // 例として新しいGameObjectを作成
+            var newObject = new GameObject("New Object");
+
+            // 選択オブジェクトを新しいオブジェクトに変更
+            Selection.activeObject = newObject;
+
+            // 新しいオブジェクトをすぐに削除
+            DestroyImmediate(newObject);
+        }
+
+        private void RestoreSelection()
+        {
+            Selection.activeObject = _currentSelectedObject;
         }
     }
 }
