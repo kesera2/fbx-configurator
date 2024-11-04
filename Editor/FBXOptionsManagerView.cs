@@ -54,7 +54,7 @@ namespace kesera2.FBXOptionsManager
             ShowFolderPath();
             ShowSelectTargets();
             ShowOptionFoldOut();
-            ShowDebug();
+            // ShowDebug();
             ShowExecute();
             ShowWarning();
             EditorGUILayout.EndScrollView();
@@ -86,30 +86,28 @@ namespace kesera2.FBXOptionsManager
         {
             _targetFoldOut = EditorGUILayout.Foldout(_targetFoldOut, Localization.Lang.foldoutTargetFbxFiles);
 
-            if (_targetFoldOut)
+            if (!_targetFoldOut) return;
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                ShowSelectTargetFBXCheckbox();
+            }
+
+            using (new EditorGUI.DisabledGroupScope(!_isSelectTargetFBX))
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    ShowSelectTargetFBXCheckbox();
+                    CheckAllCheckboxes();
+                    UncheckAllCheckboxes();
                 }
 
-                using (new EditorGUI.DisabledGroupScope(!_isSelectTargetFBX))
+                if (_fbxFiles == null) return;
+                using (new EditorGUILayout.VerticalScope("box"))
                 {
-                    using (new EditorGUILayout.HorizontalScope())
+                    for (var i = 0; i < _fbxFiles.Count; i++)
                     {
-                        CheckAllCheckboxes();
-                        UncheckAllCheckboxes();
+                        var fbxFile = _fbxFiles[i];
+                        _targets[i] = EditorGUILayout.ToggleLeft(fbxFile, _targets[i]);
                     }
-
-                    if (_fbxFiles != null)
-                        using (new EditorGUILayout.VerticalScope("box"))
-                        {
-                            for (var i = 0; i < _fbxFiles.Count; i++)
-                            {
-                                var fbxFile = _fbxFiles[i];
-                                _targets[i] = EditorGUILayout.ToggleLeft(fbxFile, _targets[i]);
-                            }
-                        }
                 }
             }
         }
@@ -136,36 +134,29 @@ namespace kesera2.FBXOptionsManager
             GUILayoutOption[] options = { GUILayout.ExpandWidth(true) };
             EditorGUILayout.LabelField(Localization.Lang.labelTargetDirectory);
             EditorGUILayout.LabelField(_folderPath, EditorStyles.wordWrappedLabel, options);
-            if (GUILayout.Button(Localization.Lang.buttonOpenDirectory))
-            {
-                _folderPath = EditorUtility.OpenFolderPanel(Localization.Lang.windowLabelSelectFolder, _folderPath,
-                    string.Empty);
-                RefreshFBXFileList();
-            }
-        }
-
+            if (!GUILayout.Button(Localization.Lang.buttonOpenDirectory)) return;
+            _folderPath = EditorUtility.OpenFolderPanel(Localization.Lang.windowLabelSelectFolder, _folderPath,
+                string.Empty);
+            RefreshFBXFileList();
+        } // ReSharper disable Unity.PerformanceAnalysis
         private void ShowExecute()
         {
             using (new EditorGUI.DisabledGroupScope(!CanExecute()))
             {
                 if (GUILayout.Button(Localization.Lang.buttonExecute))
-                {
                     for (var i = 0; i < _fbxFiles.Count; i++)
                     {
                         if (!_targets[i]) continue;
                         var fbxFile = _fbxFiles[i];
                         var modelImporter = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
-                        if (modelImporter != null)
-                        {
-                            Options.Execute(modelImporter);
-                            modelImporter.SaveAndReimport();
-                            AssetDatabase.SaveAssets();
-                            Debug.Log(string.Format(Localization.Lang.logOptionChanged, fbxFile));
-                        }
+                        if (!modelImporter) continue;
+                        Options.Execute(modelImporter);
+                        modelImporter.SaveAndReimport();
+                        AssetDatabase.SaveAssets();
+                        Debug.Log(string.Format(Localization.Lang.logOptionChanged, fbxFile));
                     }
 
-                    Debug.Log(string.Format(Localization.Lang.logExecuted, Settings.ToolName));
-                }
+                Debug.Log(string.Format(Localization.Lang.logExecuted, Settings.ToolName));
             }
         }
 
@@ -173,11 +164,9 @@ namespace kesera2.FBXOptionsManager
         {
             OptionFoldOut = EditorGUILayout.Foldout(OptionFoldOut, "Options");
 
-            if (OptionFoldOut)
-            {
-                Options.ShowOptions();
-                EditorGUILayout.HelpBox(Localization.Lang.helpboxInfoNeedlessToChangeOptions, MessageType.Info);
-            }
+            if (!OptionFoldOut) return;
+            Options.ShowOptions();
+            EditorGUILayout.HelpBox(Localization.Lang.helpboxInfoNeedlessToChangeOptions, MessageType.Info);
         }
 
         private void RefreshFBXFileList()
