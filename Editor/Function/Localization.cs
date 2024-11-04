@@ -13,28 +13,22 @@ namespace kesera2.FBXOptionsManager
 
         public void OnEnable()
         {
-            switch ((SelectedLanguage)FBXOptionsManagerView.SelectedLanguage)
+            Lang = (SelectedLanguage)FBXOptionsManagerView.SelectedLanguage switch
             {
-                case SelectedLanguage.Jp:
-                    Lang = Resources.Load<LanguageHash>(LangAssetFolderPath + AssetNameJa);
-                    break;
-                case SelectedLanguage.En:
-                    Lang = Resources.Load<LanguageHash>(LangAssetFolderPath + AssetNameEn);
-                    break;
-            }
+                SelectedLanguage.Jp => Resources.Load<LanguageHash>(LangAssetFolderPath + AssetNameJa),
+                SelectedLanguage.En => Resources.Load<LanguageHash>(LangAssetFolderPath + AssetNameEn),
+                _ => Lang
+            };
         }
 
         public static void Localize()
         {
-            switch ((SelectedLanguage)FBXOptionsManagerView.SelectedLanguage)
+            Lang = (SelectedLanguage)FBXOptionsManagerView.SelectedLanguage switch
             {
-                case SelectedLanguage.Jp:
-                    Lang = Resources.Load<LanguageHash>(LangAssetFolderPath + AssetNameJa);
-                    break;
-                case SelectedLanguage.En:
-                    Lang = Resources.Load<LanguageHash>(LangAssetFolderPath + AssetNameEn);
-                    break;
-            }
+                SelectedLanguage.Jp => Resources.Load<LanguageHash>(LangAssetFolderPath + AssetNameJa),
+                SelectedLanguage.En => Resources.Load<LanguageHash>(LangAssetFolderPath + AssetNameEn),
+                _ => Lang
+            };
         }
 
         private enum SelectedLanguage
