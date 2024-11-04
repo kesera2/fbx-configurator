@@ -86,7 +86,7 @@ namespace kesera2.FBXOptionsManager
 
         private void ShowSelectTargets()
         {
-            _targetFoldOut = EditorGUILayout.Foldout(_targetFoldOut, Localization.lang.foldoutTargetFbxFiles);
+            _targetFoldOut = EditorGUILayout.Foldout(_targetFoldOut, Localization.Lang.foldoutTargetFbxFiles);
 
             if (_targetFoldOut)
             {
@@ -118,29 +118,29 @@ namespace kesera2.FBXOptionsManager
 
         private void UncheckAllCheckboxes()
         {
-            if (GUILayout.Button(Localization.lang.buttonUnselectAllFbx)) Utility.ToggleArrayChecks(_targets, false);
+            if (GUILayout.Button(Localization.Lang.buttonUnselectAllFbx)) Utility.ToggleArrayChecks(_targets, false);
         }
 
         private void CheckAllCheckboxes()
         {
-            if (GUILayout.Button(Localization.lang.buttonSelectAllFbx)) Utility.ToggleArrayChecks(_targets, true);
+            if (GUILayout.Button(Localization.Lang.buttonSelectAllFbx)) Utility.ToggleArrayChecks(_targets, true);
         }
 
         private void ShowSelectTargetFBXCheckbox()
         {
             _isSelectTargetFBX =
-                EditorGUILayout.ToggleLeft(Localization.lang.checkboxSelectTargetFBX, _isSelectTargetFBX);
+                EditorGUILayout.ToggleLeft(Localization.Lang.checkboxSelectTargetFBX, _isSelectTargetFBX);
             if (!_isSelectTargetFBX) Utility.ToggleArrayChecks(_targets, true);
         }
 
         private void ShowFolderPath()
         {
             GUILayoutOption[] options = { GUILayout.ExpandWidth(true) };
-            EditorGUILayout.LabelField(Localization.lang.labelTargetDirectory);
+            EditorGUILayout.LabelField(Localization.Lang.labelTargetDirectory);
             EditorGUILayout.LabelField(_folderPath, EditorStyles.wordWrappedLabel, options);
-            if (GUILayout.Button(Localization.lang.buttonOpenDirectory))
+            if (GUILayout.Button(Localization.Lang.buttonOpenDirectory))
             {
-                _folderPath = EditorUtility.OpenFolderPanel(Localization.lang.windowLabelSelectFolder, _folderPath,
+                _folderPath = EditorUtility.OpenFolderPanel(Localization.Lang.windowLabelSelectFolder, _folderPath,
                     string.Empty);
                 RefreshFBXFileList();
             }
@@ -150,7 +150,7 @@ namespace kesera2.FBXOptionsManager
         {
             using (new EditorGUI.DisabledGroupScope(!CanExecute()))
             {
-                if (GUILayout.Button(Localization.lang.buttonExecute))
+                if (GUILayout.Button(Localization.Lang.buttonExecute))
                 {
                     for (var i = 0; i < _fbxFiles.Count; i++)
                     {
@@ -162,11 +162,11 @@ namespace kesera2.FBXOptionsManager
                             Options.Execute(modelImporter);
                             modelImporter.SaveAndReimport();
                             AssetDatabase.SaveAssets();
-                            Debug.Log(string.Format(Localization.lang.logOptionChanged, fbxFile));
+                            Debug.Log(string.Format(Localization.Lang.logOptionChanged, fbxFile));
                         }
                     }
 
-                    Debug.Log(string.Format(Localization.lang.logExecuted, Settings.ToolName));
+                    Debug.Log(string.Format(Localization.Lang.logExecuted, Settings.ToolName));
                 }
             }
         }
@@ -178,7 +178,7 @@ namespace kesera2.FBXOptionsManager
             if (OptionFoldOut)
             {
                 Options.ShowOptions();
-                EditorGUILayout.HelpBox(Localization.lang.helpboxInfoNeedlessToChangeOptions, MessageType.Info);
+                EditorGUILayout.HelpBox(Localization.Lang.helpboxInfoNeedlessToChangeOptions, MessageType.Info);
             }
         }
 
@@ -204,7 +204,7 @@ namespace kesera2.FBXOptionsManager
         private void ShowWarning()
         {
             if (!CanExecute())
-                EditorGUILayout.HelpBox(Localization.lang.helpboxWarningTargetFbxIsNotFound, MessageType.Warning);
+                EditorGUILayout.HelpBox(Localization.Lang.helpboxWarningTargetFbxIsNotFound, MessageType.Warning);
         }
 
         private void ShowDebug()

@@ -8,7 +8,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> BakeAxisConversion = new(
             false,
             (int)ToolbarState.Disable,
-            Localization.lang.labelBakeAxisConversion,
+            Localization.Lang.labelBakeAxisConversion,
             "bakeAxisConversion",
             ""
         );
@@ -24,14 +24,14 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> GenerateColliders = new(
             false,
             (int)ToolbarState.Disable,
-            Localization.lang.labelGenerateColliders,
+            Localization.Lang.labelGenerateColliders,
             "addCollider",
             "");
 
         internal readonly Option<bool> GenerateLightmapUvs = new(
             false,
             (int)ToolbarState.Disable,
-            Localization.lang.labelGenerateLightmapUvs,
+            Localization.Lang.labelGenerateLightmapUvs,
             "generateSecondaryUV",
             ""
         );
@@ -39,7 +39,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<ModelImporterNormals> ImportBlendShapeNormals = new(
             ModelImporterNormals.None,
             (int)ToolbarState.Enable,
-            Localization.lang.labelImportBlendShapeNormals,
+            Localization.Lang.labelImportBlendShapeNormals,
             "importBlendShapeNormals",
             ""
         );
@@ -47,7 +47,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> ImportBlendShapes = new(
             true,
             (int)ToolbarState.Disable,
-            Localization.lang.labelImportBlendShapeNormals,
+            Localization.Lang.labelImportBlendShapeNormals,
             "importBlendShapes",
             ""
         );
@@ -55,7 +55,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> ImportCameras = new(
             false,
             (int)ToolbarState.Enable,
-            Localization.lang.labelImportCameras,
+            Localization.Lang.labelImportCameras,
             "importCameras",
             "これを有効にすると.FBXファイルからカメラをインポートできます。"
         );
@@ -63,7 +63,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> ImportDeformPercent = new(
             false,
             (int)ToolbarState.Disable,
-            Localization.lang.labelImportDeformPercent,
+            Localization.Lang.labelImportDeformPercent,
             "importBlendShapeDeformPercent",
             ""
         );
@@ -71,7 +71,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> ImportLights = new(
             false,
             (int)ToolbarState.Enable,
-            Localization.lang.labelImportLights,
+            Localization.Lang.labelImportLights,
             "importLights",
             ""
         );
@@ -79,7 +79,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<ModelImporterNormals> ImportNormals = new(
             ModelImporterNormals.Import,
             (int)ToolbarState.Enable,
-            Localization.lang.labelImportNormals,
+            Localization.Lang.labelImportNormals,
             "importNormals",
             ""
         );
@@ -87,7 +87,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> ImportVisibility = new(
             true,
             (int)ToolbarState.Disable,
-            Localization.lang.labelImportVisibility,
+            Localization.Lang.labelImportVisibility,
             "importVisibility",
             ""
         );
@@ -95,7 +95,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<ModelImporterIndexFormat> IndexFormat = new(
             ModelImporterIndexFormat.Auto,
             (int)ToolbarState.Disable,
-            Localization.lang.labelIndexFormat,
+            Localization.Lang.labelIndexFormat,
             "indexFormat",
             ""
         );
@@ -103,7 +103,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> IsReadable = new(
             true,
             (int)ToolbarState.Enable,
-            Localization.lang.labelIsReadable,
+            Localization.Lang.labelIsReadable,
             "isReadable",
             ""
         );
@@ -112,7 +112,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> KeepQuads = new(
             false,
             (int)ToolbarState.Disable,
-            Localization.lang.labelKeepQuads,
+            Localization.Lang.labelKeepQuads,
             "keepQuads",
             ""
         );
@@ -120,7 +120,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> LegacyBlendShapeNomals = new(
             false,
             (int)ToolbarState.Enable,
-            Localization.lang.labelLegacyBlendShapeNomals,
+            Localization.Lang.labelLegacyBlendShapeNomals,
             "legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes",
             ""
         );
@@ -129,7 +129,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<ModelImporterMeshCompression> MeshCompression = new(
             ModelImporterMeshCompression.Off,
             (int)ToolbarState.Disable,
-            Localization.lang.labelMeshCompression,
+            Localization.Lang.labelMeshCompression,
             "meshCompression",
             ""
         );
@@ -137,7 +137,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<ModelImporterNormalCalculationMode> NormalsMode = new(
             ModelImporterNormalCalculationMode.Unweighted_Legacy,
             (int)ToolbarState.Disable,
-            Localization.lang.labelNormalsMode,
+            Localization.Lang.labelNormalsMode,
             "normalCalculationMode",
             ""
         );
@@ -145,7 +145,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<MeshOptimizationFlags> OptimizeMesh = new(
             MeshOptimizationFlags.Everything,
             (int)ToolbarState.Disable,
-            Localization.lang.labelOptimizeMesh,
+            Localization.Lang.labelOptimizeMesh,
             "meshOptimizationFlags",
             ""
         );
@@ -153,7 +153,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> PreserveHierarchy = new(
             true,
             (int)ToolbarState.Disable,
-            Localization.lang.labelPreserveHierarchy,
+            Localization.Lang.labelPreserveHierarchy,
             "preserveHierarchy",
             ""
         );
@@ -162,7 +162,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<float> ScaleFactor = new(
             1.0f,
             (int)ToolbarState.Disable,
-            Localization.lang.labelScaleFactor,
+            Localization.Lang.labelScaleFactor,
             "globalScale",
             ""
         );
@@ -170,7 +170,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<float> SmoothingAngle = new(
             60,
             (int)ToolbarState.Disable,
-            Localization.lang.labelSmoothingAngle,
+            Localization.Lang.labelSmoothingAngle,
             "normalSmoothingAngle",
             ""
         );
@@ -178,7 +178,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<ModelImporterNormalSmoothingSource> SmoothnessSource = new(
             ModelImporterNormalSmoothingSource.PreferSmoothingGroups,
             (int)ToolbarState.Disable,
-            Localization.lang.labelSmoothnessSource,
+            Localization.Lang.labelSmoothnessSource,
             "normalSmoothingSource",
             ""
         );
@@ -186,7 +186,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> SortHierarchyByName = new(
             true,
             (int)ToolbarState.Disable,
-            Localization.lang.labelSortHierarchyByName,
+            Localization.Lang.labelSortHierarchyByName,
             "sortHierarchyByName",
             ""
         );
@@ -194,7 +194,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> StrictVertexDataChecks = new(
             false,
             (int)ToolbarState.Disable,
-            Localization.lang.labelStrictVertexDataChecks,
+            Localization.Lang.labelStrictVertexDataChecks,
             "strictVertexDataChecks",
             ""
         );
@@ -202,7 +202,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> SwapUvs = new(
             false,
             (int)ToolbarState.Disable,
-            Localization.lang.labelSwapUvs,
+            Localization.Lang.labelSwapUvs,
             "swapUVChannels",
             ""
         );
@@ -210,7 +210,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<ModelImporterTangents> Tangents = new(
             ModelImporterTangents.CalculateMikk,
             (int)ToolbarState.Disable,
-            Localization.lang.labelTangents,
+            Localization.Lang.labelTangents,
             "importTangents",
             ""
         );
@@ -218,7 +218,7 @@ namespace kesera2.FBXOptionsManager
         internal readonly Option<bool> WeldVertices = new(
             true,
             (int)ToolbarState.Disable,
-            Localization.lang.labelWeldVertices,
+            Localization.Lang.labelWeldVertices,
             "weldVertices",
             ""
         );

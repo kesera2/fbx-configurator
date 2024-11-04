@@ -7,6 +7,6 @@
             Enable,
             Disable
         }
-        public static readonly string[] ToolbarLabels = { Localization.lang.toolbarEnable, Localization.lang.toolbarDisable };
+        public static readonly string[] ToolbarLabels = { Localization.Lang.toolbarEnable, Localization.Lang.toolbarDisable };
     }
 }

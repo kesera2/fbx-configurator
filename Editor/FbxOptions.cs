@@ -78,19 +78,19 @@ namespace kesera2.FBXOptionsManager
             using (new EditorGUI.IndentLevelScope())
             {
                 ShowToggleToolbarButton();
-                EditorGUILayout.LabelField(Localization.lang.labelSceneGroup, EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(Localization.Lang.labelSceneGroup, EditorStyles.boldLabel);
                 using (new EditorGUI.IndentLevelScope())
                 {
                     ShowSceneOptions();
                 }
 
-                EditorGUILayout.LabelField(Localization.lang.labelMeshGroup, EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(Localization.Lang.labelMeshGroup, EditorStyles.boldLabel);
                 using (new EditorGUI.IndentLevelScope())
                 {
                     ShowMeshOptions();
                 }
 
-                EditorGUILayout.LabelField(Localization.lang.labelGeometryGroup, EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(Localization.Lang.labelGeometryGroup, EditorStyles.boldLabel);
                 using (new EditorGUI.IndentLevelScope())
                 {
                     ShowGeometryOptions();
@@ -103,35 +103,35 @@ namespace kesera2.FBXOptionsManager
             using (new EditorGUILayout.HorizontalScope())
             {
                 // TODO: move to filed label
-                string[] label = { Localization.lang.toolbarMenuGroupModel, Localization.lang.toolbarMenuGroupOther };
+                string[] label = { Localization.Lang.toolbarMenuGroupModel, Localization.Lang.toolbarMenuGroupOther };
                 GUILayout.Toolbar(0, label);
             }
         }
 
         private void ShowToggleToolbarButton()
         {
-            EditorGUILayout.LabelField(Localization.lang.labelToggleToolbar, EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(Localization.Lang.labelToggleToolbar, EditorStyles.boldLabel);
             using (new EditorGUILayout.VerticalScope())
             {
                 using (new EditorGUI.IndentLevelScope())
                 {
                     using (new EditorGUILayout.HorizontalScope())
                     {
-                        EditorGUILayout.LabelField(Localization.lang.labelToggleToolbarToEnable, GUILayout.Width(360));
-                        if (GUILayout.Button(Localization.lang.buttonAllEnable))
+                        EditorGUILayout.LabelField(Localization.Lang.labelToggleToolbarToEnable, GUILayout.Width(360));
+                        if (GUILayout.Button(Localization.Lang.buttonAllEnable))
                             ToggleToolbar(Toolbar.ToolbarState.Enable);
                     }
 
                     using (new EditorGUILayout.HorizontalScope())
                     {
-                        EditorGUILayout.LabelField(Localization.lang.labelToggleToolbarToDefault, GUILayout.Width(360));
-                        if (GUILayout.Button(Localization.lang.buttonUseDefault)) SetToolbarDefault();
+                        EditorGUILayout.LabelField(Localization.Lang.labelToggleToolbarToDefault, GUILayout.Width(360));
+                        if (GUILayout.Button(Localization.Lang.buttonUseDefault)) SetToolbarDefault();
                     }
 
                     using (new EditorGUILayout.HorizontalScope())
                     {
-                        EditorGUILayout.LabelField(Localization.lang.labelToggleToolbarToDisable, GUILayout.Width(360));
-                        if (GUILayout.Button(Localization.lang.buttonAllDisable))
+                        EditorGUILayout.LabelField(Localization.Lang.labelToggleToolbarToDisable, GUILayout.Width(360));
+                        if (GUILayout.Button(Localization.Lang.buttonAllDisable))
                             ToggleToolbar(Toolbar.ToolbarState.Disable);
                     }
                 }
