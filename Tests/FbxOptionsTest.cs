@@ -52,7 +52,7 @@ public class FbxOptionsTest
 
     private void displayPassMessage<T>(Option<T> option)
     {
-        var propertyInfo = modelImporter.GetType().GetProperty(option._fieldName);
+        var propertyInfo = modelImporter.GetType().GetProperty(option.FieldName);
         Debug.Log(
             $"Passed: {option.Label} -> Option: {option.Value} == Actually: {propertyInfo.GetValue(modelImporter)} {fbxFile}");
     }
@@ -67,7 +67,7 @@ public class FbxOptionsTest
     private void showCommonLog<T>(Option<T> option)
     {
         Debug.Log(
-            $"Label: {option.Label}, fieldName: {option._fieldName}, Value: {option.Value}, Tooltip: {option.Tooltip}, ToolbarEnable: {option.ToolbarEnable}");
+            $"Label: {option.Label}, fieldName: {option.FieldName}, Value: {option.Value}, Tooltip: {option.Tooltip}, ToolbarEnable: {option.ToolbarEnable}");
     }
 
     [Test]
@@ -90,12 +90,12 @@ public class FbxOptionsTest
         option.Value = false;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<bool>(option._fieldName) == option.Value);
+        Assert.That(GetField<bool>(option.FieldName) == option.Value);
         displayPassMessage(option);
         option.Value = true;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<bool>(option._fieldName) == option.Value);
+        Assert.That(GetField<bool>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
@@ -105,12 +105,12 @@ public class FbxOptionsTest
         option.Value = 0.1f;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<float>(option._fieldName) == option.Value);
+        Assert.That(GetField<float>(option.FieldName) == option.Value);
         displayPassMessage(option);
         option.Value = 1.0f;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<float>(option._fieldName) == option.Value);
+        Assert.That(GetField<float>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
@@ -120,19 +120,19 @@ public class FbxOptionsTest
         option.Value = ModelImporterNormals.Calculate;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormals>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormals>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormals.Import;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormals>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormals>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormals.None;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormals>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormals>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
@@ -284,25 +284,25 @@ public class FbxOptionsTest
         option.Value = ModelImporterMeshCompression.Low;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterMeshCompression>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterMeshCompression>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterMeshCompression.Medium;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterMeshCompression>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterMeshCompression>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterMeshCompression.High;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterMeshCompression>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterMeshCompression>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterMeshCompression.Off;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterMeshCompression>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterMeshCompression>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
@@ -314,19 +314,19 @@ public class FbxOptionsTest
         option.Value = MeshOptimizationFlags.Everything;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<MeshOptimizationFlags>(option._fieldName) == option.Value);
+        Assert.That(GetField<MeshOptimizationFlags>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = MeshOptimizationFlags.PolygonOrder;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<MeshOptimizationFlags>(option._fieldName) == option.Value);
+        Assert.That(GetField<MeshOptimizationFlags>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = MeshOptimizationFlags.VertexOrder;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<MeshOptimizationFlags>(option._fieldName) == option.Value);
+        Assert.That(GetField<MeshOptimizationFlags>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
@@ -338,19 +338,19 @@ public class FbxOptionsTest
         option.Value = ModelImporterIndexFormat.UInt16;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterIndexFormat>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterIndexFormat>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterIndexFormat.UInt32;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterIndexFormat>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterIndexFormat>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterIndexFormat.Auto;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterIndexFormat>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterIndexFormat>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
@@ -362,31 +362,31 @@ public class FbxOptionsTest
         option.Value = ModelImporterNormalCalculationMode.Unweighted_Legacy;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalCalculationMode>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalCalculationMode>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormalCalculationMode.Unweighted;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalCalculationMode>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalCalculationMode>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormalCalculationMode.AngleWeighted;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalCalculationMode>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalCalculationMode>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormalCalculationMode.AreaAndAngleWeighted;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalCalculationMode>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalCalculationMode>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormalCalculationMode.AreaWeighted;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalCalculationMode>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalCalculationMode>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
@@ -398,26 +398,26 @@ public class FbxOptionsTest
         option.Value = ModelImporterNormalSmoothingSource.FromAngle;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormalSmoothingSource.FromSmoothingGroups;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormalSmoothingSource.PreferSmoothingGroups;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
 
         option.Value = ModelImporterNormalSmoothingSource.None;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
@@ -433,31 +433,31 @@ public class FbxOptionsTest
         option.Value = ModelImporterTangents.Import;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterTangents>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterTangents>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterTangents.CalculateLegacy;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterTangents>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterTangents>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterTangents.None;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterTangents>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterTangents>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterTangents.CalculateLegacyWithSplitTangents;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterTangents>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterTangents>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterTangents.CalculateMikk;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterTangents>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterTangents>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 }

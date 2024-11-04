@@ -5,30 +5,25 @@ namespace kesera2.FBXOptionsManager
 {
     internal class Option<T>
     {
-        private const int OPTION_WIDTH = 350;
-        private const float INTERVAL_WIDTH = 10;
-        private static readonly GUILayoutOption[] optionsWidth = { GUILayout.Width(OPTION_WIDTH) };
-        internal readonly int defaultSelected;
-        internal string _fieldName;
-        internal Toolbar _toolbar;
+        private const int OptionWidth = 350;
+        private const float IntervalWidth = 10;
+        private static readonly GUILayoutOption[] OptionsWidth = { GUILayout.Width(OptionWidth) };
+        internal readonly int DefaultSelected;
+        internal readonly string FieldName;
+        private Toolbar _toolbar;
 
         internal Option(T value, int toolbarEnable, string label, string fieldName, string tooltip = "")
         {
-            _value = value;
+            Value = value;
             ToolbarEnable = toolbarEnable;
-            defaultSelected = toolbarEnable;
+            DefaultSelected = toolbarEnable;
             Label = label;
-            _fieldName = fieldName;
+            FieldName = fieldName;
             Tooltip = tooltip;
         }
 
-        private T _value { get; set; }
+        public T Value { get; set; }
 
-        public T Value
-        {
-            get => _value;
-            set => _value = value;
-        }
 
         public int ToolbarEnable { get; set; }
 
@@ -37,53 +32,18 @@ namespace kesera2.FBXOptionsManager
         public string Tooltip { get; }
 
         // Enable/Disableを切り替える共通部品
-        private int drawToggleEnableToolbar(int currentSelection)
+        private int DrawToggleEnableToolbar(int currentSelection)
         {
             _toolbar = new Toolbar();
             return GUILayout.Toolbar(currentSelection, _toolbar.ToolbarLabels);
         }
 
-        public void showOption()
+        public void ShowOption()
         {
             ShowTOption(this);
         }
 
-        public void showOption(Option<bool> option)
-        {
-            ShowTOption(option);
-        }
-
-        public void showOption(Option<MeshOptimizationFlags> option)
-        {
-            ShowTOption(option);
-        }
-
-        public void showOption(Option<ModelImporterMeshCompression> option)
-        {
-            ShowTOption(option);
-        }
-
-        public void showOption(Option<ModelImporterTangents> option)
-        {
-            ShowTOption(option);
-        }
-
-        public void showOption(Option<ModelImporterNormalCalculationMode> option)
-        {
-            ShowTOption(option);
-        }
-
-        public void showOption(Option<ModelImporterNormals> option)
-        {
-            ShowTOption(option);
-        }
-
-        public void showOption(Option<ModelImporterIndexFormat> option)
-        {
-            ShowTOption(option);
-        }
-
-        public void ShowTOption<T>(Option<T> option)
+        private void ShowTOption<T>(Option<T> option)
         {
             using (new EditorGUILayout.HorizontalScope())
             {
@@ -91,14 +51,13 @@ namespace kesera2.FBXOptionsManager
                 using (new DisabledColorScope(Color.gray, isDisabled))
                 {
                     if (isDisabled)
-                        EditorGUILayout.LabelField(new GUIContent(option.Label, option.Tooltip), optionsWidth);
+                        EditorGUILayout.LabelField(new GUIContent(option.Label, option.Tooltip), OptionsWidth);
                     else
                         UpdateOptionValue(option);
                 }
 
-                GUILayout.Space(INTERVAL_WIDTH);
-                var toolbar = new Toolbar();
-                option.ToolbarEnable = drawToggleEnableToolbar(option.ToolbarEnable);
+                GUILayout.Space(IntervalWidth);
+                option.ToolbarEnable = DrawToggleEnableToolbar(option.ToolbarEnable);
             }
         }
 
@@ -106,36 +65,36 @@ namespace kesera2.FBXOptionsManager
         {
             if (typeof(T) == typeof(float))
                 option.Value = (T)(object)EditorGUILayout.FloatField(new GUIContent(option.Label, option.Tooltip),
-                    (float)(object)option._value, optionsWidth);
+                    (float)(object)option.Value, OptionsWidth);
             else if (typeof(T) == typeof(bool))
                 option.Value = (T)(object)EditorGUILayout.Toggle(new GUIContent(option.Label, option.Tooltip),
-                    (bool)(object)option._value, optionsWidth);
+                    (bool)(object)option.Value, OptionsWidth);
             else if (typeof(T) == typeof(ModelImporterMeshCompression))
                 option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip),
-                    (ModelImporterMeshCompression)(object)option.Value, optionsWidth);
+                    (ModelImporterMeshCompression)(object)option.Value, OptionsWidth);
             else if (typeof(T) == typeof(MeshOptimizationFlags))
                 option.Value = (T)(object)EditorGUILayout.EnumFlagsField(new GUIContent(option.Label, option.Tooltip),
-                    (MeshOptimizationFlags)(object)option.Value, optionsWidth);
+                    (MeshOptimizationFlags)(object)option.Value, OptionsWidth);
             else if (typeof(T) == typeof(ModelImporterIndexFormat))
                 option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip),
-                    (ModelImporterIndexFormat)(object)option.Value, optionsWidth);
+                    (ModelImporterIndexFormat)(object)option.Value, OptionsWidth);
             else if (typeof(T) == typeof(ModelImporterNormals))
                 option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip),
-                    (ModelImporterNormals)(object)option.Value, optionsWidth);
+                    (ModelImporterNormals)(object)option.Value, OptionsWidth);
             else if (typeof(T) == typeof(ModelImporterNormalCalculationMode))
                 option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip),
-                    (ModelImporterNormalCalculationMode)(object)option.Value, optionsWidth);
+                    (ModelImporterNormalCalculationMode)(object)option.Value, OptionsWidth);
             else if (typeof(T) == typeof(ModelImporterTangents))
                 option.Value = (T)(object)EditorGUILayout.EnumPopup(new GUIContent(option.Label, option.Tooltip),
-                    (ModelImporterTangents)(object)option.Value, optionsWidth);
+                    (ModelImporterTangents)(object)option.Value, OptionsWidth);
         }
 
         public void Update(ModelImporter modelImporter)
         {
-            var propertyInfo = modelImporter.GetType().GetProperty(_fieldName);
-            if (modelImporter == null || propertyInfo == null) return;
+            var propertyInfo = modelImporter.GetType().GetProperty(FieldName);
+            if (!modelImporter || propertyInfo == null) return;
             // ツールバーがEnableの場合のみ変更
-            if (ToolbarEnable == (int)Toolbar.ToolbarState.Enable) propertyInfo.SetValue(modelImporter, _value);
+            if (ToolbarEnable == (int)Toolbar.ToolbarState.Enable) propertyInfo.SetValue(modelImporter, Value);
         }
     }
 }
