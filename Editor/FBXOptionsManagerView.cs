@@ -12,6 +12,8 @@ namespace kesera2.FBXOptionsManager
         private const int WindowHeight = 150;
         private const int LabelWidth = 200;
 
+        private const string OptionsFoldoutLabel = "Options"; // 定数の導入
+
         public static int SelectedLanguage;
         private List<string> _fbxFiles;
 
@@ -26,6 +28,7 @@ namespace kesera2.FBXOptionsManager
         internal bool OptionFoldOut;
         internal FbxOptions Options;
         internal string RelativePath;
+
 
         private void OnEnable()
         {
@@ -138,7 +141,7 @@ namespace kesera2.FBXOptionsManager
                     string.Empty);
                 RefreshFBXFileList();
             }
-        } // ReSharper disable Unity.PerformanceAnalysis
+        }
 
         private void ShowExecute()
         {
@@ -158,7 +161,7 @@ namespace kesera2.FBXOptionsManager
 
                 var fbxFile = _fbxFiles[i];
                 var modelImporter = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
-                if (modelImporter == null) continue;
+                if (!modelImporter) continue;
 
                 Options.Execute(modelImporter);
                 modelImporter.SaveAndReimport();
@@ -169,7 +172,7 @@ namespace kesera2.FBXOptionsManager
 
         private void ShowOptionFoldOut()
         {
-            OptionFoldOut = EditorGUILayout.Foldout(OptionFoldOut, "Options");
+            OptionFoldOut = EditorGUILayout.Foldout(OptionFoldOut, OptionsFoldoutLabel);
             if (!OptionFoldOut) return;
             Options.ShowOptions();
             EditorGUILayout.HelpBox(Localization.Lang.helpboxInfoNeedlessToChangeOptions, MessageType.Info);
@@ -202,11 +205,9 @@ namespace kesera2.FBXOptionsManager
 
         private void InitializeTargets()
         {
-            if (_targets == null || _targets.Length != _fbxFiles.Count)
-            {
-                _targets = new bool[_fbxFiles.Count];
-                Utility.ToggleArrayChecks(_targets, true);
-            }
+            if (_targets != null && _targets.Length == _fbxFiles.Count) return;
+            _targets = new bool[_fbxFiles.Count];
+            Utility.ToggleArrayChecks(_targets, true);
         }
 
         private bool CanExecute()
