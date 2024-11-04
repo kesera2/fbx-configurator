@@ -58,9 +58,11 @@ MonoBehaviour:
   buttonExecute: Execute
   checkboxSelectTargetFBX: Select Target FBX
   toolbarMenuGroupModel: Model
-  toolbarMenuGroupOther: Other Menu will be comming soon
+  toolbarMenuGroupOther: Comming soon...
   toolbarEnable: Enable
   toolbarDisable: Disable
+  dialogTitle: FBX Options Manager
+  executeDialogMessage: Change the FBX settings for {0}. Are you sure?
   windowLabelSelectFolder: Select Folder
   helpboxInfoNeedlessToChangeOptions: Under normal situations, it is not necessary
     to change the options.

@@ -7,7 +7,7 @@ public class FbxOptionsTest
 {
     private FBXOptionsManagerView window;
 #if UNITY_EDITOR_WIN
-    private static string fbxFile = "Assets/もちもちまーと/FBXOptionsManager/Tests/FBX/cube.fbx";
+    private static readonly string fbxFile = "Assets/もちもちまーと/FBXOptionsManager/Tests/FBX/cube.fbx";
 #elif UNITY_EDITOR_OSX
     private static string fbxFile = "Assets/FBXOptionsManager/Tests/FBX/cube.fbx";
 #endif
@@ -19,41 +19,42 @@ public class FbxOptionsTest
     {
         window = EditorWindow.GetWindow<FBXOptionsManagerView>("FbxOptionsTest Window");
         options = new FbxOptions();
-        options._importCameras.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._importLights.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._importCameras.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._importLights.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._isReadable.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._importNormals.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._importBlendShapeNormals.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._legacyBlendShapeNomals.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._scaleFactor.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._convertUnits.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._bakeAxisConversion.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._importBlendShapes.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._importDeformPercent.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._importVisibility.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._preserveHierarchy.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._sortHierarchyByName.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._meshCompression.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._optimizeMesh.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._generateColliders.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._keepQuads.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._weldVertices.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._indexFormat.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._normalsMode.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._smoothnessSource.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._smoothingAngle.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._tangents.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._swapUvs.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._generateLightmapUvs.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
-        options._strictVertexDataChecks.ToolbarEnable = (int)Toolbar.TOOLBAR.ENABLE;
+        options.ImportCameras.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.ImportLights.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.ImportCameras.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.ImportLights.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.IsReadable.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.ImportNormals.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.ImportBlendShapeNormals.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.LegacyBlendShapeNormals.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.ScaleFactor.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.ConvertUnits.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.BakeAxisConversion.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.ImportBlendShapes.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.ImportDeformPercent.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.ImportVisibility.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.PreserveHierarchy.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.SortHierarchyByName.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.MeshCompression.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.OptimizeMesh.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.GenerateColliders.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.KeepQuads.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.WeldVertices.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.IndexFormat.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.NormalsMode.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.SmoothnessSource.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.SmoothingAngle.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.Tangents.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.SwapUvs.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.GenerateLightmapUvs.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
+        options.StrictVertexDataChecks.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
     }
 
     private void displayPassMessage<T>(Option<T> option)
     {
-        var propertyInfo = modelImporter.GetType().GetProperty(option._fieldName);
-        Debug.Log($"Passed: {option.Label} -> Option: {option.Value} == Actually: {propertyInfo.GetValue(modelImporter)} {fbxFile}");
+        var propertyInfo = modelImporter.GetType().GetProperty(option.FieldName);
+        Debug.Log(
+            $"Passed: {option.Label} -> Option: {option.Value} == Actually: {propertyInfo.GetValue(modelImporter)} {fbxFile}");
     }
 
     private void Apply()
@@ -65,20 +66,21 @@ public class FbxOptionsTest
 
     private void showCommonLog<T>(Option<T> option)
     {
-        Debug.Log($"Label: {option.Label}, fieldName: {option._fieldName}, Value: {option.Value}, Tooltip: {option.Tooltip}, ToolbarEnable: {option.ToolbarEnable}");
+        Debug.Log(
+            $"Label: {option.Label}, fieldName: {option.FieldName}, Value: {option.Value}, Tooltip: {option.Tooltip}, ToolbarEnable: {option.ToolbarEnable}");
     }
 
     [Test]
     public void showOptionsPasses()
     {
-        window.optionFoldOut = true;
-        Assert.IsNotNull(window.options);
+        window.OptionFoldOut = true;
+        Assert.IsNotNull(window.Options);
     }
 
     private T GetField<T>(string fieldName)
     {
         var propertyInfo = modelImporter.GetType().GetProperty(fieldName);
-        T propertyValue = (T)propertyInfo.GetValue(modelImporter);
+        var propertyValue = (T)propertyInfo.GetValue(modelImporter);
         return propertyValue;
     }
 
@@ -88,12 +90,12 @@ public class FbxOptionsTest
         option.Value = false;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<bool>(option._fieldName) == option.Value);
+        Assert.That(GetField<bool>(option.FieldName) == option.Value);
         displayPassMessage(option);
         option.Value = true;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<bool>(option._fieldName) == option.Value);
+        Assert.That(GetField<bool>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
@@ -103,12 +105,12 @@ public class FbxOptionsTest
         option.Value = 0.1f;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<float>(option._fieldName) == option.Value);
+        Assert.That(GetField<float>(option.FieldName) == option.Value);
         displayPassMessage(option);
         option.Value = 1.0f;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<float>(option._fieldName) == option.Value);
+        Assert.That(GetField<float>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
@@ -118,37 +120,38 @@ public class FbxOptionsTest
         option.Value = ModelImporterNormals.Calculate;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormals>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormals>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormals.Import;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormals>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormals>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormals.None;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormals>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormals>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
     [Test]
     public void TestImportCameras()
     {
-        TestBoolOption(options._importCameras);
+        TestBoolOption(options.ImportCameras);
     }
+
     [Test]
     public void TestImportImportLights()
     {
-        TestBoolOption(options._importLights);
+        TestBoolOption(options.ImportLights);
     }
 
     [Test]
     public void TestImportIsReadable()
     {
-        TestBoolOption(options._isReadable);
+        TestBoolOption(options.IsReadable);
     }
 
     // NOTE: Must use the reflection to change
@@ -156,17 +159,17 @@ public class FbxOptionsTest
     public void TestImportLegacyBlendShapeNomals()
     {
         //TestBoolOption(options._legacyBlendShapeNomals);
-        Option<bool> option = options._legacyBlendShapeNomals;
-        bool propertyValue = options.GetLegacyBlendShapeNomals(modelImporter);
+        var option = options.LegacyBlendShapeNormals;
+        var propertyValue = options.GetLegacyBlendShapeNormals(modelImporter);
         option.Value = false;
-        options.ApplyLegacyBlendShapeNomals(modelImporter);
+        options.ApplyLegacyBlendShapeNormals(modelImporter);
         Apply();
         Assert.That(propertyValue == option.Value);
         Debug.Log($"Passed: {option.Label} -> Option: {option.Value} == Actually: {propertyValue} {fbxFile}");
         option.Value = true;
-        options.ApplyLegacyBlendShapeNomals(modelImporter);
+        options.ApplyLegacyBlendShapeNormals(modelImporter);
         Apply();
-        propertyValue = options.GetLegacyBlendShapeNomals(modelImporter);
+        propertyValue = options.GetLegacyBlendShapeNormals(modelImporter);
         Assert.That(propertyValue == option.Value);
         Debug.Log($"Passed: {option.Label} -> Option: {option.Value} == Actually: {propertyValue} {fbxFile}");
     }
@@ -174,247 +177,247 @@ public class FbxOptionsTest
     [Test]
     public void TestImportConvertUnits()
     {
-        TestBoolOption(options._convertUnits);
+        TestBoolOption(options.ConvertUnits);
     }
 
     [Test]
     public void TestImportBakeAxisConversion()
     {
-        TestBoolOption(options._bakeAxisConversion);
+        TestBoolOption(options.BakeAxisConversion);
     }
 
     [Test]
     public void TestImportImportBlendShapes()
     {
-        TestBoolOption(options._importBlendShapes);
+        TestBoolOption(options.ImportBlendShapes);
     }
 
     [Test]
     public void TestImportImportDeformPercent()
     {
-        TestBoolOption(options._importDeformPercent);
+        TestBoolOption(options.ImportDeformPercent);
     }
 
     [Test]
     public void TestImportImportVisibility()
     {
-        TestBoolOption(options._importVisibility);
+        TestBoolOption(options.ImportVisibility);
     }
 
     [Test]
     public void TestImportPreserveHierarchy()
     {
-        TestBoolOption(options._preserveHierarchy);
+        TestBoolOption(options.PreserveHierarchy);
     }
 
     [Test]
     public void TestImportSortHierarchyByName()
     {
-        TestBoolOption(options._sortHierarchyByName);
+        TestBoolOption(options.SortHierarchyByName);
     }
 
     [Test]
     public void TestImportGenerateColliders()
     {
-        TestBoolOption(options._generateColliders);
+        TestBoolOption(options.GenerateColliders);
     }
 
     [Test]
     public void TestImportKeepQuads()
     {
-        TestBoolOption(options._keepQuads);
+        TestBoolOption(options.KeepQuads);
     }
 
     [Test]
     public void TestImportWeldVertices()
     {
-        TestBoolOption(options._weldVertices);
+        TestBoolOption(options.WeldVertices);
     }
 
     [Test]
     public void TestImportSwapUvs()
     {
-        TestBoolOption(options._swapUvs);
+        TestBoolOption(options.SwapUvs);
     }
 
     [Test]
     public void TestImportGenerateLightmapUvs()
     {
-        TestBoolOption(options._generateLightmapUvs);
+        TestBoolOption(options.GenerateLightmapUvs);
     }
 
     [Test]
     public void TestImportStrictVertexDataChecks()
     {
-        TestBoolOption(options._strictVertexDataChecks);
+        TestBoolOption(options.StrictVertexDataChecks);
     }
 
     [Test]
     public void TestScaleFactor()
     {
-        TestFloatOption(options._scaleFactor);
+        TestFloatOption(options.ScaleFactor);
     }
 
     [Test]
     public void TestSmoothingAngle()
     {
-        TestFloatOption(options._smoothingAngle);
+        TestFloatOption(options.SmoothingAngle);
     }
 
     [Test]
     public void TestImportNormals()
     {
-        TestModelImporterNomalsOption(options._importNormals);
+        TestModelImporterNomalsOption(options.ImportNormals);
     }
 
     [Test]
     public void TestImportBlendShapeNormals()
     {
-        TestModelImporterNomalsOption(options._importBlendShapeNormals);
+        TestModelImporterNomalsOption(options.ImportBlendShapeNormals);
     }
 
     [Test]
     public void TestModelImporterMeshCompression()
     {
-        Option<ModelImporterMeshCompression> option = options._meshCompression;
+        var option = options.MeshCompression;
         showCommonLog(option);
         option.Value = ModelImporterMeshCompression.Low;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterMeshCompression>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterMeshCompression>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterMeshCompression.Medium;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterMeshCompression>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterMeshCompression>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterMeshCompression.High;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterMeshCompression>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterMeshCompression>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterMeshCompression.Off;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterMeshCompression>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterMeshCompression>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
     [Test]
     public void TestMeshOptimizationFlags()
     {
-        Option<MeshOptimizationFlags> option = options._optimizeMesh;
+        var option = options.OptimizeMesh;
         showCommonLog(option);
         option.Value = MeshOptimizationFlags.Everything;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<MeshOptimizationFlags>(option._fieldName) == option.Value);
+        Assert.That(GetField<MeshOptimizationFlags>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = MeshOptimizationFlags.PolygonOrder;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<MeshOptimizationFlags>(option._fieldName) == option.Value);
+        Assert.That(GetField<MeshOptimizationFlags>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = MeshOptimizationFlags.VertexOrder;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<MeshOptimizationFlags>(option._fieldName) == option.Value);
+        Assert.That(GetField<MeshOptimizationFlags>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
     [Test]
     public void TestModelImporterIndexFormat()
     {
-        Option<ModelImporterIndexFormat> option = options._indexFormat;
+        var option = options.IndexFormat;
         showCommonLog(option);
         option.Value = ModelImporterIndexFormat.UInt16;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterIndexFormat>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterIndexFormat>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterIndexFormat.UInt32;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterIndexFormat>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterIndexFormat>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterIndexFormat.Auto;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterIndexFormat>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterIndexFormat>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
     [Test]
     public void TestModelImporterNormalCalculationMode()
     {
-        Option<ModelImporterNormalCalculationMode> option = options._normalsMode;
+        var option = options.NormalsMode;
         showCommonLog(option);
         option.Value = ModelImporterNormalCalculationMode.Unweighted_Legacy;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalCalculationMode>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalCalculationMode>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormalCalculationMode.Unweighted;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalCalculationMode>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalCalculationMode>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormalCalculationMode.AngleWeighted;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalCalculationMode>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalCalculationMode>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormalCalculationMode.AreaAndAngleWeighted;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalCalculationMode>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalCalculationMode>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormalCalculationMode.AreaWeighted;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalCalculationMode>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalCalculationMode>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
     [Test]
     public void TestModelImporterNormalSmoothingSource()
     {
-        Option<ModelImporterNormalSmoothingSource> option = options._smoothnessSource;
+        var option = options.SmoothnessSource;
         showCommonLog(option);
         option.Value = ModelImporterNormalSmoothingSource.FromAngle;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormalSmoothingSource.FromSmoothingGroups;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterNormalSmoothingSource.PreferSmoothingGroups;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
 
         option.Value = ModelImporterNormalSmoothingSource.None;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterNormalSmoothingSource>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
 
@@ -422,40 +425,39 @@ public class FbxOptionsTest
     public void TestModelImporterTangents()
     {
         // NOTE: Must be ModelImporterNormals.Import or Calculate before testing.
-        options._importNormals.Value = ModelImporterNormals.Import;
-        options._importNormals.Update(modelImporter);
+        options.ImportNormals.Value = ModelImporterNormals.Import;
+        options.ImportNormals.Update(modelImporter);
 
-        Option<ModelImporterTangents> option = options._tangents;
+        var option = options.Tangents;
         showCommonLog(option);
         option.Value = ModelImporterTangents.Import;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterTangents>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterTangents>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterTangents.CalculateLegacy;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterTangents>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterTangents>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterTangents.None;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterTangents>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterTangents>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterTangents.CalculateLegacyWithSplitTangents;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterTangents>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterTangents>(option.FieldName) == option.Value);
         displayPassMessage(option);
 
         option.Value = ModelImporterTangents.CalculateMikk;
         option.Update(modelImporter);
         Apply();
-        Assert.That(GetField<ModelImporterTangents>(option._fieldName) == option.Value);
+        Assert.That(GetField<ModelImporterTangents>(option.FieldName) == option.Value);
         displayPassMessage(option);
     }
-
 }

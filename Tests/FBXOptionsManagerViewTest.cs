@@ -20,16 +20,16 @@ public class FBXOptionsManagerViewTest
     [Test]
     public void TestRelativePath()
     {
-        Assert.That(window.relativePath.StartsWith("Assets"));
+        Assert.That(window.RelativePath.StartsWith("Assets"));
     }
 
     [Test]
     public void TestButtonClick()
     {
-        // ƒEƒBƒ“ƒhƒE‚ð•\Ž¦‚·‚é
+        // ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         FBXOptionsManagerView.ShowWindow();
 
-        // ƒ{ƒ^ƒ“‚ðƒNƒŠƒbƒN‚·‚é
+        // ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
         //EditorWindow.GetWindow<FBXOptionsManager>().OnGUI();
         //Assert.AreEqual("Default Value", EditorWindow.GetWindow<FBXOptionsManager>()._myString);
     }

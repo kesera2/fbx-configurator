@@ -1,6 +1,3 @@
-using kesera2.FBXOptionsManager;
-using System;
-using System.Collections;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -9,38 +6,45 @@ namespace kesera2.FBXOptionsManager
 {
     public class Localization : ScriptableSingleton<Localization>
     {
-        public static LanguageHash lang { get; private set; }
+        // 言語選択の列挙型
+        public enum SelectedLanguage
+        {
+            Jp,
+            En
+        }
 
-        private readonly static string LANG_ASSET_FOLDER_PATH = "Language/";
-        private readonly static string JP_ASSET_NAME = "JP";
-        private readonly static string EN_ASSET_NAME = "EN";
-        internal static string[] languages = new string[] { "���{��", "English" };
-        private enum SelectedLanguage { JP, EN };
+        // 日・英のアセット名
+        private const string AssetNameJa = "JP";
+
+        private const string AssetNameEn = "EN";
+
+        // 言語アセットフォルダへのパス
+        private const string LangAssetFolderPath = "Language";
+
+        // サポートされている言語
+        internal static readonly string[] Languages = { "日本語", "English" };
+
+        // 現在選択されている言語のハッシュ
+        public static LanguageHash Lang { get; private set; }
 
         public void OnEnable()
         {
-            if (FBXOptionsManagerView.selectedLanguage == (int)SelectedLanguage.JP)
-            {
-                lang = Resources.Load<LanguageHash>(LANG_ASSET_FOLDER_PATH + JP_ASSET_NAME);
-            }
-            else
-            {
-                lang = Resources.Load<LanguageHash>(LANG_ASSET_FOLDER_PATH + EN_ASSET_NAME);
-            }
-
+            Lang = LoadLanguage((SelectedLanguage)FBXOptionsManagerView.SelectedLanguage);
         }
 
         public static void Localize()
         {
-            if (FBXOptionsManagerView.selectedLanguage == (int)SelectedLanguage.JP)
-            {
-                lang = Resources.Load<LanguageHash>(LANG_ASSET_FOLDER_PATH + JP_ASSET_NAME);
-            }
-            else
-            {
-                lang = Resources.Load<LanguageHash>(LANG_ASSET_FOLDER_PATH + EN_ASSET_NAME);
-            }
+            Lang = LoadLanguage((SelectedLanguage)FBXOptionsManagerView.SelectedLanguage);
         }
 
+        private static LanguageHash LoadLanguage(SelectedLanguage selectedLanguage)
+        {
+            return selectedLanguage switch
+            {
+                SelectedLanguage.Jp => Resources.Load<LanguageHash>(Path.Combine(LangAssetFolderPath, AssetNameJa)),
+                SelectedLanguage.En => Resources.Load<LanguageHash>(Path.Combine(LangAssetFolderPath, AssetNameEn)),
+                _ => Lang
+            };
+        }
     }
 }

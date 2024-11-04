@@ -1,12 +1,18 @@
 ﻿namespace kesera2.FBXOptionsManager
 {
-    public static class Toolbar
+    public class Toolbar
     {
-        public enum TOOLBAR : byte
+        public enum ToolbarState : byte
         {
-            ENABLE,
-            DISABLE
+            Enable,
+            Disable
         }
-        public static string[] TOOLBAR_LABLE = { Localization.lang.toolbarEnable, Localization.lang.toolbarDisable };
+
+        public readonly string[] ToolbarLabels;
+
+        public Toolbar()
+        {
+            ToolbarLabels = new[] { Localization.Lang.toolbarEnable, Localization.Lang.toolbarDisable };
+        }
     }
 }

@@ -1,292 +1,360 @@
-﻿// TODO: TOOLBARが冗長、List<Option<T>>でCommon, Additional x3にまとめる。foreachで回す
-// 上無理
-// TODO: すべてDISABLEだったらメッセージを出す
-// ALL DISABLE ENABLE BUTTON
-using System;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using System.Collections.Generic;
-using UnityEngine.Rendering;
-using BestHTTP.SecureProtocol.Org.BouncyCastle.Cms;
-using UnityEditor.Overlays;
 
 namespace kesera2.FBXOptionsManager
 {
     internal class FbxOptions
     {
-        internal static OptionSettings optionSettings = new OptionSettings();
-        internal Option<bool> _importCameras = optionSettings.importCameras;
-        internal Option<bool> _importLights = optionSettings.importLights;
-        internal Option<bool> _isReadable = optionSettings.isReadable;
-        internal Option<ModelImporterNormals> _importNormals = optionSettings.importNormals;
-        internal Option<ModelImporterNormals> _importBlendShapeNormals = optionSettings.importBlendShapeNormals;
-        internal Option<bool> _legacyBlendShapeNomals = optionSettings.legacyBlendShapeNomals;
-        internal Option<float> _scaleFactor = optionSettings.scaleFactor;
-        internal Option<bool> _convertUnits = optionSettings.convertUnits;
-        internal Option<bool> _bakeAxisConversion = optionSettings.bakeAxisConversion;
-        internal Option<bool> _importBlendShapes = optionSettings.importBlendShapes;
-        internal Option<bool> _importDeformPercent = optionSettings.importDeformPercent;
-        internal Option<bool> _importVisibility = optionSettings.importVisibility;
-        internal Option<bool> _preserveHierarchy = optionSettings.preserveHierarchy;
-        internal Option<bool> _sortHierarchyByName = optionSettings.sortHierarchyByName;
-        internal Option<ModelImporterMeshCompression> _meshCompression = optionSettings.meshCompression;
-        internal Option<MeshOptimizationFlags> _optimizeMesh = optionSettings.optimizeMesh;
-        internal Option<bool> _generateColliders = optionSettings.generateColliders;
-        internal Option<bool> _keepQuads = optionSettings.keepQuads;
-        internal Option<bool> _weldVertices = optionSettings.weldVertices;
-        internal Option<ModelImporterIndexFormat> _indexFormat = optionSettings.indexFormat;
-        internal Option<ModelImporterNormalCalculationMode> _normalsMode = optionSettings.normalsMode;
-        internal Option<ModelImporterNormalSmoothingSource> _smoothnessSource = optionSettings.smoothnessSource;
-        internal Option<float> _smoothingAngle = optionSettings.smoothingAngle;
-        internal Option<ModelImporterTangents> _tangents = optionSettings.tangents;
-        internal Option<bool> _swapUvs = optionSettings.swapUvs;
-        internal Option<bool> _generateLightmapUvs = optionSettings.generateLightmapUvs;
-        internal Option<bool> _strictVertexDataChecks = optionSettings.strictVertexDataChecks;
-        internal List<Option<bool>> boolOptions;
-        internal List<Option<float>> floatOptions;
+        private readonly List<Option<bool>> _boolOptions;
+        private readonly List<Option<float>> _floatOptions;
+        internal readonly Option<bool> BakeAxisConversion;
+        internal readonly Option<bool> ConvertUnits;
+        internal readonly Option<bool> GenerateColliders;
+        internal readonly Option<bool> GenerateLightmapUvs;
+        internal readonly Option<ModelImporterNormals> ImportBlendShapeNormals;
+        internal readonly Option<bool> ImportBlendShapes;
+        internal readonly Option<bool> ImportCameras;
+        internal readonly Option<bool> ImportDeformPercent;
+        internal readonly Option<bool> ImportLights;
+        internal readonly Option<ModelImporterNormals> ImportNormals;
+        internal readonly Option<bool> ImportVisibility;
+        internal readonly Option<ModelImporterIndexFormat> IndexFormat;
+        internal readonly Option<bool> IsReadable;
+        internal readonly Option<bool> KeepQuads;
+        internal readonly Option<bool> LegacyBlendShapeNormals;
+        internal readonly Option<ModelImporterMeshCompression> MeshCompression;
+        internal readonly Option<ModelImporterNormalCalculationMode> NormalsMode;
+        internal readonly Option<MeshOptimizationFlags> OptimizeMesh;
+        internal readonly Option<bool> PreserveHierarchy;
+        internal readonly Option<float> ScaleFactor;
+        internal readonly Option<float> SmoothingAngle;
+        internal readonly Option<ModelImporterNormalSmoothingSource> SmoothnessSource;
+        internal readonly Option<bool> SortHierarchyByName;
+        internal readonly Option<bool> StrictVertexDataChecks;
+        internal readonly Option<bool> SwapUvs;
+        internal readonly Option<ModelImporterTangents> Tangents;
+        internal readonly Option<bool> WeldVertices;
+
         public FbxOptions()
         {
-            boolOptions = new List<Option<bool>>
+            var optionSettings = new OptionSettings();
+            BakeAxisConversion = optionSettings.BakeAxisConversion;
+            ConvertUnits = optionSettings.ConvertUnits;
+            GenerateColliders = optionSettings.GenerateColliders;
+            GenerateLightmapUvs = optionSettings.GenerateLightmapUvs;
+            ImportBlendShapeNormals = optionSettings.ImportBlendShapeNormals;
+            ImportBlendShapes = optionSettings.ImportBlendShapes;
+            ImportCameras = optionSettings.ImportCameras;
+            ImportDeformPercent = optionSettings.ImportDeformPercent;
+            ImportLights = optionSettings.ImportLights;
+            ImportNormals = optionSettings.ImportNormals;
+            ImportVisibility = optionSettings.ImportVisibility;
+            IndexFormat = optionSettings.IndexFormat;
+            IsReadable = optionSettings.IsReadable;
+            KeepQuads = optionSettings.KeepQuads;
+            LegacyBlendShapeNormals = optionSettings.LegacyBlendShapeNomals;
+            MeshCompression = optionSettings.MeshCompression;
+            NormalsMode = optionSettings.NormalsMode;
+            OptimizeMesh = optionSettings.OptimizeMesh;
+            PreserveHierarchy = optionSettings.PreserveHierarchy;
+            ScaleFactor = optionSettings.ScaleFactor;
+            SmoothingAngle = optionSettings.SmoothingAngle;
+            SmoothnessSource = optionSettings.SmoothnessSource;
+            SortHierarchyByName = optionSettings.SortHierarchyByName;
+            StrictVertexDataChecks = optionSettings.StrictVertexDataChecks;
+            SwapUvs = optionSettings.SwapUvs;
+            Tangents = optionSettings.Tangents;
+            WeldVertices = optionSettings.WeldVertices;
+
+            _boolOptions = new List<Option<bool>>
             {
-                _importCameras,
-                _importLights,
-                _isReadable,
-                _legacyBlendShapeNomals,
-                _convertUnits,
-                _bakeAxisConversion,
-                _importBlendShapes,
-                _importDeformPercent,
-                _importVisibility,
-                _preserveHierarchy,
-                _sortHierarchyByName,
-                _generateColliders,
-                _keepQuads,
-                _weldVertices,
-                _swapUvs,
-                _generateLightmapUvs,
-                _strictVertexDataChecks,
+                ImportCameras,
+                ImportLights,
+                IsReadable,
+                LegacyBlendShapeNormals,
+                ConvertUnits,
+                BakeAxisConversion,
+                ImportBlendShapes,
+                ImportDeformPercent,
+                ImportVisibility,
+                PreserveHierarchy,
+                SortHierarchyByName,
+                GenerateColliders,
+                KeepQuads,
+                WeldVertices,
+                SwapUvs,
+                GenerateLightmapUvs,
+                StrictVertexDataChecks
             };
-            floatOptions = new List<Option<float>>
+            _floatOptions = new List<Option<float>>
             {
-                _scaleFactor,
-                _smoothingAngle,
+                ScaleFactor,
+                SmoothingAngle
             };
         }
 
-        public void showOptions()
+        public void ShowOptions()
         {
-            showOptionToolbar();
+            ShowOptionToolbar();
             using (new EditorGUI.IndentLevelScope())
             {
-                showToggleToolbarButton();
-                EditorGUILayout.LabelField(Localization.lang.labelSceneGroup, EditorStyles.boldLabel);
+                ShowToggleToolbarButton();
+                EditorGUILayout.LabelField(Localization.Lang.labelSceneGroup, EditorStyles.boldLabel);
                 using (new EditorGUI.IndentLevelScope())
                 {
-                    showSceneOptions();
+                    ShowSceneOptions();
                 }
-                EditorGUILayout.LabelField(Localization.lang.labelMeshGroup, EditorStyles.boldLabel);
+
+                EditorGUILayout.LabelField(Localization.Lang.labelMeshGroup, EditorStyles.boldLabel);
                 using (new EditorGUI.IndentLevelScope())
                 {
-                    showMeshOptions();
+                    ShowMeshOptions();
                 }
-                EditorGUILayout.LabelField(Localization.lang.labelGeometryGroup, EditorStyles.boldLabel);
+
+                EditorGUILayout.LabelField(Localization.Lang.labelGeometryGroup, EditorStyles.boldLabel);
                 using (new EditorGUI.IndentLevelScope())
                 {
-                    showGeometryOptions();
+                    ShowGeometryOptions();
                 }
             }
         }
 
-        private void showOptionToolbar()
+        private void ShowOptionToolbar()
         {
             using (new EditorGUILayout.HorizontalScope())
             {
                 // TODO: move to filed label
-                string[] label = { Localization.lang.toolbarMenuGroupModel, Localization.lang.toolbarMenuGroupOther };
+                string[] label = { Localization.Lang.toolbarMenuGroupModel, Localization.Lang.toolbarMenuGroupOther };
                 GUILayout.Toolbar(0, label);
             }
         }
 
-        private void showToggleToolbarButton()
+        private void ShowToggleToolbarButton()
         {
-            EditorGUILayout.LabelField(Localization.lang.labelToggleToolbar, EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(Localization.Lang.labelToggleToolbar, EditorStyles.boldLabel);
             using (new EditorGUILayout.VerticalScope())
             {
                 using (new EditorGUI.IndentLevelScope())
                 {
                     using (new EditorGUILayout.HorizontalScope())
                     {
-                        EditorGUILayout.LabelField(Localization.lang.labelToggleToolbarToEnable, GUILayout.Width(360));
-                        if (GUILayout.Button(Localization.lang.buttonAllEnable))
-                        {
-                            toggleToolbar(Toolbar.TOOLBAR.ENABLE);
-                        }
+                        EditorGUILayout.LabelField(Localization.Lang.labelToggleToolbarToEnable, GUILayout.Width(360));
+                        if (GUILayout.Button(Localization.Lang.buttonAllEnable))
+                            ToggleToolbar(Toolbar.ToolbarState.Enable);
                     }
+
                     using (new EditorGUILayout.HorizontalScope())
                     {
-                        EditorGUILayout.LabelField(Localization.lang.labelToggleToolbarToDefault, GUILayout.Width(360));
-                        if (GUILayout.Button(Localization.lang.buttonUseDefault))
-                        {
-                            setToolbarDefault();
-                        }
+                        EditorGUILayout.LabelField(Localization.Lang.labelToggleToolbarToDefault, GUILayout.Width(360));
+                        if (GUILayout.Button(Localization.Lang.buttonUseDefault)) SetToolbarDefault();
                     }
+
                     using (new EditorGUILayout.HorizontalScope())
                     {
-                        EditorGUILayout.LabelField(Localization.lang.labelToggleToolbarToDisable, GUILayout.Width(360));
-                        if (GUILayout.Button(Localization.lang.buttonAllDisable))
-                        {
-                            toggleToolbar(Toolbar.TOOLBAR.DISABLE);
-                        }
+                        EditorGUILayout.LabelField(Localization.Lang.labelToggleToolbarToDisable, GUILayout.Width(360));
+                        if (GUILayout.Button(Localization.Lang.buttonAllDisable))
+                            ToggleToolbar(Toolbar.ToolbarState.Disable);
                     }
                 }
             }
         }
 
-        private void setToolbarDefault()
+        private void SetToolbarDefault()
         {
-            _importCameras.ToolbarEnable = (int)_importCameras.defaultSelected;
-            _importLights.ToolbarEnable = (int)_importLights.defaultSelected;
-            _isReadable.ToolbarEnable = (int)_isReadable.defaultSelected;
-            _importNormals.ToolbarEnable = (int)_importNormals.defaultSelected;
-            _importBlendShapeNormals.ToolbarEnable = (int)_importBlendShapeNormals.defaultSelected;
-            _legacyBlendShapeNomals.ToolbarEnable = (int)_legacyBlendShapeNomals.defaultSelected;
-            _scaleFactor.ToolbarEnable = (int)_scaleFactor.defaultSelected;
-            _convertUnits.ToolbarEnable = (int)_convertUnits.defaultSelected;
-            _bakeAxisConversion.ToolbarEnable = (int)_bakeAxisConversion.defaultSelected;
-            _importBlendShapes.ToolbarEnable = (int)_importBlendShapes.defaultSelected;
-            _importDeformPercent.ToolbarEnable = (int)_importDeformPercent.defaultSelected;
-            _importVisibility.ToolbarEnable = (int)_importVisibility.defaultSelected;
-            _preserveHierarchy.ToolbarEnable = (int)_preserveHierarchy.defaultSelected;
-            _sortHierarchyByName.ToolbarEnable = (int)_sortHierarchyByName.defaultSelected;
-            _meshCompression.ToolbarEnable = (int)_meshCompression.defaultSelected;
-            _optimizeMesh.ToolbarEnable = (int)_optimizeMesh.defaultSelected;
-            _generateColliders.ToolbarEnable = (int)_generateColliders.defaultSelected;
-            _keepQuads.ToolbarEnable = (int)_keepQuads.defaultSelected;
-            _weldVertices.ToolbarEnable = (int)_weldVertices.defaultSelected;
-            _indexFormat.ToolbarEnable = (int)_indexFormat.defaultSelected;
-            _normalsMode.ToolbarEnable = (int)_normalsMode.defaultSelected;
-            _smoothnessSource.ToolbarEnable = (int)_smoothnessSource.defaultSelected;
-            _smoothingAngle.ToolbarEnable = (int)_smoothingAngle.defaultSelected;
-            _tangents.ToolbarEnable = (int)_tangents.defaultSelected;
-            _swapUvs.ToolbarEnable = (int)_swapUvs.defaultSelected;
-            _generateLightmapUvs.ToolbarEnable = (int)_generateLightmapUvs.defaultSelected;
-            _strictVertexDataChecks.ToolbarEnable = (int)_strictVertexDataChecks.defaultSelected;
+            ImportCameras.ToolbarEnable = ImportCameras.DefaultSelected;
+            ImportLights.ToolbarEnable = ImportLights.DefaultSelected;
+            IsReadable.ToolbarEnable = IsReadable.DefaultSelected;
+            ImportNormals.ToolbarEnable = ImportNormals.DefaultSelected;
+            ImportBlendShapeNormals.ToolbarEnable = ImportBlendShapeNormals.DefaultSelected;
+            LegacyBlendShapeNormals.ToolbarEnable = LegacyBlendShapeNormals.DefaultSelected;
+            ScaleFactor.ToolbarEnable = ScaleFactor.DefaultSelected;
+            ConvertUnits.ToolbarEnable = ConvertUnits.DefaultSelected;
+            BakeAxisConversion.ToolbarEnable = BakeAxisConversion.DefaultSelected;
+            ImportBlendShapes.ToolbarEnable = ImportBlendShapes.DefaultSelected;
+            ImportDeformPercent.ToolbarEnable = ImportDeformPercent.DefaultSelected;
+            ImportVisibility.ToolbarEnable = ImportVisibility.DefaultSelected;
+            PreserveHierarchy.ToolbarEnable = PreserveHierarchy.DefaultSelected;
+            SortHierarchyByName.ToolbarEnable = SortHierarchyByName.DefaultSelected;
+            MeshCompression.ToolbarEnable = MeshCompression.DefaultSelected;
+            OptimizeMesh.ToolbarEnable = OptimizeMesh.DefaultSelected;
+            GenerateColliders.ToolbarEnable = GenerateColliders.DefaultSelected;
+            KeepQuads.ToolbarEnable = KeepQuads.DefaultSelected;
+            WeldVertices.ToolbarEnable = WeldVertices.DefaultSelected;
+            IndexFormat.ToolbarEnable = IndexFormat.DefaultSelected;
+            NormalsMode.ToolbarEnable = NormalsMode.DefaultSelected;
+            SmoothnessSource.ToolbarEnable = SmoothnessSource.DefaultSelected;
+            SmoothingAngle.ToolbarEnable = SmoothingAngle.DefaultSelected;
+            Tangents.ToolbarEnable = Tangents.DefaultSelected;
+            SwapUvs.ToolbarEnable = SwapUvs.DefaultSelected;
+            GenerateLightmapUvs.ToolbarEnable = GenerateLightmapUvs.DefaultSelected;
+            StrictVertexDataChecks.ToolbarEnable = StrictVertexDataChecks.DefaultSelected;
         }
 
-        private void toggleToolbar(Toolbar.TOOLBAR toolbar)
+        private void ToggleToolbar(Toolbar.ToolbarState toolbarState)
         {
-            foreach (Option<bool> option in boolOptions)
-            {
-                option.ToolbarEnable = (int)toolbar;
-            }
-            foreach (Option<float> option in floatOptions)
-            {
-                option.ToolbarEnable = (int)toolbar;
-            }
-            _importNormals.ToolbarEnable = (int)toolbar;
-            _importBlendShapeNormals.ToolbarEnable = (int)toolbar;
-            _meshCompression.ToolbarEnable = (int)toolbar;
-            _optimizeMesh.ToolbarEnable = (int)toolbar;
-            _indexFormat.ToolbarEnable = (int)toolbar;
-            _normalsMode.ToolbarEnable = (int)toolbar;
-            _smoothnessSource.ToolbarEnable = (int)toolbar;
-            _tangents.ToolbarEnable = (int)toolbar;
+            foreach (var option in _boolOptions) option.ToolbarEnable = (int)toolbarState;
+            foreach (var option in _floatOptions) option.ToolbarEnable = (int)toolbarState;
+            ImportNormals.ToolbarEnable = (int)toolbarState;
+            ImportBlendShapeNormals.ToolbarEnable = (int)toolbarState;
+            MeshCompression.ToolbarEnable = (int)toolbarState;
+            OptimizeMesh.ToolbarEnable = (int)toolbarState;
+            IndexFormat.ToolbarEnable = (int)toolbarState;
+            NormalsMode.ToolbarEnable = (int)toolbarState;
+            SmoothnessSource.ToolbarEnable = (int)toolbarState;
+            Tangents.ToolbarEnable = (int)toolbarState;
         }
 
-        private void showSceneOptions()
+        private void ShowSceneOptions()
         {
-            Option<float>.showOption(_scaleFactor);
-            //Option<bool>.showOption(_convertUnits); // TODO: uncomment out
-            using (new DisabledColorScope(Color.gray, true)) { EditorGUILayout.LabelField(new GUIContent(_convertUnits.Label, _convertUnits.Tooltip)); };
-            Option<bool>.showOption(_bakeAxisConversion);
-            Option<bool>.showOption(_importBlendShapes);
-            Option<bool>.showOption(_importDeformPercent);
-            Option<bool>.showOption(_importVisibility);
-            Option<bool>.showOption(_importCameras);
-            Option<bool>.showOption(_importLights);
-            Option<bool>.showOption(_preserveHierarchy);
-            Option<bool>.showOption(_sortHierarchyByName);
+            var scaleFactor = new Option<float>(ScaleFactor.Value, ScaleFactor.ToolbarEnable,
+                ScaleFactor.Label, ScaleFactor.FieldName, ScaleFactor.Tooltip);
+            scaleFactor.ShowOption();
+            // FIXME: unsupported
+            // var convertUnits = new Option<bool>(ConvertUnits.Value, ConvertUnits.ToolbarEnable,
+            //     ConvertUnits.Label, ConvertUnits._fieldName, ConvertUnits.Tooltip);
+            // convertUnits.showOption();
+            var bakeAxisConversion = new Option<bool>(BakeAxisConversion.Value, BakeAxisConversion.ToolbarEnable,
+                BakeAxisConversion.Label, BakeAxisConversion.FieldName, BakeAxisConversion.Tooltip);
+            bakeAxisConversion.ShowOption();
+            var importBlendShapes = new Option<bool>(ImportBlendShapes.Value, ImportBlendShapes.ToolbarEnable,
+                ImportBlendShapes.Label, ImportBlendShapes.FieldName, ImportBlendShapes.Tooltip);
+            importBlendShapes.ShowOption();
+            var importDeformPercent = new Option<bool>(ImportDeformPercent.Value, ImportDeformPercent.ToolbarEnable,
+                ImportDeformPercent.Label, ImportDeformPercent.FieldName, ImportDeformPercent.Tooltip);
+            importDeformPercent.ShowOption();
+            var importVisibility = new Option<bool>(ImportVisibility.Value, ImportVisibility.ToolbarEnable,
+                ImportVisibility.Label, ImportVisibility.FieldName, ImportVisibility.Tooltip);
+            importVisibility.ShowOption();
+            var importCameras = new Option<bool>(ImportCameras.Value, ImportCameras.ToolbarEnable, ImportCameras.Label,
+                ImportCameras.FieldName, ImportCameras.Tooltip);
+            importCameras.ShowOption();
+            var importLights = new Option<bool>(ImportLights.Value, ImportLights.ToolbarEnable, ImportLights.Label,
+                ImportLights.FieldName, ImportLights.Tooltip);
+            importLights.ShowOption();
+            var preserveHierarchy = new Option<bool>(PreserveHierarchy.Value, PreserveHierarchy.ToolbarEnable,
+                PreserveHierarchy.Label, PreserveHierarchy.FieldName, PreserveHierarchy.Tooltip);
+            preserveHierarchy.ShowOption();
+            var sortHierarchyByName = new Option<bool>(SortHierarchyByName.Value, SortHierarchyByName.ToolbarEnable,
+                SortHierarchyByName.Label, SortHierarchyByName.FieldName, SortHierarchyByName.Tooltip);
+            sortHierarchyByName.ShowOption();
         }
 
-        private void showMeshOptions()
+        private void ShowMeshOptions()
         {
-            Option<ModelImporterMeshCompression>.showOption(_meshCompression);
-            Option<bool>.showOption(_isReadable);
-            Option<MeshOptimizationFlags>.showOption(_optimizeMesh);
-            Option<bool>.showOption(_generateColliders);
+            var meshCompression = new Option<ModelImporterMeshCompression>(MeshCompression.Value,
+                MeshCompression.ToolbarEnable,
+                MeshCompression.Label, MeshCompression.FieldName, MeshCompression.Tooltip);
+            meshCompression.ShowOption();
+            var isReadable = new Option<bool>(IsReadable.Value, IsReadable.ToolbarEnable,
+                IsReadable.Label, IsReadable.FieldName, IsReadable.Tooltip);
+            isReadable.ShowOption();
+            var optimizeMesh = new Option<MeshOptimizationFlags>(OptimizeMesh.Value, OptimizeMesh.ToolbarEnable,
+                OptimizeMesh.Label, OptimizeMesh.FieldName, OptimizeMesh.Tooltip);
+            optimizeMesh.ShowOption();
+            var generateColliders = new Option<bool>(GenerateColliders.Value, GenerateColliders.ToolbarEnable,
+                GenerateColliders.Label, GenerateColliders.FieldName, GenerateColliders.Tooltip);
+            generateColliders.ShowOption();
         }
 
-        private void showGeometryOptions()
+        private void ShowGeometryOptions()
         {
-            Option<bool>.showOption(_keepQuads);
-            Option<bool>.showOption(_weldVertices);
-            Option<ModelImporterIndexFormat>.showOption(_indexFormat);
-            Option<bool>.showOption(_legacyBlendShapeNomals);
-            Option<ModelImporterNormals>.showOption(_importNormals);
-            Option<ModelImporterNormals>.showOption(_importBlendShapeNormals);
-            Option<ModelImporterNormalCalculationMode>.showOption(_normalsMode);
-            Option<bool>.showOption(_smoothingAngle);
-            Option<ModelImporterTangents>.showOption(_tangents);
-            Option<bool>.showOption(_swapUvs);
-            Option<bool>.showOption(_generateLightmapUvs);
-            Option<bool>.showOption(_strictVertexDataChecks);
-        }
-        internal void execute(ModelImporter modelImporter)
-        {
-            _scaleFactor.Update(modelImporter);
-            _convertUnits.Update(modelImporter);
-            _bakeAxisConversion.Update(modelImporter);
-            _importBlendShapes.Update(modelImporter);
-            _importDeformPercent.Update(modelImporter);
-            _importVisibility.Update(modelImporter);
-            _importCameras.Update(modelImporter);
-            _importLights.Update(modelImporter);
-            _preserveHierarchy.Update(modelImporter);
-            _sortHierarchyByName.Update(modelImporter);
-            _meshCompression.Update(modelImporter);
-            _isReadable.Update(modelImporter);
-            _optimizeMesh.Update(modelImporter);
-            _generateColliders.Update(modelImporter);
-            _keepQuads.Update(modelImporter);
-            _weldVertices.Update(modelImporter);
-            _indexFormat.Update(modelImporter);
-
-            _importNormals.Update(modelImporter);
-
-            _importBlendShapeNormals.Update(modelImporter);
-            // FIXME: Nomals Mode, Smoothing Angle and Tangents has dependency of ImportBlendShapeNormals.Import or Caluclute!
-            _normalsMode.Update(modelImporter);
-            _smoothingAngle.Update(modelImporter);
-            _tangents.Update(modelImporter);
-
-            _smoothnessSource.Update(modelImporter);
-            _swapUvs.Update(modelImporter);
-            _generateLightmapUvs.Update(modelImporter);
-            _strictVertexDataChecks.Update(modelImporter);
-            ApplyLegacyBlendShapeNomals(modelImporter);
+            var keepQuads = new Option<bool>(KeepQuads.Value, KeepQuads.ToolbarEnable,
+                KeepQuads.Label, KeepQuads.FieldName, KeepQuads.Tooltip);
+            keepQuads.ShowOption();
+            var weldVertices = new Option<bool>(WeldVertices.Value, WeldVertices.ToolbarEnable,
+                WeldVertices.Label, WeldVertices.FieldName, WeldVertices.Tooltip);
+            weldVertices.ShowOption();
+            var indexFormat = new Option<ModelImporterIndexFormat>(IndexFormat.Value, IndexFormat.ToolbarEnable,
+                IndexFormat.Label, IndexFormat.FieldName, IndexFormat.Tooltip);
+            indexFormat.ShowOption();
+            var legacyBlendShapeNormals = new Option<bool>(LegacyBlendShapeNormals.Value,
+                LegacyBlendShapeNormals.ToolbarEnable,
+                LegacyBlendShapeNormals.Label, LegacyBlendShapeNormals.FieldName, LegacyBlendShapeNormals.Tooltip);
+            legacyBlendShapeNormals.ShowOption();
+            var importNormals = new Option<ModelImporterNormals>(ImportNormals.Value, ImportNormals.ToolbarEnable,
+                ImportNormals.Label, ImportNormals.FieldName, ImportNormals.Tooltip);
+            importNormals.ShowOption();
+            var importBlendShapeNormals = new Option<ModelImporterNormals>(ImportBlendShapeNormals.Value,
+                ImportBlendShapeNormals.ToolbarEnable,
+                ImportBlendShapeNormals.Label, ImportBlendShapeNormals.FieldName, ImportBlendShapeNormals.Tooltip);
+            importBlendShapeNormals.ShowOption();
+            var normalsMode = new Option<ModelImporterNormalCalculationMode>(NormalsMode.Value,
+                NormalsMode.ToolbarEnable,
+                NormalsMode.Label, NormalsMode.FieldName, NormalsMode.Tooltip);
+            normalsMode.ShowOption();
+            var smoothingAngle = new Option<float>(SmoothingAngle.Value, SmoothingAngle.ToolbarEnable,
+                SmoothingAngle.Label, SmoothingAngle.FieldName, SmoothingAngle.Tooltip);
+            smoothingAngle.ShowOption();
+            var tangents = new Option<ModelImporterTangents>(Tangents.Value, Tangents.ToolbarEnable,
+                Tangents.Label, Tangents.FieldName, Tangents.Tooltip);
+            tangents.ShowOption();
+            var swapUvs = new Option<bool>(SwapUvs.Value, SwapUvs.ToolbarEnable,
+                SwapUvs.Label, SwapUvs.FieldName, SwapUvs.Tooltip);
+            swapUvs.ShowOption();
+            var generateLightmapUvs = new Option<bool>(GenerateLightmapUvs.Value, GenerateLightmapUvs.ToolbarEnable,
+                GenerateLightmapUvs.Label, GenerateLightmapUvs.FieldName, GenerateLightmapUvs.Tooltip);
+            generateLightmapUvs.ShowOption();
+            var strictVertexDataChecks = new Option<bool>(StrictVertexDataChecks.Value,
+                StrictVertexDataChecks.ToolbarEnable,
+                StrictVertexDataChecks.Label, StrictVertexDataChecks.FieldName, StrictVertexDataChecks.Tooltip);
+            strictVertexDataChecks.ShowOption();
         }
 
-        public PropertyInfo GetLegacyBlendShapeNomalsProp(ModelImporter modelImporter)
+        internal void Execute(ModelImporter modelImporter)
         {
-            return modelImporter.GetType().GetProperty("legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            ScaleFactor.Update(modelImporter);
+            ConvertUnits.Update(modelImporter);
+            BakeAxisConversion.Update(modelImporter);
+            ImportBlendShapes.Update(modelImporter);
+            ImportDeformPercent.Update(modelImporter);
+            ImportVisibility.Update(modelImporter);
+            ImportCameras.Update(modelImporter);
+            ImportLights.Update(modelImporter);
+            PreserveHierarchy.Update(modelImporter);
+            SortHierarchyByName.Update(modelImporter);
+            MeshCompression.Update(modelImporter);
+            IsReadable.Update(modelImporter);
+            OptimizeMesh.Update(modelImporter);
+            GenerateColliders.Update(modelImporter);
+            KeepQuads.Update(modelImporter);
+            WeldVertices.Update(modelImporter);
+            IndexFormat.Update(modelImporter);
+
+            ImportNormals.Update(modelImporter);
+
+            ImportBlendShapeNormals.Update(modelImporter);
+            // FIXME: Normals Mode, Smoothing Angle and Tangents has dependency of ImportBlendShapeNormals.Import or Calculate!
+            NormalsMode.Update(modelImporter);
+            SmoothingAngle.Update(modelImporter);
+            Tangents.Update(modelImporter);
+
+            SmoothnessSource.Update(modelImporter);
+            SwapUvs.Update(modelImporter);
+            GenerateLightmapUvs.Update(modelImporter);
+            StrictVertexDataChecks.Update(modelImporter);
+            ApplyLegacyBlendShapeNormals(modelImporter);
         }
 
-        public void ApplyLegacyBlendShapeNomals(ModelImporter modelImporter)
+        private PropertyInfo GetLegacyBlendShapeNormalsProp(ModelImporter modelImporter)
         {
-            PropertyInfo prop = GetLegacyBlendShapeNomalsProp(modelImporter);
-            if (prop != null)
-            {
-                prop.SetValue(modelImporter, _legacyBlendShapeNomals.Value);
-            }
+            return modelImporter.GetType()
+                .GetProperty("legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes",
+                    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
         }
 
-        public bool GetLegacyBlendShapeNomals(ModelImporter modelImporter)
+        public void ApplyLegacyBlendShapeNormals(ModelImporter modelImporter)
         {
-            PropertyInfo prop = GetLegacyBlendShapeNomalsProp(modelImporter);
-            bool value = (bool)prop.GetValue(modelImporter);
+            var prop = GetLegacyBlendShapeNormalsProp(modelImporter);
+            if (prop != null) prop.SetValue(modelImporter, LegacyBlendShapeNormals.Value);
+        }
+
+        public bool GetLegacyBlendShapeNormals(ModelImporter modelImporter)
+        {
+            var prop = GetLegacyBlendShapeNormalsProp(modelImporter);
+            var value = (bool)prop.GetValue(modelImporter);
             return value;
         }
     }
 }
-

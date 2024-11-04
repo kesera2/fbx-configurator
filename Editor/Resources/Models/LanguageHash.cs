@@ -1,13 +1,12 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace kesera2.FBXOptionsManager
 {
     [CreateAssetMenu(menuName = "FBXOptionsManager/LaguageData")]
     public class LanguageHash : ScriptableObject
     {
-        [Header("Label")]
-        public string labelTargetDirectory;
+        [Header("Label")] public string labelTargetDirectory;
+
         // Toggle Toolbar
         public string labelToggleToolbar;
         public string labelToggleToolbarToEnable;
@@ -50,12 +49,12 @@ namespace kesera2.FBXOptionsManager
         public string labelGenerateLightmapUvs;
         public string labelStrictVertexDataChecks;
 
-        [Header("Foldout Label")]
-        public string foldoutOptions;
+        [Header("Foldout Label")] public string foldoutOptions;
+
         public string foldoutTargetFbxFiles;
 
-        [Header("Button")]
-        public string buttonOpenDirectory;
+        [Header("Button")] public string buttonOpenDirectory;
+
         public string buttonSelectAllFbx;
         public string buttonUnselectAllFbx;
         public string buttonAllEnable;
@@ -63,26 +62,25 @@ namespace kesera2.FBXOptionsManager
         public string buttonAllDisable;
         public string buttonExecute;
 
-        [Header("CheckBox")]
-        public string checkboxSelectTargetFBX;
+        [Header("CheckBox")] public string checkboxSelectTargetFBX;
 
-        [Header("Toolbar")]
-        public string toolbarMenuGroupModel;
+        [Header("Toolbar")] public string toolbarMenuGroupModel;
+
         public string toolbarMenuGroupOther;
         public string toolbarEnable;
         public string toolbarDisable;
 
-        [Header("Dialog")]
+        [Header("Dialog")] public string executeDialogMessage;
 
-        [Header("Window Label")]
-        public string windowLabelSelectFolder;
 
-        [Header("Help Box")]
-        public string helpboxInfoNeedlessToChangeOptions;
+        [Header("Window Label")] public string windowLabelSelectFolder;
+
+        [Header("Help Box")] public string helpboxInfoNeedlessToChangeOptions;
+
         public string helpboxWarningTargetFbxIsNotFound;
 
-        [Header("Log")]
-        public string logOptionChanged;
+        [Header("Log")] public string logOptionChanged;
+
         public string logExecuted;
     }
 }
