@@ -1,9 +1,4 @@
-﻿// TODO: TOOLBARが冗長、List<Option<T>>でCommon, Additional x3にまとめる。foreachで回す
-// 上無理
-// TODO: すべてDISABLEだったらメッセージを出す
-// ALL DISABLE ENABLE BUTTON
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -12,39 +7,67 @@ namespace kesera2.FBXOptionsManager
 {
     internal class FbxOptions
     {
-        private static readonly OptionSettings OptionSettings = new();
         private readonly List<Option<bool>> _boolOptions;
         private readonly List<Option<float>> _floatOptions;
-        internal readonly Option<bool> BakeAxisConversion = OptionSettings.BakeAxisConversion;
-        internal readonly Option<bool> ConvertUnits = OptionSettings.ConvertUnits;
-        internal readonly Option<bool> GenerateColliders = OptionSettings.GenerateColliders;
-        internal readonly Option<bool> GenerateLightmapUvs = OptionSettings.GenerateLightmapUvs;
-        internal readonly Option<ModelImporterNormals> ImportBlendShapeNormals = OptionSettings.ImportBlendShapeNormals;
-        internal readonly Option<bool> ImportBlendShapes = OptionSettings.ImportBlendShapes;
-        internal readonly Option<bool> ImportCameras = OptionSettings.ImportCameras;
-        internal readonly Option<bool> ImportDeformPercent = OptionSettings.ImportDeformPercent;
-        internal readonly Option<bool> ImportLights = OptionSettings.ImportLights;
-        internal readonly Option<ModelImporterNormals> ImportNormals = OptionSettings.ImportNormals;
-        internal readonly Option<bool> ImportVisibility = OptionSettings.ImportVisibility;
-        internal readonly Option<ModelImporterIndexFormat> IndexFormat = OptionSettings.IndexFormat;
-        internal readonly Option<bool> IsReadable = OptionSettings.IsReadable;
-        internal readonly Option<bool> KeepQuads = OptionSettings.KeepQuads;
-        internal readonly Option<bool> LegacyBlendShapeNormals = OptionSettings.LegacyBlendShapeNomals;
-        internal readonly Option<ModelImporterMeshCompression> MeshCompression = OptionSettings.MeshCompression;
-        internal readonly Option<ModelImporterNormalCalculationMode> NormalsMode = OptionSettings.NormalsMode;
-        internal readonly Option<MeshOptimizationFlags> OptimizeMesh = OptionSettings.OptimizeMesh;
-        internal readonly Option<bool> PreserveHierarchy = OptionSettings.PreserveHierarchy;
-        internal readonly Option<float> ScaleFactor = OptionSettings.ScaleFactor;
-        internal readonly Option<float> SmoothingAngle = OptionSettings.SmoothingAngle;
-        internal readonly Option<ModelImporterNormalSmoothingSource> SmoothnessSource = OptionSettings.SmoothnessSource;
-        internal readonly Option<bool> SortHierarchyByName = OptionSettings.SortHierarchyByName;
-        internal readonly Option<bool> StrictVertexDataChecks = OptionSettings.StrictVertexDataChecks;
-        internal readonly Option<bool> SwapUvs = OptionSettings.SwapUvs;
-        internal readonly Option<ModelImporterTangents> Tangents = OptionSettings.Tangents;
-        internal readonly Option<bool> WeldVertices = OptionSettings.WeldVertices;
+        internal readonly Option<bool> BakeAxisConversion;
+        internal readonly Option<bool> ConvertUnits;
+        internal readonly Option<bool> GenerateColliders;
+        internal readonly Option<bool> GenerateLightmapUvs;
+        internal readonly Option<ModelImporterNormals> ImportBlendShapeNormals;
+        internal readonly Option<bool> ImportBlendShapes;
+        internal readonly Option<bool> ImportCameras;
+        internal readonly Option<bool> ImportDeformPercent;
+        internal readonly Option<bool> ImportLights;
+        internal readonly Option<ModelImporterNormals> ImportNormals;
+        internal readonly Option<bool> ImportVisibility;
+        internal readonly Option<ModelImporterIndexFormat> IndexFormat;
+        internal readonly Option<bool> IsReadable;
+        internal readonly Option<bool> KeepQuads;
+        internal readonly Option<bool> LegacyBlendShapeNormals;
+        internal readonly Option<ModelImporterMeshCompression> MeshCompression;
+        internal readonly Option<ModelImporterNormalCalculationMode> NormalsMode;
+        internal readonly Option<MeshOptimizationFlags> OptimizeMesh;
+        internal readonly Option<bool> PreserveHierarchy;
+        internal readonly Option<float> ScaleFactor;
+        internal readonly Option<float> SmoothingAngle;
+        internal readonly Option<ModelImporterNormalSmoothingSource> SmoothnessSource;
+        internal readonly Option<bool> SortHierarchyByName;
+        internal readonly Option<bool> StrictVertexDataChecks;
+        internal readonly Option<bool> SwapUvs;
+        internal readonly Option<ModelImporterTangents> Tangents;
+        internal readonly Option<bool> WeldVertices;
 
         public FbxOptions()
         {
+            var optionSettings = new OptionSettings();
+            BakeAxisConversion = optionSettings.BakeAxisConversion;
+            ConvertUnits = optionSettings.ConvertUnits;
+            GenerateColliders = optionSettings.GenerateColliders;
+            GenerateLightmapUvs = optionSettings.GenerateLightmapUvs;
+            ImportBlendShapeNormals = optionSettings.ImportBlendShapeNormals;
+            ImportBlendShapes = optionSettings.ImportBlendShapes;
+            ImportCameras = optionSettings.ImportCameras;
+            ImportDeformPercent = optionSettings.ImportDeformPercent;
+            ImportLights = optionSettings.ImportLights;
+            ImportNormals = optionSettings.ImportNormals;
+            ImportVisibility = optionSettings.ImportVisibility;
+            IndexFormat = optionSettings.IndexFormat;
+            IsReadable = optionSettings.IsReadable;
+            KeepQuads = optionSettings.KeepQuads;
+            LegacyBlendShapeNormals = optionSettings.LegacyBlendShapeNomals;
+            MeshCompression = optionSettings.MeshCompression;
+            NormalsMode = optionSettings.NormalsMode;
+            OptimizeMesh = optionSettings.OptimizeMesh;
+            PreserveHierarchy = optionSettings.PreserveHierarchy;
+            ScaleFactor = optionSettings.ScaleFactor;
+            SmoothingAngle = optionSettings.SmoothingAngle;
+            SmoothnessSource = optionSettings.SmoothnessSource;
+            SortHierarchyByName = optionSettings.SortHierarchyByName;
+            StrictVertexDataChecks = optionSettings.StrictVertexDataChecks;
+            SwapUvs = optionSettings.SwapUvs;
+            Tangents = optionSettings.Tangents;
+            WeldVertices = optionSettings.WeldVertices;
+
             _boolOptions = new List<Option<bool>>
             {
                 ImportCameras,

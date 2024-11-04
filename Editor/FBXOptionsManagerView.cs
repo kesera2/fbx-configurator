@@ -40,15 +40,13 @@ namespace kesera2.FBXOptionsManager
                 _targets = new bool[_fbxFiles.Count];
                 Utility.ToggleArrayChecks(_targets, true);
             }
-
-            Localization.Localize();
-            Options = new FbxOptions();
         }
 
         private void OnGUI()
         {
-            _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
             Localization.Localize();
+            Options = new FbxOptions();
+            _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
             // ラベル幅の調整
             EditorGUIUtility.labelWidth = 200; // TODO: call at once
             ShowSelectLanguage();
