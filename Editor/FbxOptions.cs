@@ -208,45 +208,98 @@ namespace kesera2.FBXOptionsManager
 
         private void ShowSceneOptions()
         {
-            Option<float>.showOption(ScaleFactor);
-            //Option<bool>.showOption(_convertUnits); // TODO: uncomment out
-            using (new DisabledColorScope(Color.gray, true))
-            {
-                EditorGUILayout.LabelField(new GUIContent(ConvertUnits.Label, ConvertUnits.Tooltip));
-            }
-
-            Option<bool>.showOption(BakeAxisConversion);
-            Option<bool>.showOption(ImportBlendShapes);
-            Option<bool>.showOption(ImportDeformPercent);
-            Option<bool>.showOption(ImportVisibility);
-            Option<bool>.showOption(ImportCameras);
-            Option<bool>.showOption(ImportLights);
-            Option<bool>.showOption(PreserveHierarchy);
-            Option<bool>.showOption(SortHierarchyByName);
+            var scaleFactor = new Option<float>(ScaleFactor.Value, ScaleFactor.ToolbarEnable,
+                ScaleFactor.Label, ScaleFactor._fieldName, ScaleFactor.Tooltip);
+            scaleFactor.showOption();
+            // FIXME: unsupported
+            // var convertUnits = new Option<bool>(ConvertUnits.Value, ConvertUnits.ToolbarEnable,
+            //     ConvertUnits.Label, ConvertUnits._fieldName, ConvertUnits.Tooltip);
+            // convertUnits.showOption();
+            var bakeAxisConversion = new Option<bool>(BakeAxisConversion.Value, BakeAxisConversion.ToolbarEnable,
+                BakeAxisConversion.Label, BakeAxisConversion._fieldName, BakeAxisConversion.Tooltip);
+            bakeAxisConversion.showOption();
+            var importBlendShapes = new Option<bool>(ImportBlendShapes.Value, ImportBlendShapes.ToolbarEnable,
+                ImportBlendShapes.Label, ImportBlendShapes._fieldName, ImportBlendShapes.Tooltip);
+            importBlendShapes.showOption();
+            var importDeformPercent = new Option<bool>(ImportDeformPercent.Value, ImportDeformPercent.ToolbarEnable,
+                ImportDeformPercent.Label, ImportDeformPercent._fieldName, ImportDeformPercent.Tooltip);
+            importDeformPercent.showOption();
+            var importVisibility = new Option<bool>(ImportVisibility.Value, ImportVisibility.ToolbarEnable,
+                ImportVisibility.Label, ImportVisibility._fieldName, ImportVisibility.Tooltip);
+            importVisibility.showOption();
+            var importCameras = new Option<bool>(ImportCameras.Value, ImportCameras.ToolbarEnable, ImportCameras.Label,
+                ImportCameras._fieldName, ImportCameras.Tooltip);
+            importCameras.showOption();
+            var importLights = new Option<bool>(ImportLights.Value, ImportLights.ToolbarEnable, ImportLights.Label,
+                ImportLights._fieldName, ImportLights.Tooltip);
+            importLights.showOption();
+            var preserveHierarchy = new Option<bool>(PreserveHierarchy.Value, PreserveHierarchy.ToolbarEnable,
+                PreserveHierarchy.Label, PreserveHierarchy._fieldName, PreserveHierarchy.Tooltip);
+            preserveHierarchy.showOption();
+            var sortHierarchyByName = new Option<bool>(SortHierarchyByName.Value, SortHierarchyByName.ToolbarEnable,
+                SortHierarchyByName.Label, SortHierarchyByName._fieldName, SortHierarchyByName.Tooltip);
+            sortHierarchyByName.showOption();
         }
 
         private void ShowMeshOptions()
         {
-            Option<ModelImporterMeshCompression>.showOption(MeshCompression);
-            Option<bool>.showOption(IsReadable);
-            Option<MeshOptimizationFlags>.showOption(OptimizeMesh);
-            Option<bool>.showOption(GenerateColliders);
+            var meshCompression = new Option<ModelImporterMeshCompression>(MeshCompression.Value,
+                MeshCompression.ToolbarEnable,
+                MeshCompression.Label, MeshCompression._fieldName, MeshCompression.Tooltip);
+            meshCompression.showOption();
+            var isReadable = new Option<bool>(IsReadable.Value, IsReadable.ToolbarEnable,
+                IsReadable.Label, IsReadable._fieldName, IsReadable.Tooltip);
+            isReadable.showOption();
+            var optimizeMesh = new Option<MeshOptimizationFlags>(OptimizeMesh.Value, OptimizeMesh.ToolbarEnable,
+                OptimizeMesh.Label, OptimizeMesh._fieldName, OptimizeMesh.Tooltip);
+            optimizeMesh.showOption();
+            var generateColliders = new Option<bool>(GenerateColliders.Value, GenerateColliders.ToolbarEnable,
+                GenerateColliders.Label, GenerateColliders._fieldName, GenerateColliders.Tooltip);
+            generateColliders.showOption();
         }
 
         private void ShowGeometryOptions()
         {
-            Option<bool>.showOption(KeepQuads);
-            Option<bool>.showOption(WeldVertices);
-            Option<ModelImporterIndexFormat>.showOption(IndexFormat);
-            Option<bool>.showOption(LegacyBlendShapeNormals);
-            Option<ModelImporterNormals>.showOption(ImportNormals);
-            Option<ModelImporterNormals>.showOption(ImportBlendShapeNormals);
-            Option<ModelImporterNormalCalculationMode>.showOption(NormalsMode);
-            Option<bool>.showOption(SmoothingAngle);
-            Option<ModelImporterTangents>.showOption(Tangents);
-            Option<bool>.showOption(SwapUvs);
-            Option<bool>.showOption(GenerateLightmapUvs);
-            Option<bool>.showOption(StrictVertexDataChecks);
+            var keepQuads = new Option<bool>(KeepQuads.Value, KeepQuads.ToolbarEnable,
+                KeepQuads.Label, KeepQuads._fieldName, KeepQuads.Tooltip);
+            keepQuads.showOption();
+            var weldVertices = new Option<bool>(WeldVertices.Value, WeldVertices.ToolbarEnable,
+                WeldVertices.Label, WeldVertices._fieldName, WeldVertices.Tooltip);
+            weldVertices.showOption();
+            var indexFormat = new Option<ModelImporterIndexFormat>(IndexFormat.Value, IndexFormat.ToolbarEnable,
+                IndexFormat.Label, IndexFormat._fieldName, IndexFormat.Tooltip);
+            indexFormat.showOption();
+            var legacyBlendShapeNormals = new Option<bool>(LegacyBlendShapeNormals.Value,
+                LegacyBlendShapeNormals.ToolbarEnable,
+                LegacyBlendShapeNormals.Label, LegacyBlendShapeNormals._fieldName, LegacyBlendShapeNormals.Tooltip);
+            legacyBlendShapeNormals.showOption();
+            var importNormals = new Option<ModelImporterNormals>(ImportNormals.Value, ImportNormals.ToolbarEnable,
+                ImportNormals.Label, ImportNormals._fieldName, ImportNormals.Tooltip);
+            importNormals.showOption();
+            var importBlendShapeNormals = new Option<ModelImporterNormals>(ImportBlendShapeNormals.Value,
+                ImportBlendShapeNormals.ToolbarEnable,
+                ImportBlendShapeNormals.Label, ImportBlendShapeNormals._fieldName, ImportBlendShapeNormals.Tooltip);
+            importBlendShapeNormals.showOption();
+            var normalsMode = new Option<ModelImporterNormalCalculationMode>(NormalsMode.Value,
+                NormalsMode.ToolbarEnable,
+                NormalsMode.Label, NormalsMode._fieldName, NormalsMode.Tooltip);
+            normalsMode.showOption();
+            var smoothingAngle = new Option<float>(SmoothingAngle.Value, SmoothingAngle.ToolbarEnable,
+                SmoothingAngle.Label, SmoothingAngle._fieldName, SmoothingAngle.Tooltip);
+            smoothingAngle.showOption();
+            var tangents = new Option<ModelImporterTangents>(Tangents.Value, Tangents.ToolbarEnable,
+                Tangents.Label, Tangents._fieldName, Tangents.Tooltip);
+            tangents.showOption();
+            var swapUvs = new Option<bool>(SwapUvs.Value, SwapUvs.ToolbarEnable,
+                SwapUvs.Label, SwapUvs._fieldName, SwapUvs.Tooltip);
+            swapUvs.showOption();
+            var generateLightmapUvs = new Option<bool>(GenerateLightmapUvs.Value, GenerateLightmapUvs.ToolbarEnable,
+                GenerateLightmapUvs.Label, GenerateLightmapUvs._fieldName, GenerateLightmapUvs.Tooltip);
+            generateLightmapUvs.showOption();
+            var strictVertexDataChecks = new Option<bool>(StrictVertexDataChecks.Value,
+                StrictVertexDataChecks.ToolbarEnable,
+                StrictVertexDataChecks.Label, StrictVertexDataChecks._fieldName, StrictVertexDataChecks.Tooltip);
+            strictVertexDataChecks.showOption();
         }
 
         internal void Execute(ModelImporter modelImporter)

@@ -10,6 +10,7 @@ namespace kesera2.FBXOptionsManager
         private static readonly GUILayoutOption[] optionsWidth = { GUILayout.Width(OPTION_WIDTH) };
         internal readonly int defaultSelected;
         internal string _fieldName;
+        internal Toolbar _toolbar;
 
         internal Option(T value, int toolbarEnable, string label, string fieldName, string tooltip = "")
         {
@@ -36,52 +37,53 @@ namespace kesera2.FBXOptionsManager
         public string Tooltip { get; }
 
         // Enable/Disableを切り替える共通部品
-        private static int drawToggleEnableToolbar(int currentSelection)
+        private int drawToggleEnableToolbar(int currentSelection)
         {
-            return GUILayout.Toolbar(currentSelection, Toolbar.ToolbarLabels);
+            _toolbar = new Toolbar();
+            return GUILayout.Toolbar(currentSelection, _toolbar.ToolbarLabels);
         }
 
-        public static void showOption(Option<float> option)
+        public void showOption()
         {
-            ShowTOption(option);
+            ShowTOption(this);
         }
 
-        public static void showOption(Option<bool> option)
-        {
-            ShowTOption(option);
-        }
-
-        public static void showOption(Option<MeshOptimizationFlags> option)
+        public void showOption(Option<bool> option)
         {
             ShowTOption(option);
         }
 
-        public static void showOption(Option<ModelImporterMeshCompression> option)
+        public void showOption(Option<MeshOptimizationFlags> option)
         {
             ShowTOption(option);
         }
 
-        public static void showOption(Option<ModelImporterTangents> option)
+        public void showOption(Option<ModelImporterMeshCompression> option)
         {
             ShowTOption(option);
         }
 
-        public static void showOption(Option<ModelImporterNormalCalculationMode> option)
+        public void showOption(Option<ModelImporterTangents> option)
         {
             ShowTOption(option);
         }
 
-        public static void showOption(Option<ModelImporterNormals> option)
+        public void showOption(Option<ModelImporterNormalCalculationMode> option)
         {
             ShowTOption(option);
         }
 
-        public static void showOption(Option<ModelImporterIndexFormat> option)
+        public void showOption(Option<ModelImporterNormals> option)
         {
             ShowTOption(option);
         }
 
-        public static void ShowTOption<T>(Option<T> option)
+        public void showOption(Option<ModelImporterIndexFormat> option)
+        {
+            ShowTOption(option);
+        }
+
+        public void ShowTOption<T>(Option<T> option)
         {
             using (new EditorGUILayout.HorizontalScope())
             {
@@ -95,6 +97,7 @@ namespace kesera2.FBXOptionsManager
                 }
 
                 GUILayout.Space(INTERVAL_WIDTH);
+                var toolbar = new Toolbar();
                 option.ToolbarEnable = drawToggleEnableToolbar(option.ToolbarEnable);
             }
         }

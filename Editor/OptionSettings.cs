@@ -207,7 +207,6 @@ namespace kesera2.FBXOptionsManager
         private void UpdateLocalizedLabels()
         {
             BakeAxisConversion.Label = Localization.Lang.labelBakeAxisConversion;
-            Debug.LogWarning("【FBXOptionManager】BakeAxisConversion.Label: " + BakeAxisConversion.Label);
             GenerateColliders.Label = Localization.Lang.labelGenerateColliders;
             GenerateLightmapUvs.Label = Localization.Lang.labelGenerateLightmapUvs;
             ImportBlendShapeNormals.Label = Localization.Lang.labelImportBlendShapeNormals;
