@@ -5,34 +5,29 @@ namespace kesera2.FBXOptionsManager
 {
     public static class Utility
     {
+        private const string FbxExtensionFilter = "*.fbx";
+
         public static List<string> GetFBXFiles(string folderPath)
         {
-            List<string> fbxFiles = new List<string>();
-            string[] files = Directory.GetFiles(folderPath, "*.fbx", SearchOption.AllDirectories);
-            foreach (string file in files)
-            {
-                fbxFiles.Add(file);
-            }
-            return fbxFiles;
+            var fbxFilePaths = new List<string>();
+            foreach (var file in Directory.GetFiles(folderPath, FbxExtensionFilter, SearchOption.AllDirectories))
+                fbxFilePaths.Add(file);
+            return fbxFilePaths;
         }
 
-        public static bool[] toggleArrayChecks(bool[] array, bool condition)
+        public static bool[] ToggleArrayChecks(bool[] array, bool condition)
         {
-            for (int i = 0; i < array.Length; i++)
-            {
-                array[i] = condition;
-            }
+            for (var i = 0; i < array.Length; i++) array[i] = condition;
 
             return array;
         }
 
         public static string ToLabelName(string input)
         {
-            string result = "";
-            bool prevUpper = false;
+            var result = "";
+            var prevUpper = false;
 
-            foreach (char c in input)
-            {
+            foreach (var c in input)
                 if (char.IsUpper(c))
                 {
                     if (prevUpper || result.Length == 0)
@@ -42,18 +37,16 @@ namespace kesera2.FBXOptionsManager
                     else
                     {
                         result += " " + c;
+                        prevUpper = true;
                     }
-                    prevUpper = true;
                 }
                 else
                 {
                     result += c;
                     prevUpper = false;
                 }
-            }
 
             return result;
         }
     }
-
 }

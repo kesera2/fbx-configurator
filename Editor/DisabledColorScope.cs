@@ -2,23 +2,21 @@
 using UnityEngine;
 namespace kesera2.FBXOptionsManager
 {
-    public struct DisabledColorScope : System.IDisposable
+    public readonly struct DisabledColorScope : System.IDisposable
     {
-        private Color originalColor;
+        private readonly Color _originalColor;
 
         public DisabledColorScope(Color color, bool enable)
         {
-            originalColor = GUI.color;
-            if (enable)
-            {
-                EditorGUI.BeginDisabledGroup(true);
-                GUI.color = color;
-            }
+            _originalColor = GUI.color;
+            if (!enable) return;
+            EditorGUI.BeginDisabledGroup(true);
+            GUI.color = color;
         }
 
         public void Dispose()
         {
-            GUI.color = originalColor;
+            GUI.color = _originalColor;
             EditorGUI.EndDisabledGroup();
         }
     }

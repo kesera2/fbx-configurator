@@ -44,7 +44,7 @@ namespace kesera2.FBXOptionsManager
         // Enable/Disableを切り替える共通部品
         private static int drawToggleEnableToolbar(int currentSelection)
         {
-            return GUILayout.Toolbar(currentSelection, Toolbar.TOOLBAR_LABLE);
+            return GUILayout.Toolbar(currentSelection, Toolbar.ToolbarLabels);
         }
         public static void showOption(Option<float> option)
         {
@@ -82,7 +82,7 @@ namespace kesera2.FBXOptionsManager
         {
             using (new EditorGUILayout.HorizontalScope())
             {
-                bool isDisabled = option._toolbarEnable == (int)Toolbar.TOOLBAR.DISABLE;
+                bool isDisabled = option._toolbarEnable == (int)Toolbar.ToolbarState.Disable;
                 using (new DisabledColorScope(Color.gray, isDisabled))
                 {
                     if (isDisabled)
@@ -139,7 +139,7 @@ namespace kesera2.FBXOptionsManager
             var propertyInfo = modelImporter.GetType().GetProperty(_fieldName);
             if (modelImporter == null || propertyInfo == null) return;
             // ツールバーがEnableの場合のみ変更
-            if (_toolbarEnable == (int)Toolbar.TOOLBAR.ENABLE)
+            if (_toolbarEnable == (int)Toolbar.ToolbarState.Enable)
             {
                 propertyInfo.SetValue(modelImporter, _value);
             }

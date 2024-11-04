@@ -1,15 +1,11 @@
 # if UNITY_EDITOR
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace kesera2
+namespace kesera2.FBXOptionsManager
 {
     public static class Settings
     {
-        public const string TOOL_MENU_PLACE = "Tools/Ç‡ÇøÇ‡ÇøÇ‹Å[Ç∆";
-        public const string TOOL_NAME = "FBX Options Manager";
+        public const string ToolMenuPlace = "Tools/„ÇÇ„Å°„ÇÇ„Å°„Åæ„Éº„Å®";
+        public const string ToolName = "FBX Options Manager";
     }
 }
 #endif

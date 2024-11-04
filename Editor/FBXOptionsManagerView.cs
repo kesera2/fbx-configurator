@@ -8,47 +8,41 @@ namespace kesera2.FBXOptionsManager
 {
     public class FBXOptionsManagerView : EditorWindow
     {
-        private Vector2 _scrollPosition = Vector2.zero;         // スクロール位置
+        private const int WindowWidth = 500;
+        private const int WindowHeight = 150;
 
-        private string projectPath;
-        internal string relativePath;
-        private List<string> fbxFiles;
-        private bool isSelectTargetFBX = false;
-        private bool targetFoldOut = false;
-        internal bool optionFoldOut = false;
+        internal static int SelectedLanguage;
+        private int _currentLanguage;
+
+        private List<string> _fbxFiles;
+
         // Options
-        private string folderPath;
-        internal FbxOptions options;
-        private bool[] targets = { };
-        private int WINDOW_WIDTH = 500;
-        private int WINDOW_HEIGHT = 150;
+        private string _folderPath;
+        private bool _isSelectTargetFBX;
 
-        [MenuItem(Settings.TOOL_MENU_PLACE + "/" + Settings.TOOL_NAME)]
-        public static void ShowWindow()
-        {
-            GetWindow<FBXOptionsManagerView>(Settings.TOOL_NAME);
-        }
+        private string _projectPath;
+        private Vector2 _scrollPosition = Vector2.zero; // スクロール位置
+        private bool _targetFoldOut;
+        private bool[] _targets = { };
+        internal bool OptionFoldOut;
+        internal FbxOptions Options;
+        internal string RelativePath;
 
         private void OnEnable()
         {
             // フォルダパス初期化
-            folderPath = Application.dataPath;
-            projectPath = Path.GetDirectoryName(Application.dataPath);
+            _folderPath = Application.dataPath;
+            _projectPath = Path.GetDirectoryName(Application.dataPath);
             RefreshFBXFileList();
             // targetsの初期化
-            if (targets == null || targets.Length != fbxFiles.Count)
+            if (_targets == null || _targets.Length != _fbxFiles.Count)
             {
-                targets = new bool[fbxFiles.Count];
-                Utility.toggleArrayChecks(targets, true);
+                _targets = new bool[_fbxFiles.Count];
+                Utility.ToggleArrayChecks(_targets, true);
             }
-            Localization.Localize();
-            options = new FbxOptions();
-        }
 
-        private void setWindowSize()
-        {
-            Vector2 vector = new Vector2(WINDOW_WIDTH, WINDOW_HEIGHT);
-            this.minSize = vector;
+            Localization.Localize();
+            Options = new FbxOptions();
         }
 
         private void OnGUI()
@@ -57,138 +51,139 @@ namespace kesera2.FBXOptionsManager
             Localization.Localize();
             // ラベル幅の調整
             EditorGUIUtility.labelWidth = 200; // TODO: call at once
-            showSelectLangage();
-            setWindowSize();
-            showFolderPath();
-            showSelectTargets();
-            showOptionFoldOut();
-            showDebug();
-            showExecute();
-            showWarning();
+            ShowSelectLanguage();
+            SetWindowSize();
+            ShowFolderPath();
+            ShowSelectTargets();
+            ShowOptionFoldOut();
+            ShowDebug();
+            ShowExecute();
+            ShowWarning();
             EditorGUILayout.EndScrollView();
         }
 
-        internal static int selectedLanguage;
-        internal int currentLanguage = 0;
-        private void showSelectLangage()
+        [MenuItem(Settings.ToolMenuPlace + "/" + Settings.ToolName)]
+        public static void ShowWindow()
         {
-            selectedLanguage = GUILayout.Toolbar(selectedLanguage, Localization.languages);
-            if (currentLanguage != selectedLanguage)
-            {
-            }
-            currentLanguage = selectedLanguage;
+            GetWindow<FBXOptionsManagerView>(Settings.ToolName);
         }
 
-        private void showSelectTargets()
+        private void SetWindowSize()
         {
-            targetFoldOut = EditorGUILayout.Foldout(targetFoldOut, Localization.lang.foldoutTargetFbxFiles);
+            var vector = new Vector2(WindowWidth, WindowHeight);
+            minSize = vector;
+        }
 
-            if (targetFoldOut)
+        private void ShowSelectLanguage()
+        {
+            SelectedLanguage = GUILayout.Toolbar(SelectedLanguage, Localization.Languages);
+            if (_currentLanguage != SelectedLanguage)
+            {
+            }
+
+            _currentLanguage = SelectedLanguage;
+        }
+
+        private void ShowSelectTargets()
+        {
+            _targetFoldOut = EditorGUILayout.Foldout(_targetFoldOut, Localization.lang.foldoutTargetFbxFiles);
+
+            if (_targetFoldOut)
             {
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     ShowSelectTargetFBXCheckbox();
                 }
-                using (new EditorGUI.DisabledGroupScope(!isSelectTargetFBX))
+
+                using (new EditorGUI.DisabledGroupScope(!_isSelectTargetFBX))
                 {
                     using (new EditorGUILayout.HorizontalScope())
                     {
                         CheckAllCheckboxes();
                         UncheckAllCheckboxes();
                     }
-                    if (fbxFiles != null)
-                    {
+
+                    if (_fbxFiles != null)
                         using (new EditorGUILayout.VerticalScope("box"))
                         {
-                            for (int i = 0; i < fbxFiles.Count; i++)
+                            for (var i = 0; i < _fbxFiles.Count; i++)
                             {
-                                string fbxFile = fbxFiles[i];
-                                targets[i] = EditorGUILayout.ToggleLeft(fbxFile, targets[i]);
+                                var fbxFile = _fbxFiles[i];
+                                _targets[i] = EditorGUILayout.ToggleLeft(fbxFile, _targets[i]);
                             }
                         }
-                    }
                 }
             }
         }
 
         private void UncheckAllCheckboxes()
         {
-            if (GUILayout.Button(Localization.lang.buttonUnselectAllFbx))
-            {
-                Utility.toggleArrayChecks(targets, false);
-            }
+            if (GUILayout.Button(Localization.lang.buttonUnselectAllFbx)) Utility.ToggleArrayChecks(_targets, false);
         }
 
         private void CheckAllCheckboxes()
         {
-            if (GUILayout.Button(Localization.lang.buttonSelectAllFbx))
-            {
-                Utility.toggleArrayChecks(targets, true);
-            }
+            if (GUILayout.Button(Localization.lang.buttonSelectAllFbx)) Utility.ToggleArrayChecks(_targets, true);
         }
 
         private void ShowSelectTargetFBXCheckbox()
         {
-            isSelectTargetFBX = EditorGUILayout.ToggleLeft(Localization.lang.checkboxSelectTargetFBX, isSelectTargetFBX);
-            if (!isSelectTargetFBX)
-            {
-                Utility.toggleArrayChecks(targets, true);
-            }
+            _isSelectTargetFBX =
+                EditorGUILayout.ToggleLeft(Localization.lang.checkboxSelectTargetFBX, _isSelectTargetFBX);
+            if (!_isSelectTargetFBX) Utility.ToggleArrayChecks(_targets, true);
         }
 
-        private void showFolderPath()
+        private void ShowFolderPath()
         {
             GUILayoutOption[] options = { GUILayout.ExpandWidth(true) };
             EditorGUILayout.LabelField(Localization.lang.labelTargetDirectory);
-            EditorGUILayout.LabelField(folderPath, EditorStyles.wordWrappedLabel, options);
+            EditorGUILayout.LabelField(_folderPath, EditorStyles.wordWrappedLabel, options);
             if (GUILayout.Button(Localization.lang.buttonOpenDirectory))
             {
-                folderPath = EditorUtility.OpenFolderPanel(Localization.lang.windowLabelSelectFolder, folderPath, string.Empty);
+                _folderPath = EditorUtility.OpenFolderPanel(Localization.lang.windowLabelSelectFolder, _folderPath,
+                    string.Empty);
                 RefreshFBXFileList();
             }
         }
 
-        private void showExecute()
+        private void ShowExecute()
         {
-            using (new EditorGUI.DisabledGroupScope(!canExecute()))
+            using (new EditorGUI.DisabledGroupScope(!CanExecute()))
             {
-
                 if (GUILayout.Button(Localization.lang.buttonExecute))
                 {
-                    for (int i = 0; i < fbxFiles.Count; i++)
+                    for (var i = 0; i < _fbxFiles.Count; i++)
                     {
-                        if (!targets[i])
-                        {
-                            continue;
-                        }
-                        string fbxFile = fbxFiles[i].ToString();
-                        ModelImporter modelImporter = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
+                        if (!_targets[i]) continue;
+                        var fbxFile = _fbxFiles[i];
+                        var modelImporter = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
                         if (modelImporter != null)
                         {
-                            options.execute(modelImporter);
+                            Options.Execute(modelImporter);
                             modelImporter.SaveAndReimport();
                             AssetDatabase.SaveAssets();
                             Debug.Log(string.Format(Localization.lang.logOptionChanged, fbxFile));
                         }
                     }
-                    Debug.Log(string.Format(Localization.lang.logExecuted, Settings.TOOL_NAME));
+
+                    Debug.Log(string.Format(Localization.lang.logExecuted, Settings.ToolName));
                 }
             }
         }
 
-        private void showOptionFoldOut()
+        private void ShowOptionFoldOut()
         {
-            optionFoldOut = EditorGUILayout.Foldout(optionFoldOut, "Options");
+            OptionFoldOut = EditorGUILayout.Foldout(OptionFoldOut, "Options");
 
-            if (optionFoldOut)
+            if (OptionFoldOut)
             {
-                options.showOptions();
+                Options.ShowOptions();
                 EditorGUILayout.HelpBox(Localization.lang.helpboxInfoNeedlessToChangeOptions, MessageType.Info);
             }
         }
+
         private void RefreshFBXFileList()
         {
-
 #if UNITY_2019_4_31
             int index = folderPath.IndexOf("Assets");
             // Assetsからの相対パスを取得
@@ -201,53 +196,48 @@ namespace kesera2.FBXOptionsManager
                 relativePath = Application.dataPath;
             }
 #elif UNITY_2019_4_OR_NEWER
-            relativePath = Path.GetRelativePath(projectPath, folderPath);
+            RelativePath = Path.GetRelativePath(_projectPath, _folderPath);
 #endif
-            fbxFiles = Utility.GetFBXFiles(relativePath);
+            _fbxFiles = Utility.GetFBXFiles(RelativePath);
         }
 
-        private void showWarning()
+        private void ShowWarning()
         {
-            if (!canExecute())
-            {
+            if (!CanExecute())
                 EditorGUILayout.HelpBox(Localization.lang.helpboxWarningTargetFbxIsNotFound, MessageType.Warning);
-            }
         }
 
-        private void showDebug()
+        private void ShowDebug()
         {
             if (GUILayout.Button("Debug"))
             {
-                Debug.Log($"対象ファイル数: {fbxFiles.Count}");
-                Debug.Log($"folderPath: {folderPath} relativePath:  {relativePath} projectPath: {projectPath}");
-                for (int i = 0; i < fbxFiles.Count; i++)
+                Debug.Log($"対象ファイル数: {_fbxFiles.Count}");
+                Debug.Log($"folderPath: {_folderPath} relativePath:  {RelativePath} projectPath: {_projectPath}");
+                for (var i = 0; i < _fbxFiles.Count; i++)
                 {
-                    if (!targets[i])
-                    {
-                        continue;
-                    }
-                    string fbxFile = fbxFiles[i].ToString();
-                    string folderPath = Path.GetDirectoryName(fbxFile);
-                    ModelImporter model = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
+                    if (!_targets[i]) continue;
+                    var fbxFile = _fbxFiles[i];
+                    var folderPath = Path.GetDirectoryName(fbxFile);
+                    var model = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
                     Debug.Log("model is null : " + model == null + ", file path : " + fbxFile);
                     if (model != null)
                     {
-
                         Debug.Log(folderPath + fbxFile + " importCameras " + model.importCameras);
                         Debug.Log(folderPath + fbxFile + " importLights " + model.importLights);
                         Debug.Log(folderPath + fbxFile + " isReadable " + model.isReadable);
                         Debug.Log(folderPath + fbxFile + " importNormals " + model.importNormals);
                         Debug.Log(folderPath + fbxFile + " importBlendShapeNormals " + model.importBlendShapeNormals);
-                        Debug.Log(folderPath + fbxFile + " LegacyBlendShapeNomals " + options.GetLegacyBlendShapeNomals(model));
-                        options.GetLegacyBlendShapeNomals(model);
+                        Debug.Log(folderPath + fbxFile + " LegacyBlendShapeNormals " +
+                                  Options.GetLegacyBlendShapeNormals(model));
+                        Options.GetLegacyBlendShapeNormals(model);
                     }
                 }
             }
         }
 
-        private bool canExecute()
+        private bool CanExecute()
         {
-            return fbxFiles.Count > 0 && !targets.All(c => c == false);
+            return _fbxFiles.Count > 0 && _targets.Any(c => c);
         }
     }
 }

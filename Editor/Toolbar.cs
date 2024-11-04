@@ -2,11 +2,11 @@
 {
     public static class Toolbar
     {
-        public enum TOOLBAR : byte
+        public enum ToolbarState : byte
         {
-            ENABLE,
-            DISABLE
+            Enable,
+            Disable
         }
-        public static string[] TOOLBAR_LABLE = { Localization.lang.toolbarEnable, Localization.lang.toolbarDisable };
+        public static readonly string[] ToolbarLabels = { Localization.lang.toolbarEnable, Localization.lang.toolbarDisable };
     }
 }

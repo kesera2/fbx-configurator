@@ -5,196 +5,222 @@ namespace kesera2.FBXOptionsManager
 {
     internal class OptionSettings
     {
-        // -------------- Scenes -------------- 
-        internal readonly Option<float> scaleFactor = new Option<float>(
-            value: 1.0f,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelScaleFactor,
-            fieldName: "globalScale",
-            tooltip: ""
+        internal readonly Option<bool> BakeAxisConversion = new(
+            false,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelBakeAxisConversion,
+            "bakeAxisConversion",
+            ""
         );
-        internal readonly Option<bool> convertUnits = new Option<bool>(
-            value: true,
-            toolbarEnable: 1,
-            label: "Convert Units(Unsupported)",
-            fieldName: "useFileUnits",
-            tooltip: "このオプションは現在対応しておりません。"
+
+        internal readonly Option<bool> ConvertUnits = new(
+            true,
+            1,
+            "Convert Units(Unsupported)",
+            "useFileUnits",
+            "このオプションは現在対応しておりません。"
         );
-        internal readonly Option<bool> bakeAxisConversion = new Option<bool>(
-            value: false,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelBakeAxisConversion,
-            fieldName: "bakeAxisConversion",
-            tooltip: ""
+
+        internal readonly Option<bool> GenerateColliders = new(
+            false,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelGenerateColliders,
+            "addCollider",
+            "");
+
+        internal readonly Option<bool> GenerateLightmapUvs = new(
+            false,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelGenerateLightmapUvs,
+            "generateSecondaryUV",
+            ""
         );
-        internal readonly Option<bool> importBlendShapes = new Option<bool>(
-            value: true,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelImportBlendShapeNormals,
-            fieldName: "importBlendShapes",
-            tooltip: ""
+
+        internal readonly Option<ModelImporterNormals> ImportBlendShapeNormals = new(
+            ModelImporterNormals.None,
+            (int)ToolbarState.Enable,
+            Localization.lang.labelImportBlendShapeNormals,
+            "importBlendShapeNormals",
+            ""
         );
-        internal readonly Option<bool> importDeformPercent = new Option<bool>(
-            value: false,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelImportDeformPercent,
-            fieldName: "importBlendShapeDeformPercent",
-            tooltip: ""
+
+        internal readonly Option<bool> ImportBlendShapes = new(
+            true,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelImportBlendShapeNormals,
+            "importBlendShapes",
+            ""
         );
-        internal readonly Option<bool> importVisibility = new Option<bool>(
-            value: true,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelImportVisibility,
-            fieldName: "importVisibility",
-            tooltip: ""
+
+        internal readonly Option<bool> ImportCameras = new(
+            false,
+            (int)ToolbarState.Enable,
+            Localization.lang.labelImportCameras,
+            "importCameras",
+            "これを有効にすると.FBXファイルからカメラをインポートできます。"
         );
-        internal readonly Option<bool> importCameras = new Option<bool>(
-            value: false,
-            toolbarEnable: (int)TOOLBAR.ENABLE,
-            label: Localization.lang.labelImportCameras,
-            fieldName: "importCameras",
-            tooltip: "これを有効にすると.FBXファイルからカメラをインポートできます。"
+
+        internal readonly Option<bool> ImportDeformPercent = new(
+            false,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelImportDeformPercent,
+            "importBlendShapeDeformPercent",
+            ""
         );
-        internal readonly Option<bool> importLights = new Option<bool>(
-            value: false,
-            toolbarEnable: (int)TOOLBAR.ENABLE,
-            label: Localization.lang.labelImportLights,
-            fieldName: "importLights",
-            tooltip: ""
+
+        internal readonly Option<bool> ImportLights = new(
+            false,
+            (int)ToolbarState.Enable,
+            Localization.lang.labelImportLights,
+            "importLights",
+            ""
         );
-        internal readonly Option<bool> preserveHierarchy = new Option<bool>(
-            value: true,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelPreserveHierarchy,
-            fieldName: "preserveHierarchy",
-            tooltip: ""
+
+        internal readonly Option<ModelImporterNormals> ImportNormals = new(
+            ModelImporterNormals.Import,
+            (int)ToolbarState.Enable,
+            Localization.lang.labelImportNormals,
+            "importNormals",
+            ""
         );
-        internal readonly Option<bool> sortHierarchyByName = new Option<bool>(
-            value: true,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelSortHierarchyByName,
-            fieldName: "sortHierarchyByName",
-            tooltip: ""
+
+        internal readonly Option<bool> ImportVisibility = new(
+            true,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelImportVisibility,
+            "importVisibility",
+            ""
         );
-        // -------------- Meshes -------------- 
-        internal readonly Option<ModelImporterMeshCompression> meshCompression = new Option<ModelImporterMeshCompression>(
-            value: ModelImporterMeshCompression.Off,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelMeshCompression,
-            fieldName: "meshCompression",
-            tooltip: ""
+
+        internal readonly Option<ModelImporterIndexFormat> IndexFormat = new(
+            ModelImporterIndexFormat.Auto,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelIndexFormat,
+            "indexFormat",
+            ""
         );
-        internal readonly Option<bool> isReadable = new Option<bool>(
-            value: true,
-            toolbarEnable: (int)TOOLBAR.ENABLE,
-            label: Localization.lang.labelIsReadable,
-            fieldName: "isReadable",
-            tooltip: ""
+
+        internal readonly Option<bool> IsReadable = new(
+            true,
+            (int)ToolbarState.Enable,
+            Localization.lang.labelIsReadable,
+            "isReadable",
+            ""
         );
-        internal readonly Option<MeshOptimizationFlags> optimizeMesh = new Option<MeshOptimizationFlags>(
-            value: MeshOptimizationFlags.Everything,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelOptimizeMesh,
-            fieldName: "meshOptimizationFlags",
-            tooltip: ""
-        );
-        internal readonly Option<bool> generateColliders = new Option<bool>(
-            value: false,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelGenerateColliders,
-            fieldName: "addCollider",
-            tooltip: "");
+
         // --------------  Germetory -------------- 
-        internal readonly Option<bool> keepQuads = new Option<bool>(
-            value: false,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelKeepQuads,
-            fieldName: "keepQuads",
-            tooltip: ""
+        internal readonly Option<bool> KeepQuads = new(
+            false,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelKeepQuads,
+            "keepQuads",
+            ""
         );
-        internal readonly Option<bool> weldVertices = new Option<bool>(
-            value: true,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelWeldVertices,
-            fieldName: "weldVertices",
-            tooltip: ""
+
+        internal readonly Option<bool> LegacyBlendShapeNomals = new(
+            false,
+            (int)ToolbarState.Enable,
+            Localization.lang.labelLegacyBlendShapeNomals,
+            "legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes",
+            ""
         );
-        internal readonly Option<ModelImporterIndexFormat> indexFormat = new Option<ModelImporterIndexFormat>(
-            value: ModelImporterIndexFormat.Auto,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelIndexFormat,
-            fieldName: "indexFormat",
-            tooltip: ""
+
+        // -------------- Meshes -------------- 
+        internal readonly Option<ModelImporterMeshCompression> MeshCompression = new(
+            ModelImporterMeshCompression.Off,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelMeshCompression,
+            "meshCompression",
+            ""
         );
-        internal readonly Option<bool> legacyBlendShapeNomals = new Option<bool>(
-            value: false,
-            toolbarEnable: (int)TOOLBAR.ENABLE,
-            label: Localization.lang.labelLegacyBlendShapeNomals,
-            fieldName: "legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes",
-            tooltip: ""
+
+        internal readonly Option<ModelImporterNormalCalculationMode> NormalsMode = new(
+            ModelImporterNormalCalculationMode.Unweighted_Legacy,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelNormalsMode,
+            "normalCalculationMode",
+            ""
         );
-        internal readonly Option<ModelImporterNormals> importNormals = new Option<ModelImporterNormals>(
-            value: ModelImporterNormals.Import,
-            toolbarEnable: (int)TOOLBAR.ENABLE,
-            label: Localization.lang.labelImportNormals,
-            fieldName: "importNormals",
-            tooltip: ""
+
+        internal readonly Option<MeshOptimizationFlags> OptimizeMesh = new(
+            MeshOptimizationFlags.Everything,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelOptimizeMesh,
+            "meshOptimizationFlags",
+            ""
         );
-        internal readonly Option<ModelImporterNormals> importBlendShapeNormals = new Option<ModelImporterNormals>(
-            value: ModelImporterNormals.None,
-            toolbarEnable: (int)TOOLBAR.ENABLE,
-            label: Localization.lang.labelImportBlendShapeNormals,
-            fieldName: "importBlendShapeNormals",
-            tooltip: ""
+
+        internal readonly Option<bool> PreserveHierarchy = new(
+            true,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelPreserveHierarchy,
+            "preserveHierarchy",
+            ""
         );
-        internal readonly Option<ModelImporterNormalCalculationMode> normalsMode = new Option<ModelImporterNormalCalculationMode>(
-            value: ModelImporterNormalCalculationMode.Unweighted_Legacy,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelNormalsMode,
-            fieldName: "normalCalculationMode",
-            tooltip: ""
+
+        // -------------- Scenes -------------- 
+        internal readonly Option<float> ScaleFactor = new(
+            1.0f,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelScaleFactor,
+            "globalScale",
+            ""
         );
-        internal readonly Option<ModelImporterNormalSmoothingSource> smoothnessSource = new Option<ModelImporterNormalSmoothingSource>(
-            value: ModelImporterNormalSmoothingSource.PreferSmoothingGroups,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelSmoothnessSource,
-            fieldName: "normalSmoothingSource",
-            tooltip: ""
+
+        internal readonly Option<float> SmoothingAngle = new(
+            60,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelSmoothingAngle,
+            "normalSmoothingAngle",
+            ""
         );
-        internal readonly Option<float> smoothingAngle = new Option<float>(
-            value: 60,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelSmoothingAngle,
-            fieldName: "normalSmoothingAngle",
-            tooltip: ""
+
+        internal readonly Option<ModelImporterNormalSmoothingSource> SmoothnessSource = new(
+            ModelImporterNormalSmoothingSource.PreferSmoothingGroups,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelSmoothnessSource,
+            "normalSmoothingSource",
+            ""
         );
-        internal readonly Option<ModelImporterTangents> tangents = new Option<ModelImporterTangents>(
-            value: ModelImporterTangents.CalculateMikk,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelTangents,
-            fieldName: "importTangents",
-            tooltip: ""
+
+        internal readonly Option<bool> SortHierarchyByName = new(
+            true,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelSortHierarchyByName,
+            "sortHierarchyByName",
+            ""
         );
-        internal readonly Option<bool> swapUvs = new Option<bool>(
-            value: false,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelSwapUvs,
-            fieldName: "swapUVChannels",
-            tooltip: ""
+
+        internal readonly Option<bool> StrictVertexDataChecks = new(
+            false,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelStrictVertexDataChecks,
+            "strictVertexDataChecks",
+            ""
         );
-        internal readonly Option<bool> generateLightmapUvs = new Option<bool>(
-            value: false,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelGenerateLightmapUvs,
-            fieldName: "generateSecondaryUV",
-            tooltip: ""
-            );
-        internal readonly Option<bool> strictVertexDataChecks = new Option<bool>(
-            value: false,
-            toolbarEnable: (int)TOOLBAR.DISABLE,
-            label: Localization.lang.labelStrictVertexDataChecks,
-            fieldName: "strictVertexDataChecks",
-            tooltip: ""
+
+        internal readonly Option<bool> SwapUvs = new(
+            false,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelSwapUvs,
+            "swapUVChannels",
+            ""
+        );
+
+        internal readonly Option<ModelImporterTangents> Tangents = new(
+            ModelImporterTangents.CalculateMikk,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelTangents,
+            "importTangents",
+            ""
+        );
+
+        internal readonly Option<bool> WeldVertices = new(
+            true,
+            (int)ToolbarState.Disable,
+            Localization.lang.labelWeldVertices,
+            "weldVertices",
+            ""
         );
     }
 }
