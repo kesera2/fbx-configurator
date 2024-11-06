@@ -1,4 +1,4 @@
-# FBX Configurator
+![Logo](https://github.com/kesera2/fbx-configurator/blob/main/Resources/Icon/Logo.png)
 FBX Configuratorは、指定したフォルダ配下にあるFBXのオプションを個別に一括で変更するツールです。  
 
 
