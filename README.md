@@ -1,6 +1,6 @@
 # FBX Configurator
 FBX Configuratorは、指定したフォルダ配下にあるFBXのオプションを個別に一括で変更するツールです。  
-![image](https://github.com/user-attachments/assets/41d569be-3b21-48c1-8746-82a4b8015c8a)
+
 
 デフォルトでは、以下の設定が変更されます。
 
@@ -18,4 +18,9 @@ FBX Configuratorは、指定したフォルダ配下にあるFBXのオプショ�
 https://kesera2.github.io/vpm-listing/
 
 # 使用方法
-WIP
+1. Tools/kesera2/FBX Configuratorからツールを起動します
+2. 設定を変更したいFBXが格納されているフォルダを開きます。(デフォルトではAssets配下のすべてのFBXファイルが対象）  
+   (オプション)設定を変更したくないFBXがファイルが存在する場合、「対象のFBXを選択する 」オプションから対象のFBXファイルのチェックを外してください。
+3. 「実行」ボタンを押して設定を反映します。
+
+![image](https://github.com/user-attachments/assets/41d569be-3b21-48c1-8746-82a4b8015c8a)
