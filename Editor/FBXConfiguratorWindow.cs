@@ -49,7 +49,7 @@ namespace kesera2.FBXConfigurator
             _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
             // ラベル幅の調整
             EditorGUIUtility.labelWidth = LabelWidth;
-
+            DrawLogo();
             ShowSelectLanguage();
             SetWindowSize();
             ShowFolderPath();
@@ -78,6 +78,16 @@ namespace kesera2.FBXConfigurator
         {
             var size = new Vector2(WindowWidth, WindowHeight);
             minSize = size;
+        }
+
+        private static void DrawLogo()
+        {
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            var logo = Resources.Load<Texture2D>("Icon/Logo");
+            EditorGUILayout.LabelField(new GUIContent(logo), GUILayout.Height(100), GUILayout.Width(400));
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
         }
 
         private void ShowSelectLanguage()
