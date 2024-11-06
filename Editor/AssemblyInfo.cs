@@ -7,5 +7,5 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle("Test Target")]
 [assembly: AssemblyDescription("")]
 //#if DEBUG
-[assembly: InternalsVisibleTo("FBXOptionsManager.Tests")]
+[assembly: InternalsVisibleTo("FBXConfigurator.Tests")]
 //#endif

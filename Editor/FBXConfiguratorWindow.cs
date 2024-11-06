@@ -5,9 +5,9 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace kesera2.FBXOptionsManager
+namespace kesera2.FBXConfigurator
 {
-    public class FBXOptionsManagerView : EditorWindow
+    public class FBXConfiguratorView : EditorWindow
     {
         private const int WindowWidth = 500;
         private const int WindowHeight = 150;
@@ -71,7 +71,7 @@ namespace kesera2.FBXOptionsManager
         [MenuItem(Settings.ToolMenuPlace + "/" + Settings.ToolName)]
         public static void ShowWindow()
         {
-            GetWindow<FBXOptionsManagerView>(Settings.ToolName);
+            GetWindow<FBXConfiguratorView>(Settings.ToolName);
         }
 
         private void SetWindowSize()

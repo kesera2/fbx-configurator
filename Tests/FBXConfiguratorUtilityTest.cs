@@ -1,15 +1,15 @@
-using kesera2.FBXOptionsManager;
+using kesera2.FBXConfigurator;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FBXOptionsManagerUtilityTest
+public class FBXConfiguratorUtilityTest
 {
-    //private static FBXOptionsManager window;
+    //private static FBXConfigurator window;
     [SetUp]
     public void Setup()
     {
-        //window = EditorWindow.GetWindow<FBXOptionsManager>("Test Window");
+        //window = EditorWindow.GetWindow<FBXConfigurator>("Test Window");
     }
 
     [Test]
