@@ -1,0 +1,9 @@
+﻿{
+  "name": "dev.kesera2.fbx-configurator",
+  "version": "1.0.0",
+  "displayName": "FBXConfigurator",
+  "description": "Config FBX Options",
+  "unity": "2022.3",
+  "dependencies": {},
+  "keywords": []
+}
