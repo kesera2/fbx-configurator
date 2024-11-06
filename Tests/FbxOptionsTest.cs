@@ -7,9 +7,9 @@ public class FbxOptionsTest
 {
     private FBXConfiguratorView window;
 #if UNITY_EDITOR_WIN
-    private static readonly string fbxFile = "./Tests/FBX/cube.fbx";
+    private static readonly string fbxFile = "Packages/dev.kesera2.fbx-configurator/Tests/FBX/cube.fbx";
 #elif UNITY_EDITOR_OSX
-    private static string fbxFile = "Assets/FBXConfigurator/Tests/FBX/cube.fbx";
+    private static string fbxFile = "Packages/dev.kesera2.fbxconfigurator/Tests/FBX/cube.fbx";
 #endif
     private FbxOptions options;
     private readonly ModelImporter modelImporter = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
