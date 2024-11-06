@@ -1,10 +1,10 @@
 {
-    "name": "FBXOptionsManager.Tests",
+    "name": "FBXConfigurator.Tests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "FBXOptionsManager"
+        "FBXConfigurator"
     ],
     "includePlatforms": [
         "Editor"

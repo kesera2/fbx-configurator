@@ -2,7 +2,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace kesera2.FBXOptionsManager
+namespace kesera2.FBXConfigurator
 {
     public class Localization : ScriptableSingleton<Localization>
     {
@@ -29,12 +29,12 @@ namespace kesera2.FBXOptionsManager
 
         public void OnEnable()
         {
-            Lang = LoadLanguage((SelectedLanguage)FBXOptionsManagerView.SelectedLanguage);
+            Lang = LoadLanguage((SelectedLanguage)FBXConfiguratorView.SelectedLanguage);
         }
 
         public static void Localize()
         {
-            Lang = LoadLanguage((SelectedLanguage)FBXOptionsManagerView.SelectedLanguage);
+            Lang = LoadLanguage((SelectedLanguage)FBXConfiguratorView.SelectedLanguage);
         }
 
         private static LanguageHash LoadLanguage(SelectedLanguage selectedLanguage)

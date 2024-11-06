@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace kesera2.FBXOptionsManager
+namespace kesera2.FBXConfigurator
 {
     internal class Option<T>
     {

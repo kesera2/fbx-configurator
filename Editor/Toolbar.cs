@@ -1,4 +1,4 @@
-﻿namespace kesera2.FBXOptionsManager
+﻿namespace kesera2.FBXConfigurator
 {
     public class Toolbar
     {

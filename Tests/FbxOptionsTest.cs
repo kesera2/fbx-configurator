@@ -1,15 +1,15 @@
-using kesera2.FBXOptionsManager;
+using kesera2.FBXConfigurator;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
 public class FbxOptionsTest
 {
-    private FBXOptionsManagerView window;
+    private FBXConfiguratorView window;
 #if UNITY_EDITOR_WIN
-    private static readonly string fbxFile = "Assets/もちもちまーと/FBXOptionsManager/Tests/FBX/cube.fbx";
+    private static readonly string fbxFile = "./Tests/FBX/cube.fbx";
 #elif UNITY_EDITOR_OSX
-    private static string fbxFile = "Assets/FBXOptionsManager/Tests/FBX/cube.fbx";
+    private static string fbxFile = "Assets/FBXConfigurator/Tests/FBX/cube.fbx";
 #endif
     private FbxOptions options;
     private readonly ModelImporter modelImporter = AssetImporter.GetAtPath(fbxFile) as ModelImporter;
@@ -17,7 +17,7 @@ public class FbxOptionsTest
     [OneTimeSetUp]
     public void SetUpTestClass()
     {
-        window = EditorWindow.GetWindow<FBXOptionsManagerView>("FbxOptionsTest Window");
+        window = EditorWindow.GetWindow<FBXConfiguratorView>("FbxOptionsTest Window");
         options = new FbxOptions();
         options.ImportCameras.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;
         options.ImportLights.ToolbarEnable = (int)Toolbar.ToolbarState.Enable;

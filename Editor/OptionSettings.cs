@@ -1,8 +1,8 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using static kesera2.FBXOptionsManager.Toolbar;
+using static kesera2.FBXConfigurator.Toolbar;
 
-namespace kesera2.FBXOptionsManager
+namespace kesera2.FBXConfigurator
 {
     internal class OptionSettings
     {

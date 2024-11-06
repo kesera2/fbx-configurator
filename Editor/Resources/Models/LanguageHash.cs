@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace kesera2.FBXOptionsManager
+namespace kesera2.FBXConfigurator
 {
-    [CreateAssetMenu(menuName = "FBXOptionsManager/LaguageData")]
+    [CreateAssetMenu(menuName = "FBXConfigurator/LaguageData")]
     public class LanguageHash : ScriptableObject
     {
         [Header("Label")] public string labelTargetDirectory;

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace kesera2.FBXOptionsManager
+namespace kesera2.FBXConfigurator
 {
     public static class Utility
     {
