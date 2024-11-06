@@ -1,1 +1,4 @@
 *.fbx.meta
+
+# Ignore LICENSE.meta files
+LICENSE.meta
