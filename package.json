@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "displayName": "FBXConfigurator",
   "description": "Config FBX Options",
+  "author": {
+    "name": "kesera2"
+  },
   "unity": "2022.3",
   "dependencies": {},
   "keywords": []
