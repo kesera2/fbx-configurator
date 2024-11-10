@@ -84,7 +84,7 @@ namespace kesera2.FBXConfigurator
         {
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
-            var logo = Resources.Load<Texture2D>("Icon/Logo");
+            var logo = Resources.Load<Texture2D>("Icon/FBX_Configurator_Logo");
             EditorGUILayout.LabelField(new GUIContent(logo), GUILayout.Height(100), GUILayout.Width(400));
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
