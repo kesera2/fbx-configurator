@@ -20,9 +20,9 @@ https://kesera2.github.io/vpm-listing/
 
 # How to use
 1. launch the tool from Tools/kesera2/FBX Configurator
-2. Open the folder where the FBX files you want to change are stored. (By default, all FBX files under Assets are targeted.) 
-(Optional) If there are FBX files whose settings you do not want to change, uncheck the target FBX files from the “Select target FBX” option. 3.
-Press the “Run” button to apply the settings.
+2. Open the folder where the FBX files you want to change are stored. (By default, all FBX files under Assets are targeted.)   
+(Optional) If there are FBX files whose settings you do not want to change, uncheck the target FBX files from the “Select target FBX” option.
+3. Press the “Run” button to apply the settings.
 
 ![image](https://github.com/user-attachments/assets/b7b22463-1824-433c-b53f-364a99bfeeda)
 
