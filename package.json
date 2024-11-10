@@ -1,6 +1,6 @@
 {
   "name": "dev.kesera2.fbx-configurator",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "displayName": "FBX Configurator",
   "description": "Config FBX Options",
   "author": {
@@ -8,5 +8,5 @@
   },
   "unity": "2022.3",
   "license": "zlib",
-  "repository": "https://github.com/kesera2/fbx-configurator"
+  "url": "https://github.com/kesera2/fbx-configurator"
 }
