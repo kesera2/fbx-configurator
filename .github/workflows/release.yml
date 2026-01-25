@@ -2,8 +2,15 @@ name: Build Release
 
 on:
   workflow_dispatch:
+    inputs:
+      prerelease:
+        description: 'Mark as pre-release (auto-detected for beta versions)'
+        type: boolean
+        required: false
+        default: false
   push:
-    branch: "main"
+    branches:
+      - main
 
 jobs:
 
@@ -79,6 +86,19 @@ jobs:
         run: |
           echo "zipFile=${{ env.RepoName }}-${{ env.version }}".zip >> $GITHUB_ENV
 
+      # Check if this is a pre-release version
+      - name: Determine Pre-release Status
+        id: prerelease
+        run: |
+          VERSION="${{ env.version }}"
+          if [[ "$VERSION" == *"-beta."* ]] || [[ "$VERSION" == *"-alpha."* ]] || [[ "$VERSION" == *"-rc."* ]]; then
+            echo "isPrerelease=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event.inputs.prerelease }}" == "true" ]]; then
+            echo "isPrerelease=true" >> $GITHUB_OUTPUT
+          else
+            echo "isPrerelease=false" >> $GITHUB_OUTPUT
+          fi
+
       # Zip the Package for release
       - name: Create Package Zip
         working-directory: "${{ env.packagePath }}"
@@ -103,6 +123,7 @@ jobs:
             ${{ env.zipFile }}
             ${{ env.packagePath }}/package.json
           tag_name: ${{ env.version }}
+          prerelease: ${{ steps.prerelease.outputs.isPrerelease }}
 
       - name: Update Website
         run: |
