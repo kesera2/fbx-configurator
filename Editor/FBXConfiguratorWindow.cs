@@ -19,6 +19,13 @@ namespace kesera2.FBXConfigurator
         private Object _currentSelectedObject;
         private List<string> _fbxFiles;
 
+        // Tab system
+        private int _currentTab = 0;
+
+        // Copy Mode fields
+        private GameObject _srcModel;
+        private GameObject _destModel;
+
         // Options
         private string _folderPath;
         private bool _isSelectTargetFBX;
@@ -52,12 +59,27 @@ namespace kesera2.FBXConfigurator
             DrawLogo();
             ShowSelectLanguage();
             SetWindowSize();
-            ShowFolderPath();
-            ShowSelectTargets();
-            ShowOptionFoldOut();
-            // ShowDebug();
-            ShowExecute();
-            ShowWarning();
+
+            // Tab system
+            string[] tabNames = { Localization.Lang.tabBatchSettings, Localization.Lang.tabCopyMode };
+            _currentTab = GUILayout.Toolbar(_currentTab, tabNames);
+            EditorGUILayout.Space(10);
+
+            if (_currentTab == 0)
+            {
+                // Batch Settings Tab
+                ShowFolderPath();
+                ShowSelectTargets();
+                ShowOptionFoldOut();
+                // ShowDebug();
+                ShowExecute();
+                ShowWarning();
+            }
+            else if (_currentTab == 1)
+            {
+                // Copy Mode Tab
+                ShowCopyMode();
+            }
 
             EditorGUILayout.EndScrollView();
         }
@@ -297,6 +319,178 @@ namespace kesera2.FBXConfigurator
         private void RestoreSelection()
         {
             Selection.activeObject = _currentSelectedObject;
+        }
+
+        // Copy Mode Methods
+        private void ShowCopyMode()
+        {
+            EditorGUILayout.LabelField(Localization.Lang.copyModeTitle, EditorStyles.boldLabel);
+            EditorGUILayout.Space(5);
+
+            EditorGUILayout.HelpBox(
+                Localization.Lang.copyModeDescription,
+                MessageType.Info);
+
+            EditorGUILayout.Space(10);
+
+            // Source Model field
+            _srcModel = (GameObject)EditorGUILayout.ObjectField(
+                Localization.Lang.copyModeLabelSourceModel,
+                _srcModel,
+                typeof(GameObject),
+                false);
+
+            // Destination Model field
+            _destModel = (GameObject)EditorGUILayout.ObjectField(
+                Localization.Lang.copyModeLabelDestModel,
+                _destModel,
+                typeof(GameObject),
+                false);
+
+            EditorGUILayout.Space(10);
+
+            // Copy button
+            using (new EditorGUI.DisabledGroupScope(!CanCopy()))
+            {
+                if (GUILayout.Button(Localization.Lang.copyModeButtonCopy, GUILayout.Height(30)))
+                {
+                    CopyFBXSettings();
+                }
+            }
+
+            // Warning message
+            if (!CanCopy())
+            {
+                EditorGUILayout.HelpBox(
+                    Localization.Lang.copyModeWarningSelectBoth,
+                    MessageType.Warning);
+            }
+        }
+
+        private bool CanCopy()
+        {
+            return _srcModel != null && _destModel != null &&
+                   GetModelImporter(_srcModel) != null &&
+                   GetModelImporter(_destModel) != null;
+        }
+
+        private ModelImporter GetModelImporter(GameObject obj)
+        {
+            if (obj == null) return null;
+
+            var assetPath = AssetDatabase.GetAssetPath(obj);
+            if (string.IsNullOrEmpty(assetPath)) return null;
+
+            return AssetImporter.GetAtPath(assetPath) as ModelImporter;
+        }
+
+        private void CopyFBXSettings()
+        {
+            var srcImporter = GetModelImporter(_srcModel);
+            var destImporter = GetModelImporter(_destModel);
+
+            if (srcImporter == null || destImporter == null)
+            {
+                EditorUtility.DisplayDialog(
+                    Localization.Lang.copyModeDialogTitle,
+                    Localization.Lang.copyModeDialogError,
+                    "OK");
+                return;
+            }
+
+            // Confirmation dialog
+            var srcPath = AssetDatabase.GetAssetPath(_srcModel);
+            var destPath = AssetDatabase.GetAssetPath(_destModel);
+            var message = string.Format(Localization.Lang.copyModeDialogMessage, srcPath, destPath);
+
+            if (!EditorUtility.DisplayDialog(
+                Localization.Lang.copyModeDialogTitle,
+                message,
+                "OK",
+                "Cancel"))
+            {
+                return;
+            }
+
+            // Copy all settings
+            CopyAllModelImporterSettings(srcImporter, destImporter);
+
+            // Save and reimport
+            destImporter.SaveAndReimport();
+            AssetDatabase.SaveAssets();
+
+            EditorUtility.DisplayDialog(
+                Localization.Lang.copyModeDialogTitle,
+                Localization.Lang.copyModeDialogSuccess,
+                "OK");
+
+            Debug.Log($"[FBX Configurator] Copied settings from '{srcPath}' to '{destPath}'");
+        }
+
+        private void CopyAllModelImporterSettings(ModelImporter src, ModelImporter dest)
+        {
+            // Model Tab Settings
+            dest.globalScale = src.globalScale;
+            dest.useFileScale = src.useFileScale;
+            // Note: fileScale is read-only, cannot be set directly
+            dest.meshCompression = src.meshCompression;
+            dest.isReadable = src.isReadable;
+            dest.optimizeMeshPolygons = src.optimizeMeshPolygons;
+            dest.optimizeMeshVertices = src.optimizeMeshVertices;
+            dest.addCollider = src.addCollider;
+
+            dest.importBlendShapes = src.importBlendShapes;
+            dest.importVisibility = src.importVisibility;
+            dest.importCameras = src.importCameras;
+            dest.importLights = src.importLights;
+            dest.preserveHierarchy = src.preserveHierarchy;
+            dest.sortHierarchyByName = src.sortHierarchyByName;
+            dest.swapUVChannels = src.swapUVChannels;
+            dest.generateSecondaryUV = src.generateSecondaryUV;
+            dest.weldVertices = src.weldVertices;
+            dest.keepQuads = src.keepQuads;
+            dest.indexFormat = src.indexFormat;
+
+            dest.importNormals = src.importNormals;
+            dest.importBlendShapeNormals = src.importBlendShapeNormals;
+            dest.normalCalculationMode = src.normalCalculationMode;
+            dest.normalSmoothingSource = src.normalSmoothingSource;
+            dest.normalSmoothingAngle = src.normalSmoothingAngle;
+            dest.importTangents = src.importTangents;
+
+            // Rig Tab Settings
+            dest.animationType = src.animationType;
+            dest.avatarSetup = src.avatarSetup;
+            dest.optimizeGameObjects = src.optimizeGameObjects;
+
+            if (src.avatarSetup == ModelImporterAvatarSetup.CopyFromOther && src.sourceAvatar != null)
+            {
+                dest.sourceAvatar = src.sourceAvatar;
+            }
+
+            // Animation Tab Settings
+            dest.importAnimation = src.importAnimation;
+            dest.bakeAxisConversion = src.bakeAxisConversion;
+            dest.resampleCurves = src.resampleCurves;
+            dest.animationCompression = src.animationCompression;
+            dest.animationRotationError = src.animationRotationError;
+            dest.animationPositionError = src.animationPositionError;
+            dest.animationScaleError = src.animationScaleError;
+
+            // Copy clip animations
+            if (src.clipAnimations != null && src.clipAnimations.Length > 0)
+            {
+                dest.clipAnimations = src.clipAnimations;
+            }
+
+            // Materials Tab Settings
+            // Note: importMaterials is obsolete, use materialImportMode instead
+            dest.materialImportMode = src.materialImportMode;
+            dest.materialLocation = src.materialLocation;
+            dest.materialName = src.materialName;
+            dest.materialSearch = src.materialSearch;
+
+            Debug.Log("[FBX Configurator] All settings copied: Model, Rig, Animation, Materials");
         }
     }
 }

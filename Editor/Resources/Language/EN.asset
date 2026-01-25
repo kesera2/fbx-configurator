@@ -69,3 +69,26 @@ MonoBehaviour:
   helpboxWarningTargetFbxIsNotFound: Target FBX is Not Found
   logOptionChanged: '{0} options are changed.'
   logExecuted: '{0} : Done'
+  tabBatchSettings: Batch Settings
+  tabCopyMode: Copy Mode
+  copyModeTitle: Copy FBX Settings from Source to Destination
+  copyModeDescription: Copy all FBX import settings (Model, Rig, Animation, Materials)
+    from Source Model to Destination Model.
+  copyModeLabelSourceModel: Source Model
+  copyModeLabelDestModel: Destination Model
+  copyModeButtonCopy: Copy Settings
+  copyModeWarningSelectBoth: Please select both Source Model and Destination Model
+    FBX files.
+  copyModeDialogTitle: Copy FBX Settings
+  copyModeDialogMessage: 'Copy all FBX settings from:
+
+
+    ''{0}''
+
+
+    to:
+
+
+    ''{1}''?'
+  copyModeDialogSuccess: FBX settings copied successfully!
+  copyModeDialogError: Failed to get ModelImporter for one or both models.

@@ -82,5 +82,21 @@ namespace kesera2.FBXConfigurator
         [Header("Log")] public string logOptionChanged;
 
         public string logExecuted;
+
+        [Header("Tabs")] public string tabBatchSettings;
+
+        public string tabCopyMode;
+
+        [Header("Copy Mode")] public string copyModeTitle;
+
+        public string copyModeDescription;
+        public string copyModeLabelSourceModel;
+        public string copyModeLabelDestModel;
+        public string copyModeButtonCopy;
+        public string copyModeWarningSelectBoth;
+        public string copyModeDialogTitle;
+        public string copyModeDialogMessage;
+        public string copyModeDialogSuccess;
+        public string copyModeDialogError;
     }
 }
